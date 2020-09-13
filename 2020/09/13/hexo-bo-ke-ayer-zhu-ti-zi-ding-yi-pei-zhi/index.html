@@ -7,9 +7,11 @@
 <head>
   <meta charset="utf-8" />
     
+  <meta name="description" content="读书的意义大概就是用生活所感去读书，用读书所得去生活。" />
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Hexo博客Ayer主题自定义配置 |  
+    Hexo博客Ayer主题自定义配置 |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -66,7 +68,7 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2020/09/13/Hexo%E5%8D%9A%E5%AE%A2Ayer%E4%B8%BB%E9%A2%98%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE/" class="article-date">
+      <a href="/2020/09/13/hexo-bo-ke-ayer-zhu-ti-zi-ding-yi-pei-zhi/" class="article-date">
   <time datetime="2020-09-13T11:12:26.000Z" itemprop="datePublished">2020-09-13</time>
 </a> 
   <div class="article-category">
@@ -78,7 +80,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.5k</span>
+            <span class="post-count">1.8k</span>
         </span>
     </span>
 
@@ -87,7 +89,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">7 分钟</span>
+            <span class="post-count">8 分钟</span>
         </span>
     </span>
 </div>
@@ -366,6 +368,32 @@ tags<span class="token punctuation">:</span><span aria-hidden="true" class="line
 <p><strong>配置_config.yml文件</strong></p>
 <pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">aplayer</span><span class="token punctuation">:</span>
   <span class="token key atrule">meting</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h1 id="中文链接转拼音"><a href="#中文链接转拼音" class="headerlink" title="中文链接转拼音"></a>中文链接转拼音</h1><p>如果你的文章名称是中文的，那么 Hexo 默认生成的永久链接也会有中文，这样不利于 <code>SEO</code>，且 <code>gitment</code> 评论对中文链接也不支持。我们可以用 <a target="_blank" rel="noopener" href="https://github.com/viko16/hexo-permalink-pinyin">hexo-permalink-pinyin</a> Hexo 插件使在生成文章时生成中文拼音的永久链接。</p>
+<p>安装命令如下：</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">npm</span> i hexo-permalink-pinyin --save<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在 Hexo 根目录下的 <code>_config.yml</code> 文件中，新增以下的配置项：</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">permalink_pinyin</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">separator</span><span class="token punctuation">:</span> <span class="token string">'-'</span> <span class="token comment" spellcheck="true"># default: '-'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h1 id="添加视频"><a href="#添加视频" class="headerlink" title="添加视频"></a>添加视频</h1><p>直接在<code>.md</code> 文件中引入代码：</p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">position</span><span class="token punctuation">:</span>relative<span class="token punctuation">;</span> <span class="token property">width</span><span class="token punctuation">:</span><span class="token number">100%</span><span class="token punctuation">;</span> <span class="token property">height</span><span class="token punctuation">:</span><span class="token number">0</span><span class="token punctuation">;</span> <span class="token property">padding-bottom</span><span class="token punctuation">:</span><span class="token number">75%</span><span class="token punctuation">;</span></span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iframe</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>//player.bilibili.com/player.html?aid<span class="token punctuation">=</span>884294177&amp;bvid<span class="token punctuation">=</span>BV1iK4y1Y7dE&amp;cid<span class="token punctuation">=</span>227370204&amp;page<span class="token punctuation">=</span>1<span class="token punctuation">"</span></span> 
+<span class="token attr-name">scrolling</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>no<span class="token punctuation">"</span></span> <span class="token attr-name">border</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0<span class="token punctuation">"</span></span> <span class="token attr-name">frameborder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>no<span class="token punctuation">"</span></span>  <span class="token attr-name">framespacing</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name">  
+<span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">position</span><span class="token punctuation">:</span>absolute<span class="token punctuation">;</span> <span class="token property">width</span><span class="token punctuation">:</span><span class="token number">100%</span><span class="token punctuation">;</span> <span class="token property">height</span><span class="token punctuation">:</span><span class="token number">100%</span><span class="token punctuation">;</span>  <span class="token property">left</span><span class="token punctuation">:</span><span class="token number">0</span><span class="token punctuation">;</span> <span class="token property">top</span><span class="token punctuation">:</span><span class="token number">0</span></span><span class="token punctuation">"</span></span>  <span class="token punctuation">></span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>iframe</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<div style="position:relative; width:100%; height:0; padding-bottom:75%;">
+<iframe src="//player.bilibili.com/player.html?aid=884294177&amp;bvid=BV1iK4y1Y7dE&amp;cid=227370204&amp;page=1" scrolling="no" border="0" frameborder="no" framespacing="0" style="position:absolute; width:100%; height:100%;  left:0; top:0"> </iframe>
+</div>
+这里是先获取嵌入式分享的代码：
+
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200913221431.png" alt="image-20200913221305549" style="zoom: 67%;">
+
+<p>提取嵌入代码里面的 src ，并复制到上面的代码中。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://www.xxxzhy.com/2020/04/28/Hexo%E5%8D%9A%E5%AE%A2Ayer%E4%B8%BB%E9%A2%98%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE/" target="_blank">Hexo博客Ayer主题自定义配置</a></li>
+<li><a href="https://wenyan.online/2020/08/09/hexo-bo-ke-da-jian/" target="_blank">hexo博客搭建</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/76951130" target="_blank">免费CDN：jsDelivr+Github 使用方法</a></li>
+</ul>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -452,7 +480,7 @@ tags<span class="token punctuation">:</span><span aria-hidden="true" class="line
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2020/09/13/Hexo%E5%8D%9A%E5%AE%A2Ayer%E4%B8%BB%E9%A2%98%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2020/09/13/hexo-bo-ke-ayer-zhu-ti-zi-ding-yi-pei-zhi/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -464,7 +492,7 @@ tags<span class="token punctuation">:</span><span aria-hidden="true" class="line
   <nav class="article-nav">
     
     
-      <a href="/2020/09/12/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" class="article-nav-link">
+      <a href="/2020/09/12/di-yi-pian-bo-ke/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
         <div class="article-nav-title">第一篇博客</div>
       </a>
@@ -628,11 +656,7 @@ tags<span class="token punctuation">:</span><span aria-hidden="true" class="line
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/books">阅读2</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/travels">旅行</a>
+      <a class="nav-item-link" href="/categories/excel/">Excel</a>
     </li>
     
     <li class="nav-item">
@@ -644,7 +668,7 @@ tags<span class="token punctuation">:</span><span aria-hidden="true" class="line
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/friends">友链</a>
+      <a class="nav-item-link" href="/friend">友链</a>
     </li>
     
     <li class="nav-item">
