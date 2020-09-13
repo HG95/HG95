@@ -3,9 +3,27 @@
   <entry>
     <title>第一篇博客</title>
     <url>/2020/09/12/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>记录第一篇博客</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>记录第一篇博客</p>
 <a id="more"></a>
 
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200912224352.jpg" alt="wallhaven-wy751x" style="zoom:80%;" />]]></content>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200912224352.jpg" alt="wallhaven-wy751x" style="zoom:80%;"><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
   </entry>
 </search>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en">
+<html lang="zh-CN">
 
 
 <head>
@@ -33,9 +33,13 @@
 
   
 
-</head>
+  
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 </html>
+
+
 
 <body>
   <div id="app">
@@ -63,7 +67,7 @@
        
     <div class="article-entry" itemprop="articleBody">
        
-  <div class="entry-content">   <div id="hello-mashiro" class="popcontainer" style="min-height: 300px; padding: 2px 6px 4px; background-color: rgba(242, 242, 242, 0.5); border-radius: 10px;">     <center>     <p>     </p>     <h4>     与&nbsp;<ruby>     HHG&nbsp;<rp>     （</rp>     <rp>     ）</rp>     </ruby>     通话中：</h4>     <p>     </p>     </center>     <bot-ui></botui>   </div> </div>   <script src="https://cdn.jsdelivr.net/gh/XXXZhy/Blog_Image/js/botui_xxxzhy.js"></script>  <link href="https://cdn.bootcss.com/botui/0.3.9/botui-theme-default.css" rel="stylesheet"> <link href="https://cdn.bootcss.com/botui/0.3.9/botui.min.css" rel="stylesheet">
+  <div class="entry-content">   <div id="hello-mashiro" class="popcontainer" style="min-height: 300px; padding: 2px 6px 4px; background-color: rgba(242, 242, 242, 0.5); border-radius: 10px;">     <center>     <p>     </p>     <h4>     与&nbsp;<ruby>     HHG&nbsp;<rp>     （</rp>     <rp>     ）</rp>     </ruby>     通话中：</h4>     <p>     </p>     </center>     <bot-ui>   </bot-ui></div> </div>   <script src="https://cdn.jsdelivr.net/gh/XXXZhy/Blog_Image/js/botui_xxxzhy.js"></script>  <link href="https://cdn.bootcss.com/botui/0.3.9/botui-theme-default.css" rel="stylesheet"> <link href="https://cdn.bootcss.com/botui/0.3.9/botui.min.css" rel="stylesheet">
 
 
 
@@ -71,12 +75,30 @@
 
 
 
- 
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script> 
       <!-- reward -->
       
       <div id="reword-out">
         <div id="reward-btn">
-          Donate
+          打赏
         </div>
       </div>
       
@@ -89,10 +111,8 @@
       <ul class="post-copyright">
         <li>
           <i class="ri-copyright-line"></i>
-          <strong>Copyright： </strong>
-          
-          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
-          
+          <strong>版权声明： </strong>
+			本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
         </li>
       </ul>
     </div>
@@ -205,48 +225,33 @@
 </section>
       <footer class="footer">
   <div class="outer">
+  	<ul>
+		<li><i class="fa fa-envelope-o fa-fw"></i></li>
+	</ul>
     <ul>
       <li>
         Copyrights &copy;
         2019-2020
-        <i class="ri-heart-fill heart_icon"></i> John Doe
-      </li>
-    </ul>
-    <ul>
-      <li>
-        
-      </li>
-    </ul>
-    <ul>
-      <li>
-        
+        <i class="ri-heart-fill heart_icon"></i> HG
+		|</span>  
+		| 
         
         <span>
-  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
   <span class="division">|</span>
-  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
 </span>
         
+		| 
       </li>
     </ul>
-    <ul>
-      
-    </ul>
-    <ul>
-      
-    </ul>
-    <ul>
-      <li>
-        <!-- cnzz统计 -->
-        
-        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
-        
-      </li>
-    </ul>
+
+
 	<!-- 运行天数 -->
 	<ul>
 		<li><span id="runtime_span"></span></li>
 	</ul>
+
 
   </div>
 </footer>
@@ -269,6 +274,9 @@
     }
 	show_runtime();
 </script>
+
+
+
 
       <div class="float_btns">
         <div class="totop" id="totop">
@@ -333,7 +341,7 @@
   <ul class="nav">
     <li class="nav-item">
       
-      <a class="nav-item-link nav-item-search"  title="Search">
+      <a class="nav-item-link nav-item-search"  title="搜索">
         <i class="ri-search-line"></i>
       </a>
       
@@ -612,7 +620,7 @@
     
     
     <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
-        src="//music.163.com/outchain/player?type=2&id=1476239407&auto=1&height=32"></iframe>
+        src="//music.163.com/outchain/player?type=2&id=428391249&auto=1&height=32"></iframe>
 </div>
 
 <style>
