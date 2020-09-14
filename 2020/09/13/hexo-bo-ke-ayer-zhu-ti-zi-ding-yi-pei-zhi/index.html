@@ -131,9 +131,11 @@ $ hexo server <span class="token comment" spellcheck="true"># 参数: -p:指定�
 <span class="token comment" spellcheck="true"># 部署网站,可以简写为 hexo d </span>
 $ hexo deploy 
 
-<span class="token comment" spellcheck="true"># 清除缓存文件 db.json 和已经成成的静态文件 public $</span>
-hexo clean <span class="token comment" spellcheck="true"># 查看版本 </span>
-$ hexo version<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment" spellcheck="true"># 清除缓存文件 db.json 和已经成成的静态文件 public </span>
+$hexo clean 
+
+<span class="token comment" spellcheck="true"># 查看版本 </span>
+$ hexo version<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="代码高亮"><a href="#代码高亮" class="headerlink" title="代码高亮"></a>代码高亮</h1><p>由于<code>Hex 自带的代码高亮主题显示不好看，所以主题中使用到了 [hexo-prism-plugin](https://github.com/ele828/hexo-prism-plugin) 的</code>Hexo插件来做代码高亮，安装命令如下：</p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">npm</span> i -S hexo-prism-plugin<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>然后，修改 <code>Hexo </code>根目录下 <code>_config.yml</code> 文件中 <code>highlight.enable</code> 的值为 <code>false</code>，并新增 <code>prism</code> 插件相关的配置，主要配置如下：</p>
@@ -490,6 +492,15 @@ tags<span class="token punctuation">:</span><span aria-hidden="true" class="line
 
    
   <nav class="article-nav">
+    
+      <a href="/2020/09/14/excel-vlookup-han-shu-chang-yong-fang-fa-ji-he/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            EXcel:VLOOKUP函数常用方法集合！
+          
+        </div>
+      </a>
     
     
       <a href="/2020/09/12/di-yi-pian-bo-ke/" class="article-nav-link">
