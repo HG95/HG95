@@ -80,7 +80,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">2.4k</span>
+            <span class="post-count">2.6k</span>
         </span>
     </span>
 
@@ -89,7 +89,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">11 分钟</span>
+            <span class="post-count">12 分钟</span>
         </span>
     </span>
 </div>
@@ -109,7 +109,55 @@
 
 <img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200916224814.jpg" alt="wallhaven-2eroxm">
 
-<h1 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h1><h1 id="第十一题"><a href="#第十一题" class="headerlink" title="第十一题"></a>第十一题</h1><ul>
+<h1 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h1><table>
+<thead>
+<tr>
+<th>题号</th>
+<th>知识点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>11</td>
+<td><code>inner join</code>  / <code>where</code> 并列条件</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>left join</code>   / SQL 语句的执行顺序</td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>conut()</code></td>
+</tr>
+<tr>
+<td>14</td>
+<td><code>count()</code> / <code>distinct</code> 去重</td>
+</tr>
+<tr>
+<td>15</td>
+<td>求奇数的方法：取余函数 <code>mod()</code> , 运算符 <code>%</code>, 位运算：<code>字段&amp;</code>正则表达式 <code>regexp '[13579]$'</code><br>求偶数的方法：位运算 <code>(字段&gt;&gt;1)&lt;&lt;1</code> ,  正则表达式;<code>regexp '[02468]$'</code></td>
+</tr>
+<tr>
+<td>16</td>
+<td><code>inner join</code>  / SQL 执行的顺序</td>
+</tr>
+<tr>
+<td>17</td>
+<td><code>order by</code> + <code>limit</code> / 排序后，按序号</td>
+</tr>
+<tr>
+<td>18</td>
+<td>不用 <code>order by</code> 获取第二大的数，先把最大的找出来并将其过滤掉，在剩下的里面找取最大的(也就是第二大的)</td>
+</tr>
+<tr>
+<td>19</td>
+<td>多表连接，可以用子查询语句 /<code> cross join</code> 注意连接的字段关系</td>
+</tr>
+<tr>
+<td>20</td>
+<td><code>group by</code>   + <code>having</code></td>
+</tr>
+</tbody></table>
+<h1 id="第十一题"><a href="#第十一题" class="headerlink" title="第十一题"></a>第十一题</h1><ul>
 <li><p>题目描述</p>
 <p>获取所有员工当前的(dept_manager.to_date=’9999-01-01’)manager，如果员工是manager的话不显示(也就是如果当前的manager是自己的话结果不显示)。输出结果第一列给出当前员工的emp_no,第二列给出其manager对应的emp_no。</p>
 <pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>dept_emp<span class="token punctuation">`</span>
