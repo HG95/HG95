@@ -1,0 +1,19 @@
+<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>[{"name":"这里写名称","site":"https://leflacon.top/","info":"这里随便写写信息","avatar":"https://tva1.sinaimg.cn/large/006y8mN6ly1g9613jrgg4j30ku0ku452.jpg"},{"name":"这里再写一个名称","site":"https://leflacon.top/","info":"这里还是随便写写信息","avatar":"https://tva1.sinaimg.cn/large/006y8mN6ly1g9613jrgg4j30ku0ku452.jpg"}]<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
