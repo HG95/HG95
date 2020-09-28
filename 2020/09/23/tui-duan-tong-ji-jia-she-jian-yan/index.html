@@ -80,7 +80,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">4.4k</span>
+            <span class="post-count">4.7k</span>
         </span>
     </span>
 
@@ -89,7 +89,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">15 分钟</span>
+            <span class="post-count">16 分钟</span>
         </span>
     </span>
 </div>
@@ -107,7 +107,7 @@
   <p>假设检验的原理以及相关的概念。</p>
 <a id="more"></a>
 
-<h1 id="参数估计和假设检验"><a href="#参数估计和假设检验" class="headerlink" title="参数估计和假设检验"></a>参数估计和假设检验</h1><p><strong>参数估计</strong>( parameter estimation) 和 <strong>假设检验</strong> ( hypothesis testing) 是统计推断的两个组成部分，它们都是利用样本对总体进行某种推断，但推断的角度不同。参数估计讨论的是用样本统计量估计总体参数的方法，总体参数 μμ 在估计前是未知的。而在假设检验中，则是先对 μμ 的值提出一个假设，然后利用样本信息去检验这个假设是否成立。</p>
+<h1 id="参数估计和假设检验"><a href="#参数估计和假设检验" class="headerlink" title="参数估计和假设检验"></a>参数估计和假设检验</h1><p><strong>参数估计</strong>( parameter estimation) 和 <strong>假设检验</strong> ( hypothesis testing) 是统计推断的两个组成部分，它们都是利用样本对总体进行某种推断，但推断的角度不同。参数估计讨论的是用样本统计量估计总体参数的方法，总体参数 μ 在估计前是未知的。而在假设检验中，则是先对 μ 的值提出一个假设，然后利用样本信息去检验这个假设是否成立。</p>
 <h1 id="假设检验-hypothesis-testing"><a href="#假设检验-hypothesis-testing" class="headerlink" title="假设检验( hypothesis testing)"></a>假设检验( hypothesis testing)</h1><p>包括参数和非参数检验：</p>
 <ul>
 <li>参数假设检验（parametric test）：总体的 分布形式已知，需要对总体的未知参数进行 假设检验。</li>
@@ -191,7 +191,15 @@ P 值的长处是它反映了观察到的实际数据与原假设之间不一致
 <p>(五)、做出决策：(两种方法)</p>
 <p>a. 将检验统计量的值和临界值比较，做出拒绝或接受原假设的决策。</p>
 <p>b. 由步骤五的检验统计量计算 p 值，利用 p值确定时候拒绝原假设。</p>
-<h1 id=""><a href="#" class="headerlink" title=""></a></h1><script>
+<h1 id="样本均值和方差检验的场景"><a href="#样本均值和方差检验的场景" class="headerlink" title="样本均值和方差检验的场景"></a>样本均值和方差检验的场景</h1><p><strong>均值检验</strong>：适用于均值是否存在差别的问题，<u>反应的是集中趋势</u>。</p>
+<p>单样本均值检验：测试某批产品是否正常，或者某个部件是否正常，以及评价风险是否在可控范围内等。视总体方差已知和未知分为z检验和t检验。api: stats.ttest_1samp</p>
+<p>双样本均值检验：测试两个总体的均值是否有差别。<code>api: stats.ttest_ind</code>和<code>ttest_ind_from_stats</code></p>
+<p>两条数据相减得到一列数据，再用单样本均值检验看其均值是否为0</p>
+<p><strong>方差检验</strong>：适用方差是否存在差别的问题，<u>反应的离中趋势</u>。</p>
+<p>这里要说明因素及其水平。假如收入是目标变量，它受学历的影响。那么学历是一个因素，学历的等级是水平。试验的目的是查看不同学历水平下的收入是否存在显著差别，或者说收入是否受学历的影响。</p>
+<p>单因素方差分析：连续变量是否受某分类变量不同水平的影响。</p>
+<p>多因素方差分析：已经过渡为一般线性模型，连续变量是否受某些分类变量的影响，以及分量变量对连续变量的影响是否受到别的分类变量的影响[交互项]。</p>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
