@@ -1,6 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Excel点导入ArcGIS生成点文件</title>
+    <url>/2020/10/19/excel-dian-dao-ru-arcgis-sheng-cheng-dian-wen-jian/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>将excel点数据导入ArcGIS生成点文件</p>
+<a id="more"></a>
+
+<h1 id="软件导入"><a href="#软件导入" class="headerlink" title="软件导入"></a>软件导入</h1><ol>
+<li><p>ArcGIS导入点数据的方法</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201019143852.png" alt="image-20201019140747977" style="zoom:50%;">
+
+<p>​    </p>
+<p>选择excel文件，会提示：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201019143906.png" alt="image-20201019140925967" style="zoom:80%;">
+
+<p>解决方案：</p>
+<p>使用ArcGIS10.2及以上版本。【转换工具箱】中有【excel转表】工具，转换后即可打开。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201019143921.png" alt="image-20201019141050954" style="zoom:80%;">
+
+<p>选要转换的文件和转换后表保存的位置。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201019143942.png" alt="image-20201019143244495" style="zoom:80%;">
+
+<p>重新添加点数据：</p>
+</li>
+</ol>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201019143954.png" alt="image-20201019140747977" style="zoom:80%;">
+
+
+
+<h1 id="利用python-转换："><a href="#利用python-转换：" class="headerlink" title="利用python 转换："></a>利用python 转换：</h1><h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><pre class="line-numbers language-python"><code class="language-python">ExcelToTable<span class="token punctuation">(</span>Input_Excel_File<span class="token punctuation">,</span> Output_Table<span class="token punctuation">,</span> <span class="token punctuation">{</span>Sheet<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>数据类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Input_Excel_File</td>
+<td>要转换的 Microsoft Excel 文件。</td>
+<td>File</td>
+</tr>
+<tr>
+<td>Output_Table</td>
+<td>输出表。</td>
+<td>Table</td>
+</tr>
+<tr>
+<td>Sheet（可选）</td>
+<td>要导入的 Excel 文件中特定工作表的名称。如果未指定，则使用工作簿中的第一个工作表。</td>
+<td>String</td>
+</tr>
+</tbody></table>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><p>Excel 转表 (ExcelToTable) 示例（Python 窗口）</p>
+<p>以下 Python 窗口脚本演示了如何在即时模式下使用 Excel 转表 (ExcelToTable) 函数。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
+arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> <span class="token string">"c:/data"</span>
+arcpy<span class="token punctuation">.</span>ExcelToTable_conversion<span class="token punctuation">(</span><span class="token string">"data.xls"</span><span class="token punctuation">,</span> <span class="token string">"outgdb.gdb"</span><span class="token punctuation">,</span> <span class="token string">"Sheet1"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>Excel 转表 (ExcelToTable) 示例 2（独立脚本）</p>
+<p>将 Microsoft Excel 文件的各个工作表导入地理数据库的各个表中。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> os
+<span class="token keyword">import</span> xlrd
+<span class="token keyword">import</span> arcpy
+<span class="token keyword">def</span> <span class="token function">importallsheets</span><span class="token punctuation">(</span>in_excel<span class="token punctuation">,</span> out_gdb<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    workbook <span class="token operator">=</span> xlrd<span class="token punctuation">.</span>open_workbook<span class="token punctuation">(</span>in_excel<span class="token punctuation">)</span>
+    sheets <span class="token operator">=</span> <span class="token punctuation">[</span>sheet<span class="token punctuation">.</span>name <span class="token keyword">for</span> sheet <span class="token keyword">in</span> workbook<span class="token punctuation">.</span>sheets<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'{} sheets found: {}'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>len<span class="token punctuation">(</span>sheets<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">','</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>sheets<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> sheet <span class="token keyword">in</span> sheets<span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># The out_table is based on the input excel file name</span>
+        <span class="token comment" spellcheck="true"># a underscore (_) separator followed by the sheet name</span>
+        out_table <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>
+            out_gdb<span class="token punctuation">,</span>
+            arcpy<span class="token punctuation">.</span>ValidateTableName<span class="token punctuation">(</span>
+                <span class="token string">"{0}_{1}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>basename<span class="token punctuation">(</span>in_excel<span class="token punctuation">)</span><span class="token punctuation">,</span> sheet<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                out_gdb<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Converting {} to {}'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>sheet<span class="token punctuation">,</span> out_table<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># Perform the conversion</span>
+        arcpy<span class="token punctuation">.</span>ExcelToTable_conversion<span class="token punctuation">(</span>in_excel<span class="token punctuation">,</span> out_table<span class="token punctuation">,</span> sheet<span class="token punctuation">)</span>
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    importallsheets<span class="token punctuation">(</span><span class="token string">'c:/data/data.xls'</span><span class="token punctuation">,</span>
+                    <span class="token string">'c:/data/outgdb.gdb'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://pro.arcgis.com/zh-cn/pro-app/tool-reference/conversion/excel-to-table.htm" target="_blank">Excel 转表 (转换)</a> </li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>ArcGIS</category>
+      </categories>
+  </entry>
+  <entry>
     <title>三大相关性检验</title>
     <url>/2020/10/16/san-da-xiang-guan-xing-jian-yan/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>三个相关性系数（pearson, spearman, kendall）反应的都是两个变量之间变化趋势的方向以及程度，其值范围为-1到+1，0表示两个变量不相关，正值表示正相关，负值表示负相关，值越大表示相关性越强。</p>
@@ -236,7 +343,7 @@ y  <span class="token number">1.0</span>  <span class="token number">1.0</span><
           });
       </script>]]></content>
       <categories>
-        <category>Arcgis</category>
+        <category>ArcGIS</category>
       </categories>
   </entry>
   <entry>
