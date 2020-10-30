@@ -1,6 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>python中arcpy库的应用！</title>
+    <url>/2020/10/30/python-zhong-arcpy-ku-de-ying-yong/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>遇到的使用<code>aracpy</code> 处理数据的方法！</p>
+<a id="more"></a>
+
+<h1 id="环境变量设置"><a href="#环境变量设置" class="headerlink" title="环境变量设置"></a>环境变量设置</h1><p><code>arcpy.env.workspace</code>到底是个什么东西？</p>
+<p>环境变量可以在<strong>应用程序级别</strong>以及<strong>工具级别</strong>下进行设置，应用程序级别环境设置是最高级别，也是应用于所有工具的默认设置。工具级别环境设置会直接继承来自应用程序级别的环境设置。</p>
+<p>Python脚本中可以通过<code>arcpy</code>中的<code>env</code>类来获取并设置环境变量，这些变量都是读/写属性。应用程序级别和工具级别环境设置都可以在脚本中调用且都可以应用于通过脚本运行的所有工具。</p>
+<p>需要注意的是，在脚本中的环境设置仅应用于当前执行的脚本。<br>脚本中最为常用的环境变量设置就是<code>arcpy.env.workspace()</code>，该变量用于定义当前脚本的工作目录（或者称为工作空间）。<strong>由于在脚本中设置了当前工作空间，脚本的其他位置也就不需要引用数据集的完整路径，这会让代码更为简洁，不过还是需要引用工作空间下的数据集名称。</strong></p>
+<p>代码为例：</p>
+<pre class="line-numbers language-python"><code class="language-python">arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> r<span class="token string">'d: \ Data '</span>   
+Rasters <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>ListRasters <span class="token punctuation">(</span> <span class="token string">"*"</span><span class="token punctuation">,</span><span class="token string">' TIF '</span><span class="token punctuation">)</span>   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>Rasters相当于获取了D:\Data目录目录中所有TIF格式的数据</p>
+<p>另外一个简单的例子：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> arcpy 
+arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> <span class="token string">"C:/ArcpyBook/Ch6"</span> 
+arcpy<span class="token punctuation">.</span>Buffer_analysis<span class="token punctuation">(</span><span class="token string">"Streams.shp"</span><span class="token punctuation">,</span><span class="token string">"Streams_Buffer.shp"</span><span class="token punctuation">,</span><span class="token string">"200 Feet"</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> arcpy<span class="token punctuation">.</span>getMessages<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>相当于对C:/ArcpyBook/Ch6目录中的Streams.shp文件进行200Feet的缓冲区分析，同时将缓冲结果保存在C:/ArcpyBook/Ch6目录下的Streams_Buffer.shp文件。</p>
+<p>参考：<a href="http://zhihu.geoscene.cn/question/13958">arcpy.env.workspace到底是个什么东西？</a> </p>
+<h1 id="栅格数据进行投影坐标转换"><a href="#栅格数据进行投影坐标转换" class="headerlink" title="栅格数据进行投影坐标转换"></a>栅格数据进行投影坐标转换</h1><p>将栅格数据集从一种投影变换到另一种投影。</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><pre class="line-numbers language-python"><code class="language-python">ProjectRaster_management <span class="token punctuation">(</span>in_raster<span class="token punctuation">,</span> 
+                          out_raster<span class="token punctuation">,</span> 
+                          out_coor_system<span class="token punctuation">,</span> 
+                          <span class="token punctuation">{</span>resampling_type<span class="token punctuation">}</span><span class="token punctuation">,</span>
+                          <span class="token punctuation">{</span>cell_size<span class="token punctuation">}</span><span class="token punctuation">,</span> 
+                          <span class="token punctuation">{</span>geographic_transform<span class="token punctuation">}</span><span class="token punctuation">,</span> 
+                          <span class="token punctuation">{</span>Registration_Point<span class="token punctuation">}</span><span class="token punctuation">,</span>
+                          <span class="token punctuation">{</span>in_coor_system<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>参数：</p>
+<ul>
+<li><code>in_raster</code> :输入栅格数据集。</li>
+<li><code>out_raster</code> :要创建的输出栅格数据集。</li>
+<li><code>out_coor_system</code> :输入栅格待投影到的目标坐标系。默认值将基于“输出坐标系”环境设置进行设定。</li>
+<li>其它为可选参数。</li>
+</ul>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>对影像数据进行批量投影坐标转换：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
+<span class="token keyword">import</span> fnmatch
+<span class="token keyword">import</span> os
+
+<span class="token keyword">def</span> <span class="token function">projecttaster</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> dst<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    names <span class="token operator">=</span> fnmatch<span class="token punctuation">.</span>filter<span class="token punctuation">(</span>os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span>src<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'*.tif'</span><span class="token punctuation">)</span>
+    src_files <span class="token operator">=</span> <span class="token punctuation">[</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>src<span class="token punctuation">,</span> name<span class="token punctuation">)</span> <span class="token keyword">for</span> name <span class="token keyword">in</span> names<span class="token punctuation">]</span>
+    out_coor_system <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>src<span class="token punctuation">,</span> <span class="token string">"WGS 1984.prj"</span><span class="token punctuation">)</span>
+    dst_files <span class="token operator">=</span> <span class="token punctuation">[</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>dst<span class="token punctuation">,</span> name<span class="token punctuation">)</span> <span class="token keyword">for</span> name <span class="token keyword">in</span> names<span class="token punctuation">]</span>
+    <span class="token keyword">for</span> src_file<span class="token punctuation">,</span> dst_file <span class="token keyword">in</span> zip<span class="token punctuation">(</span>src_files<span class="token punctuation">,</span> dst_files<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        arcpy<span class="token punctuation">.</span>ProjectRaster_management<span class="token punctuation">(</span>src_file<span class="token punctuation">,</span> dst_file<span class="token punctuation">,</span> out_coor_system<span class="token punctuation">)</span>
+        projecttaster<span class="token punctuation">(</span>src_files<span class="token punctuation">,</span> <span class="token string">' has done!'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace<span class="token punctuation">(</span>r<span class="token string">'C:\123'</span><span class="token punctuation">)</span>
+    src <span class="token operator">=</span> r<span class="token string">''</span>
+    dst <span class="token operator">=</span> r<span class="token string">''</span>
+    projecttaster<span class="token punctuation">(</span>src<span class="token punctuation">,</span> dst<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>参考：<a href="https://desktop.arcgis.com/zh-cn/arcmap/10.5/tools/data-management-toolbox/project-raster.htm">投影栅格</a> </p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>arcpy</category>
+      </categories>
+      <tags>
+        <tag>racpy</tag>
+        <tag>ArcGIS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Excel点导入ArcGIS生成点文件</title>
     <url>/2020/10/19/excel-dian-dao-ru-arcgis-sheng-cheng-dian-wen-jian/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>将excel点数据导入ArcGIS生成点文件</p>
@@ -96,6 +180,7 @@ arcpy<span class="token punctuation">.</span>ExcelToTable_conversion<span class=
                     <span class="token string">'c:/data/outgdb.gdb'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
 <li><a href="https://pro.arcgis.com/zh-cn/pro-app/tool-reference/conversion/excel-to-table.htm" target="_blank">Excel 转表 (转换)</a> </li>
+<li><a href="https://blog.csdn.net/weixin_43105618/article/details/90748721" target="_blank">excel点导入arcgis生成点文件</a>  </li>
 </ul>
 <script>
         document.querySelectorAll('.github-emoji')
