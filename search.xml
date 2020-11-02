@@ -1,6 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>ArcGIS 10.2.2利用Anaconda集成scipy和pandas</title>
+    <url>/2020/11/02/arcgis-10-2-2-li-yong-anaconda-ji-cheng-scipy-he-pandas/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>利用Anaconda创建虚拟环境，将Anaconda里的第三方包集成到ArcGIS。</p>
+<a id="more"></a>
+
+<h1 id="一、Anaconda安装与配置"><a href="#一、Anaconda安装与配置" class="headerlink" title="一、Anaconda安装与配置"></a>一、Anaconda安装与配置</h1><p>这里是之前安装好的，Anaconda3，原博主安装的是Miniconda，效果都是一样的。</p>
+<p>Miniconda安装参考：<a href="https://www.jianshu.com/p/f3d58072c85d">https://www.jianshu.com/p/f3d58072c85d</a></p>
+<h1 id="二、ArcGIS与Anaconda集成"><a href="#二、ArcGIS与Anaconda集成" class="headerlink" title="二、ArcGIS与Anaconda集成"></a>二、ArcGIS与Anaconda集成</h1><p>这步是主要参考的内容</p>
+<h2 id="Anaconda中创建新的python环境"><a href="#Anaconda中创建新的python环境" class="headerlink" title="Anaconda中创建新的python环境"></a>Anaconda中创建新的python环境</h2><p>（1）确定ArcGIS自带的Python版本</p>
+<p>先明确ArcGIS里的python，numpy和matplotlib分别是什么版本。具体步骤为：<br> 打开ArcGIS Desktop 10.2.2，【Geoprocessing】–&gt;【Python】，输入如下代码：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> sys<span class="token punctuation">,</span> numpy<span class="token punctuation">,</span> matplotlib
+<span class="token keyword">print</span><span class="token punctuation">(</span>sys<span class="token punctuation">.</span>version<span class="token punctuation">,</span> numpy<span class="token punctuation">.</span>__version__<span class="token punctuation">,</span> matplotlib<span class="token punctuation">.</span>__version__<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>可以看到，ArcGIS Desktop 10.2.2中得到的结果如下：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token punctuation">(</span><span class="token string">'2.7.5 (default, May 15 2013, 22:43:36) [MSC v.1500 32 bit (Intel)]'</span><span class="token punctuation">,</span> <span class="token string">'1.7.1'</span><span class="token punctuation">,</span> <span class="token string">'1.3.0'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>也就是Python 2.7.5， numpy 1.7.1，matplotlib 1.3.0<br> （2）创建虚拟python环境<br> 先将Anaconda的环境置为32bit （因为ArcGIS Desktop默认用的是32位的Python），然后再创建环境。<br> 在Anaconda Prompt窗口（<strong>右键以管理员身份运行</strong>）中，输入以下命令行，创建目录以准备自动下载和安装各种第三方包：</p>
+<pre class="line-numbers language-python"><code class="language-python">set CONDA_FORCE_32BIT<span class="token operator">=</span><span class="token number">1</span>
+conda create <span class="token operator">-</span>n arc1022 python<span class="token operator">=</span><span class="token number">2.7</span><span class="token punctuation">.</span><span class="token number">5</span> numpy<span class="token operator">=</span><span class="token number">1.7</span><span class="token punctuation">.</span><span class="token number">1</span> matplotlib<span class="token operator">=</span><span class="token number">1.3</span><span class="token punctuation">.</span><span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>这样就创建好了新的Python环境，其名称为<strong>arc1022</strong>。</p>
+<blockquote>
+<p>当然，如果你暂时不想安装第三方包，可以只用输入：</p>
+<pre class="line-numbers language-python"><code class="language-python">conda create <span class="token operator">-</span>n arc1022<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</blockquote>
+<p>默认的Python环境为<strong>base</strong>，要激活刚创建的arc1022虚拟环境，请输入<code>conda activate arc1022</code><br>然后，就可以在arc1022环境中使用conda安装各种包了。例如：</p>
+<pre class="line-numbers language-python"><code class="language-python">conda install scipy
+conda install pandas<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="将Anaconda里的第三方包集成到ArcGIS"><a href="#将Anaconda里的第三方包集成到ArcGIS" class="headerlink" title="将Anaconda里的第三方包集成到ArcGIS"></a>将Anaconda里的第三方包集成到ArcGIS</h2><p><strong>里所谓的集成，其实只是让ArcGIS自带的Python知道本机的哪个目录里还有合适第三方包</strong>。</p>
+<p>上面的Miniconda是安装在<strong>C:\Python27\Miniconda2</strong>这个目录，并且用conda create命令创建的目录是<strong>arc1022</strong>，则所有用conda install xxx 新安装的第三方包都在下面这个目录里：</p>
+<pre><code> C:\Python27\Miniconda2\envs\arc1022\Lib\site-packages</code></pre>
+<p>下面把该目录告诉ArcGIS 10.2.2自带的Python 2.7.5，以便它能import该目录下的第三方包。</p>
+<ol>
+<li><p>创建一个后缀名为pth的文件，例如：<strong>findArc1022inMiniconda.pth</strong>，该文件里只需要一行文本：</p>
+<pre><code> C:\Python27\Miniconda2\envs\arc1022\Lib\site-packages</code></pre>
+<p> 这样，arcgis就知道到arc1022环境所在的目录下去找第三方包了。</p>
+</li>
+<li><p>将这个pth文件拷贝到ArcGIS自带Python的第三方包存放目录中，这个目录是：</p>
+<pre><code>C:\Python27\ArcGIS10.2\Lib\site-packages</code></pre>
+</li>
+</ol>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://www.jianshu.com/p/f3d58072c85d" target="_blank">ArcGIS 10.2.2利用Anaconda集成scipy和pandas</a> </li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>arcpy</category>
+      </categories>
+      <tags>
+        <tag>arcpy</tag>
+        <tag>ArcGIS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>python中arcpy库的应用！</title>
     <url>/2020/10/30/python-zhong-arcpy-ku-de-ying-yong/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>遇到的使用<code>aracpy</code> 处理数据的方法！</p>
@@ -21,6 +90,63 @@ arcpy<span class="token punctuation">.</span>Buffer_analysis<span class="token p
 <span class="token keyword">print</span> arcpy<span class="token punctuation">.</span>getMessages<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>相当于对C:/ArcpyBook/Ch6目录中的Streams.shp文件进行200Feet的缓冲区分析，同时将缓冲结果保存在C:/ArcpyBook/Ch6目录下的Streams_Buffer.shp文件。</p>
 <p>参考：<a href="http://zhihu.geoscene.cn/question/13958">arcpy.env.workspace到底是个什么东西？</a> </p>
+<h1 id="Exists检查文件是否存在"><a href="#Exists检查文件是否存在" class="headerlink" title="Exists检查文件是否存在"></a>Exists检查文件是否存在</h1><p>语法：<code>arcpy.Exists(&lt;dataset&gt;)</code></p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
+arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> r<span class="token string">"E:\gis class\arcpy_1"</span>
+fc <span class="token operator">=</span> <span class="token string">"point.shp"</span>
+arcpy<span class="token punctuation">.</span>Exists<span class="token punctuation">(</span>fc<span class="token punctuation">)</span>     <span class="token comment" spellcheck="true"># 返回结果为true or false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="Describe函数描述数据"><a href="#Describe函数描述数据" class="headerlink" title="Describe函数描述数据"></a>Describe函数描述数据</h1><p>语法：<code>&lt;variable&gt; = arcpy.Describe(&lt;input dataset&gt;)</code></p>
+<pre class="line-numbers language-python"><code class="language-python">arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> r<span class="token string">"E:\gis class\arcpy_1"</span>
+fc <span class="token operator">=</span> <span class="token string">"point.shp"</span>
+desc <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>Describe<span class="token punctuation">(</span>fc<span class="token punctuation">)</span>       <span class="token comment" spellcheck="true"># 获取包含数据集属性的描述对象</span>
+<span class="token keyword">print</span> desc<span class="token punctuation">.</span>shapeType        <span class="token comment" spellcheck="true"># 获取该要素类的形状类型</span>
+<span class="token keyword">print</span> desc<span class="token punctuation">.</span>path         <span class="token comment" spellcheck="true">#获取存储路径</span>
+sr <span class="token operator">=</span> desc<span class="token punctuation">.</span>spatialReference      <span class="token comment" spellcheck="true">#获取空间参考</span>
+<span class="token keyword">print</span> sr<span class="token punctuation">.</span>name<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出结果:</p>
+<pre><code>Point
+E:\gis class\arcpy_1
+Unknown</code></pre>
+<h2 id="读取栅格数据的脚点坐标、影像名、坐标系"><a href="#读取栅格数据的脚点坐标、影像名、坐标系" class="headerlink" title="读取栅格数据的脚点坐标、影像名、坐标系"></a>读取栅格数据的脚点坐标、影像名、坐标系</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
+arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace<span class="token operator">=</span><span class="token string">"C:\Python27"</span>
+<span class="token keyword">try</span><span class="token punctuation">:</span>
+    descRaster<span class="token operator">=</span>arcpy<span class="token punctuation">.</span>Describe<span class="token punctuation">(</span><span class="token string">"D:\\data3\\4026.0-540.0.tif"</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">#os.path.join(root,file)</span>
+    ext<span class="token operator">=</span>descRaster<span class="token punctuation">.</span>extent
+    name1<span class="token operator">=</span>descRaster<span class="token punctuation">.</span>name
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"XMin: %f"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>ext<span class="token punctuation">.</span>XMin<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"XMax: %f"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>ext<span class="token punctuation">.</span>XMax<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"YMin: %f"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>ext<span class="token punctuation">.</span>YMin<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"YMax: %f"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>ext<span class="token punctuation">.</span>YMax<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token string">"name,is,%s"</span><span class="token operator">%</span>name1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="返回数据-列表函数）"><a href="#返回数据-列表函数）" class="headerlink" title="返回数据(列表函数）"></a>返回数据(列表函数）</h1><h2 id="ListFeatureClasses函数"><a href="#ListFeatureClasses函数" class="headerlink" title="ListFeatureClasses函数"></a>ListFeatureClasses函数</h2><p><code>ListFeatureClasses</code>函数返回当前工作空间中的要素类列表</p>
+<p>语法：<code>ListFeatureClasses ( { wild_card }, { feature_type }, { feature_dataset } ) </code> { }为可选参数</p>
+<p>例：<code>ListFeatureClasses ( {“w*”, “point” )</code>  ——返回文件名以w开头，并且要素类型是点的所有要素类</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
+arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> r<span class="token string">"E:\gis class\arcpy_1"</span>
+fclist <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>ListFeatureClasses<span class="token punctuation">(</span><span class="token punctuation">)</span>     <span class="token comment" spellcheck="true"># 返回包含要素类的列表</span>
+<span class="token keyword">print</span> fclist<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出结果:</p>
+<pre><code>[u'line.shp', u'point.shp']</code></pre>
+<h2 id="ListRasters函数"><a href="#ListRasters函数" class="headerlink" title="ListRasters函数"></a>ListRasters函数</h2><p><code>ListRasters</code>函数返回当前工作空间中的矢量数据集列表</p>
+<p>语法：<code>ListRasters ( { wild_card }, { raster_type } ) </code>  与ListFeatureClasses函数相似</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
+arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> r<span class="token string">"E:\gis class\arcpy_1"</span>
+rslist <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>ListRaster<span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">,</span><span class="token string">"tif"</span><span class="token punctuation">)</span>     <span class="token comment" spellcheck="true">#返回该工作空间中数据类型为TIFF影像的栅格数据集列表</span>
+<span class="token keyword">print</span> rslist<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="ListFields函数"><a href="#ListFields函数" class="headerlink" title="ListFields函数"></a>ListFields函数</h2><p><code>ListFields</code>函数返回某个要素类属性表的字段对象列表</p>
+<p>语法：<code>ListFields( dataset , { wild_card }， { field_type} )</code></p>
+<p>ListFields函数返回的是字段列表对象，读取列表属性要使用for循环</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
+arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> r<span class="token string">"E:\gis class\data0408"</span>
+fc <span class="token operator">=</span> <span class="token string">"现状道路.shp"</span>
+fieldlist <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>ListFields<span class="token punctuation">(</span>fc<span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 返回字段列表对象，包括（字段名、别名、类型和长度）</span>
+<span class="token keyword">for</span> field <span class="token keyword">in</span> fieldlist<span class="token punctuation">:</span>    <span class="token comment" spellcheck="true"># ListFields函数返回的是对象，所以要使用for循环读取对象的各个属性</span>
+    <span class="token keyword">print</span> <span class="token string">"field name :{0} "</span> <span class="token string">" field length : {1} "</span> <span class="token string">" filed type : {2}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>field<span class="token punctuation">.</span>name<span class="token punctuation">,</span>str<span class="token punctuation">(</span>field<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">,</span>field<span class="token punctuation">.</span>type<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出结果</p>
+<pre><code>field name :FID  field length : 4  filed type : OID
+field name :Shape  field length : 0  filed type : Geometry
+field name :Layer  field length : 254  filed type : String
+field name :a  field length : 4  filed type : SmallInteger</code></pre>
 <h1 id="栅格数据进行投影坐标转换"><a href="#栅格数据进行投影坐标转换" class="headerlink" title="栅格数据进行投影坐标转换"></a>栅格数据进行投影坐标转换</h1><p>将栅格数据集从一种投影变换到另一种投影。</p>
 <h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><pre class="line-numbers language-python"><code class="language-python">ProjectRaster_management <span class="token punctuation">(</span>in_raster<span class="token punctuation">,</span> 
                           out_raster<span class="token punctuation">,</span> 
@@ -47,12 +173,12 @@ arcpy<span class="token punctuation">.</span>Buffer_analysis<span class="token p
     src_files <span class="token operator">=</span> <span class="token punctuation">[</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>src<span class="token punctuation">,</span> name<span class="token punctuation">)</span> <span class="token keyword">for</span> name <span class="token keyword">in</span> names<span class="token punctuation">]</span>
     out_coor_system <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>src<span class="token punctuation">,</span> <span class="token string">"WGS 1984.prj"</span><span class="token punctuation">)</span>
     dst_files <span class="token operator">=</span> <span class="token punctuation">[</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>dst<span class="token punctuation">,</span> name<span class="token punctuation">)</span> <span class="token keyword">for</span> name <span class="token keyword">in</span> names<span class="token punctuation">]</span>
+
     <span class="token keyword">for</span> src_file<span class="token punctuation">,</span> dst_file <span class="token keyword">in</span> zip<span class="token punctuation">(</span>src_files<span class="token punctuation">,</span> dst_files<span class="token punctuation">)</span><span class="token punctuation">:</span>
         arcpy<span class="token punctuation">.</span>ProjectRaster_management<span class="token punctuation">(</span>src_file<span class="token punctuation">,</span> dst_file<span class="token punctuation">,</span> out_coor_system<span class="token punctuation">)</span>
-        projecttaster<span class="token punctuation">(</span>src_files<span class="token punctuation">,</span> <span class="token string">' has done!'</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">'%s    has done!'</span><span class="token operator">%</span>src_file<span class="token punctuation">)</span>
 
 <span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace<span class="token punctuation">(</span>r<span class="token string">'C:\123'</span><span class="token punctuation">)</span>
     src <span class="token operator">=</span> r<span class="token string">''</span>
     dst <span class="token operator">=</span> r<span class="token string">''</span>
     projecttaster<span class="token punctuation">(</span>src<span class="token punctuation">,</span> dst<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -80,7 +206,7 @@ arcpy<span class="token punctuation">.</span>Buffer_analysis<span class="token p
         <category>arcpy</category>
       </categories>
       <tags>
-        <tag>racpy</tag>
+        <tag>arcpy</tag>
         <tag>ArcGIS</tag>
       </tags>
   </entry>
