@@ -1,6 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>GDAL读写遥感影像数据</title>
+    <url>/2020/11/05/gdal-du-xie-yao-gan-ying-xiang-shu-ju/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>使用 <code>GDAL</code>读写tiff遥感影像数据</p>
+<a id="more"></a>
+
+<h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><ol>
+<li><p>打开已有的栅格数据集</p>
+<pre class="line-numbers language-python"><code class="language-python">fn <span class="token operator">=</span> <span class="token string">'aster.img'</span>
+ds <span class="token operator">=</span> gdal<span class="token punctuation">.</span>Open<span class="token punctuation">(</span>fn<span class="token punctuation">,</span> GA_ReadOnly<span class="token punctuation">)</span>
+<span class="token keyword">if</span> ds <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+   <span class="token keyword">print</span> <span class="token string">'Could not open '</span> <span class="token operator">+</span> fn
+    sys<span class="token punctuation">.</span>exit<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>读取栅格数据集的x方向像素数，y方向像素数，和波段数</p>
+<pre class="line-numbers language-python"><code class="language-python">cols <span class="token operator">=</span> ds<span class="token punctuation">.</span>RasterXSize
+rows <span class="token operator">=</span> ds<span class="token punctuation">.</span>RasterYSize
+bands <span class="token operator">=</span> ds<span class="token punctuation">.</span>RasterCount<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>注意后面没有括号，因为他们是属性(properties)不是方法(methods) 读取地理坐标参考信息(georeference info)</p>
+</li>
+<li><p><code>GeoTransform</code>是一个list，存储着栅格数据集的地理坐标信息</p>
+<pre class="line-numbers language-python"><code class="language-python">adfGeoTransform<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">/</span><span class="token operator">*</span> top left x 左上角x坐标<span class="token operator">*</span><span class="token operator">/</span>
+adfGeoTransform<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">/</span><span class="token operator">*</span> w<span class="token operator">-</span><span class="token operator">-</span>e pixel resolution 东西方向上的像素分辨率<span class="token operator">*</span><span class="token operator">/</span>
+adfGeoTransform<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">/</span><span class="token operator">*</span> rotation<span class="token punctuation">,</span> <span class="token number">0</span> <span class="token keyword">if</span> image <span class="token keyword">is</span> <span class="token string">"north up"</span> 如果北边朝上，地图的旋转角度<span class="token operator">*</span><span class="token operator">/</span>
+adfGeoTransform<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">/</span><span class="token operator">*</span> top left y 左上角y坐标<span class="token operator">*</span><span class="token operator">/</span>
+adfGeoTransform<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">/</span><span class="token operator">*</span> rotation<span class="token punctuation">,</span> <span class="token number">0</span> <span class="token keyword">if</span> image <span class="token keyword">is</span> <span class="token string">"north up"</span> 如果北边朝上，地图的旋转角度<span class="token operator">*</span><span class="token operator">/</span>
+adfGeoTransform<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">/</span><span class="token operator">*</span> n<span class="token operator">-</span>s pixel resolution 南北方向上的像素分辨率<span class="token operator">*</span><span class="token operator">/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>注意栅格数据集的坐标一般都是以左上角为基准的。</p>
+<p>下面的例子是从一个栅格数据集中取出Geotransform作为一个list，然后读取其中的数据</p>
+<pre class="line-numbers language-python"><code class="language-python">geotransform <span class="token operator">=</span> ds<span class="token punctuation">.</span>GetGeoTransform<span class="token punctuation">(</span><span class="token punctuation">)</span>
+originX <span class="token operator">=</span> geotransform<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+originY <span class="token operator">=</span> geotransform<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span>
+pixelWidth <span class="token operator">=</span> geotransform<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+pixelHeight <span class="token operator">=</span> geotransform<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>计算某一坐标对应像素的相对位置(pixel offset)，也就是该坐标与左上角的像素的相对位置，按像素数计算，计算公式如下：</p>
+<pre class="line-numbers language-python"><code class="language-python">xOffset <span class="token operator">=</span> int<span class="token punctuation">(</span><span class="token punctuation">(</span>x – originX<span class="token punctuation">)</span> <span class="token operator">/</span> pixelWidth<span class="token punctuation">)</span>
+yOffset <span class="token operator">=</span> int<span class="token punctuation">(</span><span class="token punctuation">(</span>y – originY<span class="token punctuation">)</span> <span class="token operator">/</span> pixelHeight<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>读取某一像素点的值，需要分两步 首先读取一个波段(band)：GetRasterBand(<index>)，其参数为波段的索引号 然后用ReadAsArray(<xoff>, <yoff>, <xsize>, <ysize>)，读出从(xoff,yoff)开始，大小为(xsize,ysize)的矩阵。如果将矩阵大小设为1X1，就是读取一个像素了。但是这一方法只能将读出的数据放到矩阵中，就算只读取一个像素也是一样。例如：</ysize></xsize></yoff></xoff></index></p>
+<pre class="line-numbers language-python"><code class="language-python">band <span class="token operator">=</span> ds<span class="token punctuation">.</span>GetRasterBand<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+data <span class="token operator">=</span> band<span class="token punctuation">.</span>ReadAsArray<span class="token punctuation">(</span>xOffset<span class="token punctuation">,</span> yOffset<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>如果想一次读取一整张图，那么将offset都设定为0，size则设定为整个图幅的size，例如：</p>
+<pre class="line-numbers language-python"><code class="language-python">data <span class="token operator">=</span> band<span class="token punctuation">.</span>ReadAsArray<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> cols<span class="token punctuation">,</span> rows<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>但是要注意，从data中读取某一像素的值，必须要用data[yoff, xoff]。注意不要搞反了。数学中的矩阵是[row,col]，而这里恰恰相反！这里面row对应y轴，col对应x轴。</p>
+</li>
+</ol>
+<h2 id="读图像文件"><a href="#读图像文件" class="headerlink" title="读图像文件"></a>读图像文件</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> osgeo <span class="token keyword">import</span> gdal
+<span class="token comment" spellcheck="true"># 读图像文件</span>
+<span class="token keyword">def</span> <span class="token function">read_img</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    dataset <span class="token operator">=</span> gdal<span class="token punctuation">.</span>Open<span class="token punctuation">(</span>filename<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 打开文件</span>
+    im_width <span class="token operator">=</span> dataset<span class="token punctuation">.</span>RasterXSize  <span class="token comment" spellcheck="true"># 栅格矩阵的列数</span>
+    im_height <span class="token operator">=</span> dataset<span class="token punctuation">.</span>RasterYSize  <span class="token comment" spellcheck="true"># 栅格矩阵的行数</span>
+    im_geotrans <span class="token operator">=</span> dataset<span class="token punctuation">.</span>GetGeoTransform<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 仿射矩阵</span>
+    im_proj <span class="token operator">=</span> dataset<span class="token punctuation">.</span>GetProjection<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 地图投影信息</span>
+    im_data <span class="token operator">=</span> dataset<span class="token punctuation">.</span>ReadAsArray<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> im_width<span class="token punctuation">,</span> im_height<span class="token punctuation">)</span><span class="token punctuation">.</span>astype<span class="token punctuation">(</span>np<span class="token punctuation">.</span>float<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 将数据写成数组，对应栅格矩阵</span>
+    <span class="token keyword">del</span> dataset  <span class="token comment" spellcheck="true"># 关闭对象，文件dataset</span>
+    <span class="token keyword">return</span> im_proj<span class="token punctuation">,</span> im_geotrans<span class="token punctuation">,</span> im_data<span class="token punctuation">,</span> im_height<span class="token punctuation">,</span> im_width<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="完整程序"><a href="#完整程序" class="headerlink" title="完整程序"></a>完整程序</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> osgeo <span class="token keyword">import</span> gdal
+<span class="token comment" spellcheck="true"># 读图像文件</span>
+<span class="token keyword">def</span> <span class="token function">read_img</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    dataset <span class="token operator">=</span> gdal<span class="token punctuation">.</span>Open<span class="token punctuation">(</span>filename<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 打开文件</span>
+    im_width <span class="token operator">=</span> dataset<span class="token punctuation">.</span>RasterXSize  <span class="token comment" spellcheck="true"># 栅格矩阵的列数</span>
+    im_height <span class="token operator">=</span> dataset<span class="token punctuation">.</span>RasterYSize  <span class="token comment" spellcheck="true"># 栅格矩阵的行数</span>
+    im_geotrans <span class="token operator">=</span> dataset<span class="token punctuation">.</span>GetGeoTransform<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 仿射矩阵</span>
+    im_proj <span class="token operator">=</span> dataset<span class="token punctuation">.</span>GetProjection<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 地图投影信息</span>
+    im_data <span class="token operator">=</span> dataset<span class="token punctuation">.</span>ReadAsArray<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> im_width<span class="token punctuation">,</span> im_height<span class="token punctuation">)</span><span class="token punctuation">.</span>astype<span class="token punctuation">(</span>np<span class="token punctuation">.</span>float<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 将数据写成数组，对应栅格矩阵</span>
+    <span class="token keyword">del</span> dataset  <span class="token comment" spellcheck="true"># 关闭对象，文件dataset</span>
+    <span class="token keyword">return</span> im_proj<span class="token punctuation">,</span> im_geotrans<span class="token punctuation">,</span> im_data<span class="token punctuation">,</span> im_height<span class="token punctuation">,</span> im_width
+
+<span class="token keyword">def</span> <span class="token function">write_img</span><span class="token punctuation">(</span>filename<span class="token punctuation">,</span> im_proj<span class="token punctuation">,</span> im_geotrans<span class="token punctuation">,</span> im_data<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># gdal数据类型包括</span>
+    <span class="token comment" spellcheck="true"># gdal.GDT_Byte,</span>
+    <span class="token comment" spellcheck="true"># gdal .GDT_UInt16, gdal.GDT_Int16, gdal.GDT_UInt32, gdal.GDT_Int32,</span>
+    <span class="token comment" spellcheck="true"># gdal.GDT_Float32, gdal.GDT_Float64</span>
+
+    <span class="token comment" spellcheck="true"># 判断栅格数据的数据类型</span>
+    <span class="token keyword">if</span> <span class="token string">'int8'</span> <span class="token keyword">in</span> im_data<span class="token punctuation">.</span>dtype<span class="token punctuation">.</span>name<span class="token punctuation">:</span>
+        datatype <span class="token operator">=</span> gdal<span class="token punctuation">.</span>GDT_Byte
+    <span class="token keyword">elif</span> <span class="token string">'int16'</span> <span class="token keyword">in</span> im_data<span class="token punctuation">.</span>dtype<span class="token punctuation">.</span>name<span class="token punctuation">:</span>
+        datatype <span class="token operator">=</span> gdal<span class="token punctuation">.</span>GDT_UInt16
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        datatype <span class="token operator">=</span> gdal<span class="token punctuation">.</span>GDT_Float32
+
+    <span class="token comment" spellcheck="true"># 判读数组维数</span>
+    <span class="token keyword">if</span> len<span class="token punctuation">(</span>im_data<span class="token punctuation">.</span>shape<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">:</span>
+        im_bands<span class="token punctuation">,</span> im_height<span class="token punctuation">,</span> im_width <span class="token operator">=</span> im_data<span class="token punctuation">.</span>shape
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        im_bands<span class="token punctuation">,</span> <span class="token punctuation">(</span>im_height<span class="token punctuation">,</span> im_width<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> im_data<span class="token punctuation">.</span>shape
+
+    <span class="token comment" spellcheck="true"># 创建文件</span>
+    driver <span class="token operator">=</span> gdal<span class="token punctuation">.</span>GetDriverByName<span class="token punctuation">(</span><span class="token string">"GTiff"</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 数据类型必须有，因为要计算需要多大内存空间</span>
+    dataset <span class="token operator">=</span> driver<span class="token punctuation">.</span>Create<span class="token punctuation">(</span>filename<span class="token punctuation">,</span> im_width<span class="token punctuation">,</span> im_height<span class="token punctuation">,</span> im_bands<span class="token punctuation">,</span> datatype<span class="token punctuation">)</span>
+
+    dataset<span class="token punctuation">.</span>SetGeoTransform<span class="token punctuation">(</span>im_geotrans<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 写入仿射变换参数</span>
+    dataset<span class="token punctuation">.</span>SetProjection<span class="token punctuation">(</span>im_proj<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 写入投影</span>
+
+    <span class="token keyword">if</span> im_bands <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+        dataset<span class="token punctuation">.</span>GetRasterBand<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>WriteArray<span class="token punctuation">(</span>im_data<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 写入数组数据</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>im_bands<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            dataset<span class="token punctuation">.</span>GetRasterBand<span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span>WriteArray<span class="token punctuation">(</span>im_data<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">del</span> dataset
+<span class="token keyword">if</span> __name__<span class="token operator">==</span><span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    proj<span class="token punctuation">,</span> geotrans<span class="token punctuation">,</span> values<span class="token punctuation">,</span> row<span class="token punctuation">,</span> column <span class="token operator">=</span> read_img<span class="token punctuation">(</span>输入数据<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 读数据</span>
+     write_img<span class="token punctuation">(</span>r<span class="token string">'输出地址'</span><span class="token punctuation">,</span> proj<span class="token punctuation">,</span> geotrans<span class="token punctuation">,</span> 输出影像名称<span class="token punctuation">)</span><span class="token comment" spellcheck="true">#写数据</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://blog.csdn.net/qq_22472089/article/details/106589293" target="_blank">利用python读写tiff遥感影像数据</a></li>
+<li><a href="https://www.osgeo.cn/python_gdal_utah_tutorial/ch05.html" target="_blank"> GDAL python教程（4）——用GDAL读取栅格数据</a></li>
+<li><a href="https://www.cnblogs.com/lovebay/p/4921261.html" target="_blank">用GDAL 读写矢量数据</a> </li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>GDAL</category>
+      </categories>
+      <tags>
+        <tag>GIS</tag>
+        <tag>GDAL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ArcGIS 10.2.2利用Anaconda集成scipy和pandas</title>
     <url>/2020/11/02/arcgis-10-2-2-li-yong-anaconda-ji-cheng-scipy-he-pandas/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>利用Anaconda创建虚拟环境，将Anaconda里的第三方包集成到ArcGIS。</p>
@@ -66,7 +202,7 @@ conda install pandas<span aria-hidden="true" class="line-numbers-rows"><span></s
       </categories>
       <tags>
         <tag>arcpy</tag>
-        <tag>ArcGIS</tag>
+        <tag>GIS</tag>
       </tags>
   </entry>
   <entry>
@@ -207,7 +343,7 @@ field name :a  field length : 4  filed type : SmallInteger</code></pre>
       </categories>
       <tags>
         <tag>arcpy</tag>
-        <tag>ArcGIS</tag>
+        <tag>GIS</tag>
       </tags>
   </entry>
   <entry>
@@ -330,6 +466,9 @@ arcpy<span class="token punctuation">.</span>ExcelToTable_conversion<span class=
       <categories>
         <category>ArcGIS</category>
       </categories>
+      <tags>
+        <tag>GIS</tag>
+      </tags>
   </entry>
   <entry>
     <title>三大相关性检验</title>
