@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Excel输入数据自动写入当前时间且锁定不变</title>
+    <url>/2020/11/18/excel-shu-ru-shu-ju-zi-dong-xie-ru-dang-qian-shi-jian-qie-suo-ding-bu-bian/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>Excel输入数据自动写入当前时间 且锁定不变</p>
+<a id="more"></a>
+
+<p>函数:</p>
+<pre><code>=IF(B1="","",IF(A1="",NOW(),A1))</code></pre>
+<p>解释：如果B1不等于空，则在A1写入当前时间。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>Excel</category>
+      </categories>
+  </entry>
+  <entry>
     <title>GDAL读写遥感影像数据</title>
     <url>/2020/11/05/gdal-du-xie-yao-gan-ying-xiang-shu-ju/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>使用 <code>GDAL</code>读写tiff遥感影像数据</p>
@@ -5037,7 +5069,7 @@ s1<span class="token punctuation">.</span>salary <span class="token keyword">as<
           });
       </script>]]></content>
       <categories>
-        <category>excel</category>
+        <category>Excel</category>
       </categories>
   </entry>
   <entry>
@@ -5216,7 +5248,7 @@ s1<span class="token punctuation">.</span>salary <span class="token keyword">as<
           });
       </script>]]></content>
       <categories>
-        <category>excel</category>
+        <category>Excel</category>
       </categories>
       <tags>
         <tag>VLOOKUP</tag>
@@ -5580,11 +5612,5 @@ tags<span class="token punctuation">:</span><span aria-hidden="true" class="line
             document.body.appendChild(img);
           });
       </script>]]></content>
-      <categories>
-        <category>excel</category>
-      </categories>
-      <tags>
-        <tag>excel</tag>
-      </tags>
   </entry>
 </search>
