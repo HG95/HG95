@@ -9,8 +9,9 @@
 
 
 	<div class="row">
-    <embed src="./test.pdf" width="100%" height="550" type="application/pdf">
+    <embed src="https://github.com/HG95/PDFFile/blob/main/test.pdf" width="100%" height="550" type="application/pdf">
 	</div>
+
 
 
 
