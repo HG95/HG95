@@ -9,7 +9,7 @@
 
 
 	<div class="row">
-    <embed src="\test.pdf" width="100%" height="550" type="application/pdf">
+    <embed src="./file/test.pdf" width="100%" height="550" type="application/pdf">
 	</div>
 
 
@@ -5550,10 +5550,22 @@ tags<span class="token punctuation">:</span><span aria-hidden="true" class="line
 <img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200913221431.png" alt="image-20200913221305549" style="zoom: 67%;">
 
 <p>提取嵌入代码里面的 src ，并复制到上面的代码中。</p>
+<h1 id="hexo中插入pdf"><a href="#hexo中插入pdf" class="headerlink" title="hexo中插入pdf"></a>hexo中插入pdf</h1><h2 id="安装hexo-pdf插件"><a href="#安装hexo-pdf插件" class="headerlink" title="安装hexo-pdf插件"></a>安装hexo-pdf插件</h2><p>插件地址：<a href="https://links.jianshu.com/go?to=https://github.com/superalsrk/hexo-pdf">hexo-pdf</a></p>
+<p><strong>Install</strong></p>
+<pre><code>$ npm install --save hexo-pdf</code></pre>
+<h2 id="利用html语法"><a href="#利用html语法" class="headerlink" title="利用html语法"></a>利用html语法</h2><p>首先修改<code>_config.yml</code>文件</p>
+<p><strong>将_config.yml中的post_asset_folder选项置为true</strong></p>
+<p>当您设置post_asset_folder为true参数后，在建立文件时，Hexo 会自动建立一个与文章同名的文件夹，您可以把与该文章相关的所有资源都放到那个文件夹，如此一来，您便可以更方便的使用资源。</p>
+<h2 id="直接使用"><a href="#直接使用" class="headerlink" title="直接使用"></a>直接使用</h2><p>在\themes\next\source\目录下创建file文件夹，将pdf文件丢进去，文章中引用：</p>
+<pre><code>{% pdf /file/pdf文件%}</code></pre>
+<p>如果使用外接链接，使用如下：</p>
+<pre><code>外部链接：
+{% pdf http://7xov2f.com1.z0.glb.clouddn.com/bash_freshman.pdf %}</code></pre>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
 <li><a href="https://www.xxxzhy.com/2020/04/28/Hexo%E5%8D%9A%E5%AE%A2Ayer%E4%B8%BB%E9%A2%98%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE/" target="_blank">Hexo博客Ayer主题自定义配置</a></li>
 <li><a href="https://wenyan.online/2020/08/09/hexo-bo-ke-da-jian/" target="_blank">hexo博客搭建</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/76951130" target="_blank">免费CDN：jsDelivr+Github 使用方法</a></li>
+<li><a href="https://jankin987.github.io/2018/09/19/02.Hexo/03.hexo%E9%85%8D%E7%BD%AE%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E5%92%8Cpdf/" target="_blank">hexo配置本地图片和pdf</a>  </li>
 </ul>
 <script>
         document.querySelectorAll('.github-emoji')
