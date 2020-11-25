@@ -80,7 +80,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">584</span>
+            <span class="post-count">878</span>
         </span>
     </span>
 
@@ -89,7 +89,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">2 分钟</span>
+            <span class="post-count">4 分钟</span>
         </span>
     </span>
 </div>
@@ -183,6 +183,78 @@
     merge_xlsx<span class="token punctuation">(</span>path<span class="token punctuation">,</span>filenames<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token string">"sheet1"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#合并文件中第一个表的数据，输出到 output/sheet1.xlsx中</span>
     merge_xlsx<span class="token punctuation">(</span>path<span class="token punctuation">,</span>filenames<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">"sheet1"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#合并文件中第二个表的数据，输出到 output/sheet2.xlsx中</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="多个excel的多个sheet进行合并"><a href="#多个excel的多个sheet进行合并" class="headerlink" title="多个excel的多个sheet进行合并"></a>多个excel的多个sheet进行合并</h1><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> os
+<span class="token keyword">import</span> xlrd
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+
+
+<span class="token keyword">def</span> <span class="token function">get_filename</span><span class="token punctuation">(</span>file_dir<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> file <span class="token keyword">in</span> os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span>file_dir<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>splitext<span class="token punctuation">(</span>file<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'.xls'</span> <span class="token operator">or</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>splitext<span class="token punctuation">(</span>file<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'.xlsx'</span><span class="token punctuation">:</span>
+            list<span class="token punctuation">.</span>append<span class="token punctuation">(</span>file<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> list
+
+<span class="token comment" spellcheck="true"># 打开一个excel文件</span>
+<span class="token keyword">def</span> <span class="token function">open_xls</span><span class="token punctuation">(</span>file<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    fh <span class="token operator">=</span> xlrd<span class="token punctuation">.</span>open_workbook<span class="token punctuation">(</span>file<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> fh
+
+<span class="token comment" spellcheck="true"># 获取excel中所有的sheet表</span>
+<span class="token keyword">def</span> <span class="token function">getsheet</span><span class="token punctuation">(</span>fh<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> fh<span class="token punctuation">.</span>sheets<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 获取sheet表的行数</span>
+<span class="token keyword">def</span> <span class="token function">getnrows</span><span class="token punctuation">(</span>fh<span class="token punctuation">,</span> sheet<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    table <span class="token operator">=</span> fh<span class="token punctuation">.</span>sheets<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span>sheet<span class="token punctuation">]</span>
+    <span class="token keyword">return</span> table<span class="token punctuation">.</span>nrows
+
+<span class="token comment" spellcheck="true"># 读取文件内容并返回行内容</span>
+<span class="token keyword">def</span> <span class="token function">getFilect</span><span class="token punctuation">(</span>file<span class="token punctuation">,</span> shnum<span class="token punctuation">,</span>datavalue<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    fh <span class="token operator">=</span> open_xls<span class="token punctuation">(</span>file<span class="token punctuation">)</span>
+    table <span class="token operator">=</span> fh<span class="token punctuation">.</span>sheets<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span>shnum<span class="token punctuation">]</span>
+    num <span class="token operator">=</span> table<span class="token punctuation">.</span>nrows
+    title <span class="token operator">=</span> table<span class="token punctuation">.</span>row_values<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> row <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>num<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        rdata <span class="token operator">=</span> table<span class="token punctuation">.</span>row_values<span class="token punctuation">(</span>row<span class="token punctuation">)</span>
+        datavalue<span class="token punctuation">.</span>append<span class="token punctuation">(</span>rdata<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> title
+
+<span class="token comment" spellcheck="true"># 获取sheet表的个数</span>
+<span class="token keyword">def</span> <span class="token function">getshnum</span><span class="token punctuation">(</span>fh<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    x <span class="token operator">=</span> <span class="token number">0</span>
+    sh <span class="token operator">=</span> getsheet<span class="token punctuation">(</span>fh<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> sheet <span class="token keyword">in</span> sh<span class="token punctuation">:</span>
+        x <span class="token operator">+=</span> <span class="token number">1</span>
+    <span class="token keyword">return</span> x
+
+<span class="token keyword">def</span> <span class="token function">merge_xlsx</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span>filenames<span class="token punctuation">,</span>save_path<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># 存储所有读取的结果</span>
+    datavalue <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    title <span class="token operator">=</span> <span class="token string">""</span>
+    <span class="token keyword">for</span> fll <span class="token keyword">in</span> filenames<span class="token punctuation">:</span>
+        fl <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>path<span class="token punctuation">,</span>fll<span class="token punctuation">)</span>
+        fh <span class="token operator">=</span> open_xls<span class="token punctuation">(</span>fl<span class="token punctuation">)</span>
+        x <span class="token operator">=</span> getshnum<span class="token punctuation">(</span>fh<span class="token punctuation">)</span>
+        <span class="token keyword">for</span> shnum <span class="token keyword">in</span> range<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"正在读取文件："</span> <span class="token operator">+</span> str<span class="token punctuation">(</span>fl<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"的第"</span> <span class="token operator">+</span> str<span class="token punctuation">(</span>shnum<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"个sheet表的内容..."</span><span class="token punctuation">)</span>
+            title <span class="token operator">=</span> getFilect<span class="token punctuation">(</span>fl<span class="token punctuation">,</span> shnum<span class="token punctuation">,</span>datavalue<span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true"># 定义最终合并后生成的新文件</span>
+    content <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span>datavalue<span class="token punctuation">)</span>
+    content<span class="token punctuation">.</span>columns <span class="token operator">=</span> title
+    content<span class="token punctuation">.</span>to_excel<span class="token punctuation">(</span>save_path<span class="token punctuation">,</span> header<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> index<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"文件合并完成"</span><span class="token punctuation">)</span>
+
+
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># 定义要合并的excel文件列表</span>
+    path <span class="token operator">=</span> r<span class="token string">'C:\Users\Hu\Desktop\新建文件夹'</span>
+    filenames <span class="token operator">=</span> get_filename<span class="token punctuation">(</span>path<span class="token punctuation">)</span>
+    save_path <span class="token operator">=</span> <span class="token string">'sss12.xlsx'</span>
+    merge_xlsx<span class="token punctuation">(</span>path<span class="token punctuation">,</span>filenames<span class="token punctuation">,</span>save_path<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
 <li><a target="_blank" rel="noopener" href="https://wocai.de/post/2020/01/%E5%88%A9%E7%94%A8-python-%E6%89%B9%E9%87%8F%E5%90%88%E5%B9%B6-excel-%E6%96%87%E4%BB%B6/">批量合并 Excel 文件</a> </li>
 </ul>
