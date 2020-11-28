@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="读书的意义大概就是用生活所感去读书，用读书所得去生活。" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    三大相关性检验 |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/HG95/CDN/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+  
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+</html>
+
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-三大相关性检验"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  三大相关性检验
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/posts/517e3c05/" class="article-date">
+  <time datetime="2020-10-16T08:00:51.000Z" itemprop="datePublished">2020-10-16</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/statistics/">statistics</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3.1k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">12 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>三个相关性系数（pearson, spearman, kendall）反应的都是两个变量之间变化趋势的方向以及程度，其值范围为-1到+1，0表示两个变量不相关，正值表示正相关，负值表示负相关，值越大表示相关性越强。</p>
+<p>通常情况下通过以下取值范围判断变量的相关强度：<br>0.8-1.0   极强相关<br>0.6-0.8   强相关<br>0.4-0.6   中等程度相关<br>0.2-0.4   弱相关<br>0.0-0.2   极弱相关或无相关</p>
+<a id="more"></a>
+
+<h1 id="一、皮尔森相关性系数"><a href="#一、皮尔森相关性系数" class="headerlink" title="一、皮尔森相关性系数"></a>一、皮尔森相关性系数</h1><p>person correlation coefficient(皮尔森相关性系数)</p>
+<h2 id="计算公式"><a href="#计算公式" class="headerlink" title="计算公式"></a>计算公式</h2><p>$$<br>\begin{align}<br>\rho_{X, Y}&amp;  = \frac{\operatorname{cov}(X, Y)}{\sigma_{X} \sigma_{Y}} \ &amp; = \frac{E\left(\left(X-\mu_{X}\right)\left(Y-\mu_{Y}\right)\right)}{\sigma_{X} \sigma_Y} \&amp; = \frac{E(X Y)-E(X) E(Y)}{\sqrt{E\left(X^{2}\right)-E^{2}(X)} \sqrt{E\left(Y^{2}\right)-E^{2}(Y)}}<br>\end{align}<br>$$</p>
+<p>统计学之三大相关性系数（pearson、spearman、kendall）<br>重点关注第一个等号后面的公式，最后面的是推导计算，暂时不用管它们。看到没有，两个变量(X, Y)的皮尔森相关性系数($ρ_{X,Y}$)等于它们之间的协方差cov(X,Y)除以它们各自标准差的乘积(σX, σY)。</p>
+<p>公式的分母是变量的标准差，这就意味着计算皮尔森相关性系数时，变量的标准差不能为0（分母不能为0），也就是说你的两个变量中任何一个的值不能都是相同的。如果没有变化，用皮尔森相关系数是没办法算出这个变量与另一个变量之间是不是有相关性的。</p>
+<h2 id="数据要求"><a href="#数据要求" class="headerlink" title="数据要求"></a>数据要求</h2><ul>
+<li><strong>正态分布</strong><br>它是协方差与标准差的比值，并且在求皮尔森相关性系数以后，通常还会用t检验之类的方法来进行皮尔森相关性系数检验，而 t 检验是基于数据呈正态分布的假设的。 </li>
+<li><strong>实验数据之间的差距不能太大</strong><br> 比如：研究人跑步的速度与心脏跳动的相关性，如果人突发心脏病，心跳为0（或者过快与过慢），那这时候我们会测到一个偏离正常值的心跳，如果我们把这个值也放进去进行相关性分析</li>
+</ul>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+
+<span class="token comment" spellcheck="true">#原始数据</span>
+X1<span class="token operator">=</span>pd<span class="token punctuation">.</span>Series<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+Y1<span class="token operator">=</span>pd<span class="token punctuation">.</span>Series<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">0.3</span><span class="token punctuation">,</span> <span class="token number">0.9</span><span class="token punctuation">,</span> <span class="token number">2.7</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3.5</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+X1<span class="token punctuation">.</span>mean<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#平均值# 3.5</span>
+Y1<span class="token punctuation">.</span>mean<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#2.4</span>
+X1<span class="token punctuation">.</span>var<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#方差#3.5</span>
+Y1<span class="token punctuation">.</span>var<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#2.9760000000000004</span>
+
+X1<span class="token punctuation">.</span>std<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#标准差不能为0# 1.8708286933869707</span>
+Y1<span class="token punctuation">.</span>std<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#标准差不能为0#1.725108692227826</span>
+X1<span class="token punctuation">.</span>cov<span class="token punctuation">(</span>Y1<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#协方差#3.0600000000000005</span>
+
+X1<span class="token punctuation">.</span>corr<span class="token punctuation">(</span>Y1<span class="token punctuation">,</span>method<span class="token operator">=</span><span class="token string">"pearson"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#皮尔森相关性系数 #0.948136664010285</span>
+X1<span class="token punctuation">.</span>cov<span class="token punctuation">(</span>Y1<span class="token punctuation">)</span><span class="token operator">/</span><span class="token punctuation">(</span>X1<span class="token punctuation">.</span>std<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">*</span>Y1<span class="token punctuation">.</span>std<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#皮尔森相关性系数 # 0.948136664010285</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="二、斯皮尔曼相关性系数"><a href="#二、斯皮尔曼相关性系数" class="headerlink" title="二、斯皮尔曼相关性系数"></a>二、斯皮尔曼相关性系数</h1><p>spearman correlation coefficient(斯皮尔曼相关性系数)</p>
+<p>斯皮尔曼相关性系数，通常也叫斯皮尔曼秩相关系数。“秩”，可以理解成就是一种顺序或者排序，那么它就是根据原始数据的排序位置进行求解，这种表征形式就没有了求皮尔森相关性系数时那些限制。</p>
+<h2 id="计算公式-1"><a href="#计算公式-1" class="headerlink" title="计算公式"></a>计算公式</h2><p>$$<br>\rho_{s}=1-\frac{6 \sum d_{i}^{2}}{n\left(n^{2}-1\right)}<br>$$</p>
+<p>计算过程就是：首先对两个变量（X, Y）的数据进行排序，然后记下排序以后的位置（X’, Y’），（X’, Y’）的值就称为秩次，秩次的差值就是上面公式中的 $d_i$，n就是变量中数据的个数，最后带入公式就可求解结果。举个例子吧，假设我们实验的数据如下：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201016164927.jpg" alt="20170816145416809" style="zoom:67%;">
+
+<p>带入公式，求得斯皮尔曼相关性系数：$ρs= 1-6*(1+1+1+9)/6*35=0.657$</p>
+<h2 id="数据要求-1"><a href="#数据要求-1" class="headerlink" title="数据要求"></a>数据要求</h2><p>因为是定序，所以我们不用管X和Y这两个变量具体的值到底差了多少，只需要算一下它们每个值所处的排列位置的差值，就可以求出相关性系数了。</p>
+<p>而且，即便在变量值没有变化的情况下，也不会出现像皮尔森系数那样分母为0而无法计算的情况。另外，即使出现异常值，由于异常值的秩次通常不会有明显的变化（比如过大或者过小，那要么排第一，要么排最后），所以对斯皮尔曼相关性系数的影响也非常小！</p>
+<p>由于斯皮尔曼相关性系数没有那些数据条件要求，适用的范围就广多了。</p>
+<h2 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+
+<span class="token comment" spellcheck="true">#原始数据</span>
+X1<span class="token operator">=</span>pd<span class="token punctuation">.</span>Series<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+Y1<span class="token operator">=</span>pd<span class="token punctuation">.</span>Series<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">0.3</span><span class="token punctuation">,</span> <span class="token number">0.9</span><span class="token punctuation">,</span> <span class="token number">2.7</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3.5</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">#处理数据删除Nan</span>
+x1<span class="token operator">=</span>X1<span class="token punctuation">.</span>dropna<span class="token punctuation">(</span><span class="token punctuation">)</span>
+y1<span class="token operator">=</span>Y1<span class="token punctuation">.</span>dropna<span class="token punctuation">(</span><span class="token punctuation">)</span>
+n<span class="token operator">=</span>x1<span class="token punctuation">.</span>count<span class="token punctuation">(</span><span class="token punctuation">)</span>
+x1<span class="token punctuation">.</span>index<span class="token operator">=</span>np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span>n<span class="token punctuation">)</span>
+y1<span class="token punctuation">.</span>index<span class="token operator">=</span>np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span>n<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">#分部计算</span>
+d<span class="token operator">=</span><span class="token punctuation">(</span>x1<span class="token punctuation">.</span>sort_values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>index<span class="token operator">-</span>y1<span class="token punctuation">.</span>sort_values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>index<span class="token punctuation">)</span><span class="token operator">**</span><span class="token number">2</span>
+dd<span class="token operator">=</span>d<span class="token punctuation">.</span>to_series<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>sum<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+p<span class="token operator">=</span><span class="token number">1</span><span class="token operator">-</span>n<span class="token operator">*</span>dd<span class="token operator">/</span><span class="token punctuation">(</span>n<span class="token operator">*</span><span class="token punctuation">(</span>n<span class="token operator">**</span><span class="token number">2</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">#s.corr()函数计算</span>
+r<span class="token operator">=</span>x1<span class="token punctuation">.</span>corr<span class="token punctuation">(</span>y1<span class="token punctuation">,</span>method<span class="token operator">=</span><span class="token string">'spearman'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>r<span class="token punctuation">,</span>p<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#0.942857142857143 0.9428571428571428</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="三、肯德尔相关性系数"><a href="#三、肯德尔相关性系数" class="headerlink" title="三、肯德尔相关性系数"></a>三、肯德尔相关性系数</h1><p>kendall correlation coefficient(肯德尔相关性系数)</p>
+<p>在统计学中，肯德尔相关系数是以<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Maurice_Kendall">Maurice Kendall</a>命名的，并经常用希腊字母τ（tau）表示其值。肯德尔相关系数是一个用来测量两个随机变量相关性的统计值。一个肯德尔检验是一个无参数假设检验，它使用计算而得的相关系数去检验两个随机变量的统计依赖性。肯德尔相关系数的取值范围在-1到1之间，当τ为1时，表示两个随机变量拥有一致的等级相关性；当τ为-1时，表示两个随机变量拥有完全相反的等级相关性；当τ为0时，表示两个随机变量是相互独立的。</p>
+<p>肯德尔相关性系数，又称肯德尔秩相关系数，它也是一种秩相关系数，不过它<strong>所计算的对象是分类变量</strong>。</p>
+<h2 id="计算公式-2"><a href="#计算公式-2" class="headerlink" title="计算公式"></a>计算公式</h2><p>假设两个随机变量分别为X、Y（也可以看做两个集合），它们的元素个数均为N，两个随即变量取的第i（1&lt;=i&lt;=N）个值分别用$Xi、Yi$表示。X与Y中的对应元素组成一个元素对集合XY，其包含的元素为(Xi, Yi)（1&lt;=i&lt;=N）。当集合XY中任意两个元素$(Xi, Yi)$与$(Xj, Yj)$的排行相同时（也就是说当出现情况1或2时；情况1：Xi&gt;Xj且Yi&gt;Yj，情况2：Xi&lt;Xj且Yi&lt;Yj），这两个元素就被认为是一致的。当出现情况3或4时（情况3：Xi&gt;Xj且Yi&lt;Yj，情况4：Xi&lt;Xj且Yi&gt;Yj），这两个元素被认为是不一致的。当出现情况5或6时（情况5：Xi=Xj，情况6：Yi=Yj），这两个元素既不是一致的也不是不一致的。</p>
+<p>这里有三个公式计算肯德尔相关系数的值：</p>
+<p>公式一：<br>$$<br>T a u-b=\frac{C-D}{\sqrt{(N 3-N)(N 3-N 2)}}<br>$$<br>其中C表示XY中拥有一致性的元素对数（两个元素为一对）；D表示XY中拥有不一致性的元素对数。</p>
+<p>注意：这一公式仅适用于集合X与Y中均不存在相同元素的情况（集合中各个元素唯一）。</p>
+<p>公式二：<br>$$<br>T a u-b=\frac{C-D}{\sqrt{(N 3-N 1)(N 3-N 2)}}<br>$$</p>
+<p>注意：这一公式适用于集合X或Y中存在相同元素的情况（当然，如果X或Y中均不存在相同的元素时，公式二便等同于公式一）。</p>
+<p>其中C、D与公式一中相同；<br>$$<br>N 3=\frac{1}{2} N(N-1), \quad N 1=\sum_{i=1}^{s} \frac{1}{2} U_{i}\left(U_{i}-1\right) \quad, \quad N 2=\sum_{i=1}^{t} \frac{1}{2} V_{i}\left(V_{i}-1\right)<br>$$<br>N1、N2分别是针对集合X、Y计算的，现在以计算N1为例（N2的计算可以类推，在集合Y的基础上计算而得）：</p>
+<p>X集合中所有重复元素个数：将X中的相同元素分别组合成小集合，s表示集合X中拥有的小集合数（例如X包含元素：1 2 3 4 3 3 2，那么这里得到的s则为2，因为只有2、3有相同元素），Ui表示第i个小集合所包含的元素数。</p>
+<p>公式三：<br>$$<br>T a u-c=\frac{C-D}{\frac{1}{2} N^{2} \frac{M-1}{M}}<br>$$<br>注意：这一公式中没有再考虑集合X、或Y中存在相同元素给最后的统计值带来的影响。公式三的这一计算形式仅适用于用表格表示的随机变量X、Y之间相关系数的计算（下面将会介绍）。</p>
+<p>参数M稍后会做介绍。</p>
+<p>通常人们会将两个随机变量的取值制作成一个表格，例如有10个样本，对每个样本进行两项指标测试X、Y（指标X、Y的取值均为1到3）。根据样本的X、Y指标取值，得到以下二维表格（表）：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201016165002.png" alt="1551331-20200306200737036-367067751" style="zoom:80%;">
+
+<p>由表可以得到X及Y的可以以集合的形式表示为：</p>
+<p>X={1, 1, 2, 2, 2, 2, 2, 3, 3, 3}；</p>
+<p>Y={1, 2, 1, 1, 2, 2, 3, 2, 3, 3}；</p>
+<p>得到X、Y的集合形式后就可以使用以上的公式一或公式二计算X、Y的肯德尔相关系数了（注意公式一、二的适用条件）。</p>
+<p>这里需要注意的是：公式二也可以用来计算表格形式表示的二维变量的肯德尔相关系数，不过它一般用来计算由正方形表格表示的二维变量的肯德尔相关系数，公式三则只是用来计算由长方形表格表示的二维变量的Kendall相关系数。这里给出公式三中字母M的含义，M表示长方形表格中行数与列数中较小的一个。表的行数及列数均为三。</p>
+<h2 id="适用范围"><a href="#适用范围" class="headerlink" title="适用范围"></a>适用范围</h2><p>肯德尔相关系数与斯皮尔曼相关系数对数据条件的要求相同。</p>
+<h2 id="代码示例-1"><a href="#代码示例-1" class="headerlink" title="代码示例"></a>代码示例</h2><pre class="line-numbers language-python"><code class="language-python">Dataframe<span class="token punctuation">.</span>corr<span class="token punctuation">(</span>method<span class="token operator">=</span><span class="token string">'kendall'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 返回相关关系矩阵
+
+<span class="token keyword">from</span> scipy<span class="token punctuation">.</span>stats <span class="token keyword">import</span> kendalltau
+
+kendalltau<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span> 返回系数和P值<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> pandas <span class="token keyword">import</span> DataFrame
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+x<span class="token operator">=</span><span class="token punctuation">[</span>a <span class="token keyword">for</span> a <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token comment" spellcheck="true">#构造一元二次方程，非线性关系</span>
+<span class="token keyword">def</span> <span class="token function">y_x</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token number">2</span><span class="token operator">*</span>x<span class="token operator">**</span><span class="token number">2</span><span class="token operator">+</span><span class="token number">4</span>
+y<span class="token operator">=</span><span class="token punctuation">[</span>y_x<span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> x<span class="token punctuation">]</span>
+
+data<span class="token operator">=</span>DataFrame<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">'x'</span><span class="token punctuation">:</span>x<span class="token punctuation">,</span><span class="token string">'y'</span><span class="token punctuation">:</span>y<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">#查看data的数据结构</span>
+data<span class="token punctuation">.</span>head<span class="token punctuation">(</span><span class="token punctuation">)</span>
+Out<span class="token punctuation">[</span><span class="token number">34</span><span class="token punctuation">]</span><span class="token punctuation">:</span> 
+   x   y
+<span class="token number">0</span>  <span class="token number">0</span>   <span class="token number">4</span>
+<span class="token number">1</span>  <span class="token number">1</span>   <span class="token number">6</span>
+<span class="token number">2</span>  <span class="token number">2</span>  <span class="token number">12</span>
+<span class="token number">3</span>  <span class="token number">3</span>  <span class="token number">22</span>
+<span class="token number">4</span>  <span class="token number">4</span>  <span class="token number">36</span>
+
+data<span class="token punctuation">.</span>corr<span class="token punctuation">(</span><span class="token punctuation">)</span>
+Out<span class="token punctuation">[</span><span class="token number">35</span><span class="token punctuation">]</span><span class="token punctuation">:</span> 
+          x         y
+x  <span class="token number">1.000000</span>  <span class="token number">0.967736</span>
+y  <span class="token number">0.967736</span>  <span class="token number">1.000000</span>
+
+data<span class="token punctuation">.</span>corr<span class="token punctuation">(</span>method<span class="token operator">=</span><span class="token string">'spearman'</span><span class="token punctuation">)</span>
+Out<span class="token punctuation">[</span><span class="token number">36</span><span class="token punctuation">]</span><span class="token punctuation">:</span> 
+     x    y
+x  <span class="token number">1.0</span>  <span class="token number">1.0</span>
+y  <span class="token number">1.0</span>  <span class="token number">1.0</span>
+
+data<span class="token punctuation">.</span>corr<span class="token punctuation">(</span>method<span class="token operator">=</span><span class="token string">'kendall'</span><span class="token punctuation">)</span>
+Out<span class="token punctuation">[</span><span class="token number">37</span><span class="token punctuation">]</span><span class="token punctuation">:</span> 
+     x    y
+x  <span class="token number">1.0</span>  <span class="token number">1.0</span>
+y  <span class="token number">1.0</span>  <span class="token number">1.0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>因为y经由函数构造出来，x和y的相关系数为1，但从实验结构可知pearson系数，针对非线性数据有一定的误差。 </p>
+<h1 id="四、案例"><a href="#四、案例" class="headerlink" title="四、案例"></a>四、案例</h1><p>举个例子说一下这三者分别适用的情况，主要说一下kendall，毕竟其他两个上期已经讲过了。比如10个病人做检查，检查结果数据如下：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201016164956.jpg" alt="v2-543cdbc8d92f50eedf062d67c966703a_720w" style="zoom:80%;">
+
+
+
+<p>a 身高与体重的相关性，pearson相关系数</p>
+<p>b 身高与病情程度的相关性，spearman或者kendall相关系数</p>
+<p>c 性别与身高的相关性，Kendall相关系数</p>
+<p>d 性别与病情程度的相关性，Kendall相关系数</p>
+<p>像b情况为什么两者都适用呢？是因为此时初步诊断这个变量即可以看作定类变量，也可以看作定序变量，至少我个人是这么理解的，但有兴趣和有空闲的同学不妨试验一下结果如何。</p>
+<p>性别请先自行转换成数值，比如0和1，再进行计算。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://blog.csdn.net/zhaozhn5/article/details/78392220" target="">三大统计相关系数：Pearson、Spearman秩相关系数、kendall等级相关系数</a> </li>
+<li><a href="https://zhuanlan.zhihu.com/p/33465271" target="">Kendall相关系数详解-案例版</a></li>
+<li><a href="https://www.cnblogs.com/shona/p/12430665.html" target="">Pearson、Spearman秩相关系数、kendall等级相关系数</a> </li>
+<li><a href="https://www.cnblogs.com/yjd_hycf_space/p/11537153.html" target="">三大相关系数：pearson, spearman, kendall</a> </li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script> 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+			本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/517e3c05/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/posts/9088ec4/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Excel点导入ArcGIS生成点文件
+          
+        </div>
+      </a>
+    
+    
+      <a href="/posts/59ed33ea/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">基于ArcGIS实现山体阴影和晕渲</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<!-- 评论背景 -->                                                         
+<style>
+    #veditor{min-height: 10rem;
+        background-image: url(https://raw.githubusercontent.com/HG95/image/master/20201128231728.gif);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: right;
+        background-color: rgba(255,255,255,0);
+        resize: none;}
+</style>
+<!-- Valine配置 --> 
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "rcJnXG7nEvYWvgGLAEOkaQmH-gzGzoHsz",
+    app_key: "nR5OWuczEKRHudn7Wsqdb5tA",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+  	<ul>
+		<li><i class="fa fa-envelope-o fa-fw"></i></li>
+	</ul>
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2020
+        <i class="ri-heart-fill heart_icon"></i> HG
+		</span>  
+		| 
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+		 
+      </li>
+    </ul>
+
+
+	<!-- 运行天数 -->
+	<ul>
+		<li><span id="runtime_span"></span></li>
+	</ul>
+
+
+  </div>
+</footer>
+
+<script type="text/javascript">			
+    function show_runtime() {
+        window.setTimeout("show_runtime()", 1000);
+        X = new Date("09/10/2020 22:22:22");
+        Y = new Date();
+        T = (Y.getTime() - X.getTime());
+        M = 24 * 60 * 60 * 1000;
+        a = T / M;
+        A = Math.floor(a);
+        b = (a - A) * 24;
+        B = Math.floor(b);
+        c = (b - B) * 60;
+        C = Math.floor((b - B) * 60);
+        D = Math.floor((c - C) * 60);
+        runtime_span.innerHTML = "小站在各种崩坏中坚持了: " + A + "天" + B + "小时" + C + "分" + D + "秒"
+    }
+	show_runtime();
+</script>
+
+
+
+
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://cdn.jsdelivr.net/gh/HG95/CDN/ayer.png" alt="错位的梦寐"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories/excel/">Excel</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/GitBook">GitBook</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://www.notion.so/Reading-List-1d6dc475a1b64737b6739719cf34667a">读书</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://mengmei14679.lofter.com/">相册</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friend">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝瓶农夫三拳吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/HG95/CDN/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/HG95/CDN/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+
+<script src="/js/clickLove.js"></script>
+
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=428391249&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+  <!-- 三角彩带背景 -->
+  <canvas id="evanyou-canvas" style="opacity: 0.3; position: fixed; top: 0px; left: 0px; z-index: -1; width: 100%; height: 100%; pointer-events: none;"></canvas>
+  <script src="https://cdn.jsdelivr.net/gh/XXXZhy/Blog_Image/js/evanyou_canvas.js"></script>
+  
+</body>
+
+</html>

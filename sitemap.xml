@@ -2,133 +2,182 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/2020/11/25/li-yong-python-pi-liang-he-bing-excel-wen-jian/</loc>
+    <loc>http://example.com/posts/e20385d1/</loc>
     
     <lastmod>2020-11-28</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/2020/09/13/hexo-bo-ke-ayer-zhu-ti-zi-ding-yi-pei-zhi/</loc>
+    <loc>http://example.com/posts/38a409b0/</loc>
     
     <lastmod>2020-11-28</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/2020/09/12/di-yi-pian-bo-ke/</loc>
+    <loc>http://example.com/posts/99b548ed/</loc>
     
     <lastmod>2020-11-28</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/2020/09/14/excel-vlookup-han-shu-chang-yong-fang-fa-ji-he/</loc>
+    <loc>http://example.com/posts/bd504bf7/</loc>
     
     <lastmod>2020-11-28</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/2020/09/14/excel-lookup-han-shu-yong-fa/</loc>
+    <loc>http://example.com/posts/3677eeee/</loc>
     
     <lastmod>2020-11-28</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/2020/11/18/excel-shu-ru-shu-ju-zi-dong-xie-ru-dang-qian-shi-jian-qie-suo-ding-bu-bian/</loc>
+    <loc>http://example.com/posts/36d720f0/</loc>
     
     <lastmod>2020-11-28</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/2020/11/05/gdal-du-xie-yao-gan-ying-xiang-shu-ju/</loc>
+    <loc>http://example.com/posts/ba9591fe/</loc>
     
     <lastmod>2020-11-28</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/2020/10/19/excel-dian-dao-ru-arcgis-sheng-cheng-dian-wen-jian/</loc>
+    <loc>http://example.com/posts/a6c09c13/</loc>
     
     <lastmod>2020-11-28</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/2020/10/30/python-zhong-arcpy-ku-de-ying-yong/</loc>
+    <loc>http://example.com/posts/ff05b5bf/</loc>
     
     <lastmod>2020-11-28</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/2020/11/02/arcgis-10-2-2-li-yong-anaconda-ji-cheng-scipy-he-pandas/</loc>
+    <loc>http://example.com/posts/4fa33926/</loc>
     
     <lastmod>2020-11-28</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/2020/10/15/ji-yu-arcgis-shi-xian-shan-ti-yin-ying-he-yun-xuan/</loc>
+    <loc>http://example.com/posts/d6aa689c/</loc>
     
     <lastmod>2020-11-28</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/2020/10/16/san-da-xiang-guan-xing-jian-yan/</loc>
+    <loc>http://example.com/posts/dc5d043f/</loc>
     
     <lastmod>2020-11-28</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/2020/09/30/zotero-word2016-can-kao-wen-xian-zhong-ying-wen-hun-pai-jie-jue-et-al-he-deng-de-wen-ti/</loc>
+    <loc>http://example.com/posts/59ed33ea/</loc>
     
     <lastmod>2020-11-28</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/2020/09/28/tui-duan-tong-ji-can-shu-gu-ji/</loc>
+    <loc>http://example.com/posts/eebdf3f9/</loc>
     
     <lastmod>2020-11-28</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/2020/09/23/tui-duan-tong-ji-jia-she-jian-yan/</loc>
+    <loc>http://example.com/posts/517e3c05/</loc>
     
     <lastmod>2020-11-28</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/2020/09/25/ping-jun-zhi-biao-zhun-chai-fang-chai-xie-fang-chai-xiang-guan-xi-shu-de-qu-bie-yu-lian-xi/</loc>
+    <loc>http://example.com/posts/892c256e/</loc>
     
     <lastmod>2020-11-28</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/2020/09/25/ji-cheng-xue-xi-san-da-fa-bao-bagging-boosting-stacking/</loc>
+    <loc>http://example.com/posts/be627c25/</loc>
     
     <lastmod>2020-11-28</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/2020/09/25/fang-chai-fen-xi/</loc>
+    <loc>http://example.com/posts/590781cc/</loc>
     
     <lastmod>2020-11-28</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/2020/09/23/graphics-qq-tu-fen-wei-shu-tu/</loc>
+    <loc>http://example.com/posts/cdd2e0dc/</loc>
+    
+    <lastmod>2020-11-28</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/posts/171131a6/</loc>
+    
+    <lastmod>2020-11-28</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/posts/9088ec4/</loc>
+    
+    <lastmod>2020-11-28</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/posts/9061c292/</loc>
+    
+    <lastmod>2020-11-28</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/posts/5d5b464a/</loc>
+    
+    <lastmod>2020-11-28</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/posts/9de15300/</loc>
+    
+    <lastmod>2020-11-28</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/friends/index.html</loc>
+    
+    <lastmod>2020-11-28</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/friends/links.json</loc>
     
     <lastmod>2020-11-28</lastmod>
     
@@ -156,20 +205,6 @@
   </url>
   
   <url>
-    <loc>http://example.com/friends/links.json</loc>
-    
-    <lastmod>2020-09-20</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/friends/index.html</loc>
-    
-    <lastmod>2020-09-20</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://example.com/friend/index.html</loc>
     
     <lastmod>2020-09-20</lastmod>
@@ -180,34 +215,6 @@
     <loc>http://example.com/GitBook/index.html</loc>
     
     <lastmod>2020-09-20</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/2020/09/19/niu-ke-wang-sql-shi-zhan-day-4/</loc>
-    
-    <lastmod>2020-09-20</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/2020/09/17/niu-ke-wang-sql-shi-zhan-day-3/</loc>
-    
-    <lastmod>2020-09-17</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/2020/09/16/niu-ke-wang-sql-shi-zhan-day-2/</loc>
-    
-    <lastmod>2020-09-17</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/2020/09/15/niu-ke-wang-sql-shi-zhan-day-1/</loc>
-    
-    <lastmod>2020-09-15</lastmod>
     
   </url>
   
@@ -342,14 +349,14 @@
 
   
   <url>
-    <loc>http://example.com/categories/arcpy/</loc>
+    <loc>http://example.com/categories/Excel/</loc>
     <lastmod>2020-11-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://example.com/categories/Excel/</loc>
+    <loc>http://example.com/categories/arcpy/</loc>
     <lastmod>2020-11-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -384,14 +391,14 @@
   </url>
   
   <url>
-    <loc>http://example.com/categories/Applets/</loc>
+    <loc>http://example.com/categories/statistics/</loc>
     <lastmod>2020-11-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://example.com/categories/statistics/</loc>
+    <loc>http://example.com/categories/Applets/</loc>
     <lastmod>2020-11-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

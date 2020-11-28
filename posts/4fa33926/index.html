@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="读书的意义大概就是用生活所感去读书，用读书所得去生活。" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    牛客网SQL实战|Day 2 |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/HG95/CDN/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+  
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+</html>
+
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-牛客网SQL实战-Day-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  牛客网SQL实战|Day 2
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/posts/4fa33926/" class="article-date">
+  <time datetime="2020-09-16T11:00:30.000Z" itemprop="datePublished">2020-09-16</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SQL/">SQL</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.6k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">12 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>Day two</p>
+<a id="more"></a>
+
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200916224814.jpg" alt="wallhaven-2eroxm">
+
+<h1 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h1><table>
+<thead>
+<tr>
+<th>题号</th>
+<th>知识点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>11</td>
+<td><code>inner join</code>  / <code>where</code> 并列条件</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>left join</code>   / SQL 语句的执行顺序</td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>conut()</code></td>
+</tr>
+<tr>
+<td>14</td>
+<td><code>count()</code> / <code>distinct</code> 去重</td>
+</tr>
+<tr>
+<td>15</td>
+<td>求奇数的方法：取余函数 <code>mod()</code> , 运算符 <code>%</code>, 位运算：<code>字段&amp;</code>正则表达式 <code>regexp '[13579]$'</code><br>求偶数的方法：位运算 <code>(字段&gt;&gt;1)&lt;&lt;1</code> ,  正则表达式;<code>regexp '[02468]$'</code></td>
+</tr>
+<tr>
+<td>16</td>
+<td><code>inner join</code>  / SQL 执行的顺序</td>
+</tr>
+<tr>
+<td>17</td>
+<td><code>order by</code> + <code>limit</code> / 排序后，按序号</td>
+</tr>
+<tr>
+<td>18</td>
+<td>不用 <code>order by</code> 获取第二大的数，先把最大的找出来并将其过滤掉，在剩下的里面找取最大的(也就是第二大的)</td>
+</tr>
+<tr>
+<td>19</td>
+<td>多表连接，可以用子查询语句 /<code> cross join</code> 注意连接的字段关系</td>
+</tr>
+<tr>
+<td>20</td>
+<td><code>group by</code>   + <code>having</code></td>
+</tr>
+</tbody></table>
+<h1 id="第十一题"><a href="#第十一题" class="headerlink" title="第十一题"></a>第十一题</h1><ul>
+<li><p>题目描述</p>
+<p>获取所有员工当前的(dept_manager.to_date=’9999-01-01’)manager，如果员工是manager的话不显示(也就是如果当前的manager是自己的话结果不显示)。输出结果第一列给出当前员工的emp_no,第二列给出其manager对应的emp_no。</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>dept_emp<span class="token punctuation">`</span>
+<span class="token punctuation">(</span>
+    <span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span>    <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">-- '所有的员工编号'</span>
+    <span class="token punctuation">`</span>dept_no<span class="token punctuation">`</span>   char<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">-- '部门编号'</span>
+    <span class="token punctuation">`</span>from_date<span class="token punctuation">`</span> <span class="token keyword">date</span>    <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>to_date<span class="token punctuation">`</span>   <span class="token keyword">date</span>    <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>dept_no<span class="token punctuation">`</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>dept_manager<span class="token punctuation">`</span>
+<span class="token punctuation">(</span>
+    <span class="token punctuation">`</span>dept_no<span class="token punctuation">`</span>   char<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">-- '部门编号'</span>
+    <span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span>    <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">-- '经理编号'</span>
+    <span class="token punctuation">`</span>from_date<span class="token punctuation">`</span> <span class="token keyword">date</span>    <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>to_date<span class="token punctuation">`</span>   <span class="token keyword">date</span>    <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>dept_no<span class="token punctuation">`</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>输出描述</p>
+<table>
+<thead>
+<tr>
+<th align="left">emp_no</th>
+<th align="left">manager_no</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">10001</td>
+<td align="left">10002</td>
+</tr>
+<tr>
+<td align="left">10003</td>
+<td align="left">10004</td>
+</tr>
+<tr>
+<td align="left">10009</td>
+<td align="left">10010</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>解答</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> t1<span class="token punctuation">.</span>emp_no<span class="token punctuation">,</span>
+        t2<span class="token punctuation">.</span>emp_no
+<span class="token keyword">from</span> dept_emp t1
+<span class="token keyword">inner</span> <span class="token keyword">join</span> dept_manager t2
+<span class="token keyword">where</span> t1<span class="token punctuation">.</span>dept_no <span class="token operator">=</span> t2<span class="token punctuation">.</span>dept_no <span class="token operator">and</span> t1<span class="token punctuation">.</span>emp_no <span class="token operator">!=</span> t2<span class="token punctuation">.</span>emp_no <span class="token operator">and</span> t2<span class="token punctuation">.</span>to_date <span class="token operator">=</span> <span class="token string">'9999-01-01'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>总结</p>
+<ol>
+<li><code>left join </code> 或者 <code>inner join</code> 进行表连接；</li>
+<li><code>where</code> 多条件并列。</li>
+</ol>
+</li>
+</ul>
+<h1 id="第十二题"><a href="#第十二题" class="headerlink" title="第十二题"></a>第十二题</h1><ul>
+<li><p>题目描述</p>
+<p>获取所有部门中当前(dept_emp.to_date = ‘9999-01-01’)员工当前(salaries.to_date=’9999-01-01’)薪水最高的相关信息，给出dept_no, emp_no以及其对应的salary，按照部门升序排列。</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>dept_emp<span class="token punctuation">`</span>
+<span class="token punctuation">(</span>
+    <span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span>    <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>dept_no<span class="token punctuation">`</span>   char<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>from_date<span class="token punctuation">`</span> <span class="token keyword">date</span>    <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>to_date<span class="token punctuation">`</span>   <span class="token keyword">date</span>    <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>dept_no<span class="token punctuation">`</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>salaries<span class="token punctuation">`</span>
+<span class="token punctuation">(</span>
+    <span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span>    <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>salary<span class="token punctuation">`</span>    <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>from_date<span class="token punctuation">`</span> <span class="token keyword">date</span>    <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>to_date<span class="token punctuation">`</span>   <span class="token keyword">date</span>    <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>from_date<span class="token punctuation">`</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>输出描述</p>
+<table>
+<thead>
+<tr>
+<th>dept_no</th>
+<th>emp_no</th>
+<th>salary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>d001</td>
+<td>10001</td>
+<td>88958</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>解答</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> t2<span class="token punctuation">.</span>dept_no<span class="token punctuation">,</span>
+       t2<span class="token punctuation">.</span>emp_no<span class="token punctuation">,</span>
+       <span class="token function">max</span><span class="token punctuation">(</span>t1<span class="token punctuation">.</span>salary<span class="token punctuation">)</span>
+<span class="token keyword">from</span> salaries t1
+         <span class="token keyword">left</span> <span class="token keyword">join</span> dept_emp t2
+                   <span class="token keyword">on</span> t1<span class="token punctuation">.</span>emp_no <span class="token operator">=</span> t2<span class="token punctuation">.</span>emp_no
+<span class="token keyword">where</span> t2<span class="token punctuation">.</span>to_date <span class="token operator">=</span> <span class="token string">'9999-01-01'</span> <span class="token operator">and</span> t1<span class="token punctuation">.</span>to_date<span class="token operator">=</span><span class="token string">'9999-01-01'</span>
+<span class="token keyword">group</span> <span class="token keyword">by</span> t2<span class="token punctuation">.</span>dept_no<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>总结</p>
+<ol>
+<li><code>left join</code> 连接表</li>
+<li><code>where</code> 与 <code>group by</code> 的执行顺序。</li>
+</ol>
+</li>
+</ul>
+<h1 id="第十三题"><a href="#第十三题" class="headerlink" title="第十三题"></a>第十三题</h1><ul>
+<li><p>题目描述</p>
+<p>从titles表获取按照title进行分组，每组个数大于等于2，给出title以及对应的数目t。</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span> <span class="token string">"titles"</span>
+<span class="token punctuation">(</span>
+    <span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span>    <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span>     <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>title<span class="token punctuation">`</span>     <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>from_date<span class="token punctuation">`</span> <span class="token keyword">date</span>        <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>to_date<span class="token punctuation">`</span>   <span class="token keyword">date</span> <span class="token keyword">DEFAULT</span> <span class="token boolean">NULL</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>输出描述</p>
+<table>
+<thead>
+<tr>
+<th align="left">title</th>
+<th align="left">t</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Assistant Engineer</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Engineer</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">省略</td>
+<td align="left">省略</td>
+</tr>
+<tr>
+<td align="left">Staff</td>
+<td align="left">3</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>解答</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> title<span class="token punctuation">,</span>
+<span class="token function">count</span><span class="token punctuation">(</span><span class="token punctuation">)</span> t
+<span class="token keyword">from</span> titles
+<span class="token keyword">group</span> <span class="token keyword">by</span> title
+<span class="token keyword">having</span> t <span class="token operator">>=</span> <span class="token number">2</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>总结</p>
+<ol>
+<li><p><code>count()</code> 计数，传入不同参数的对 <code>null</code> 的处理：</p>
+<p><code>count()</code> <strong>会忽略列值为空。</strong></p>
+<p><code>count(列名)</code> 只包括列名那一列，在统计结果的时候，<strong>会忽略列值为空。</strong></p>
+<p><code>count(*)</code>包括了所有的列，相当于行数，在统计结果的时候，<strong>不会忽略列值为NULL。</strong></p>
+<p><code>count(1)</code>包括了忽略所有列，用1代表代码行，在统计结果的时候，<strong>不会忽略列值为NULL。</strong></p>
+</li>
+</ol>
+</li>
+</ul>
+<h1 id="第十四题"><a href="#第十四题" class="headerlink" title="第十四题"></a>第十四题</h1><ul>
+<li><p>题目描述</p>
+<p>从titles表获取按照title进行分组，每组个数大于等于2，给出title以及对应的数目t。<br>注意对于重复的emp_no进行忽略(即emp_no重复的title不计算，title对应的数目t不增加)。</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span> <span class="token punctuation">`</span>titles<span class="token punctuation">`</span> <span class="token punctuation">(</span>
+<span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token punctuation">`</span>title<span class="token punctuation">`</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token punctuation">`</span>from_date<span class="token punctuation">`</span> <span class="token keyword">date</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token punctuation">`</span>to_date<span class="token punctuation">`</span> <span class="token keyword">date</span> <span class="token keyword">DEFAULT</span> <span class="token boolean">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>输出描述</p>
+<table>
+<thead>
+<tr>
+<th align="left">title</th>
+<th align="left">t</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Assistant Engineer</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Engineer</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">省略</td>
+<td align="left">省略</td>
+</tr>
+<tr>
+<td align="left">Staff</td>
+<td align="left">3</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>解答</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> title<span class="token punctuation">,</span>
+<span class="token function">count</span><span class="token punctuation">(</span><span class="token keyword">distinct</span> emp_no<span class="token punctuation">)</span> t
+<span class="token keyword">from</span> titles
+<span class="token keyword">group</span> <span class="token keyword">by</span> title
+<span class="token keyword">having</span> t <span class="token operator">>=</span><span class="token number">2</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>解答</p>
+<ol>
+<li><code>count()</code> 计数；</li>
+<li><code>distinct</code> 对重复值进行过滤。</li>
+</ol>
+</li>
+</ul>
+<h1 id="第十五题"><a href="#第十五题" class="headerlink" title="第十五题"></a>第十五题</h1><ul>
+<li><p>题目描述</p>
+<p>查找employees表所有emp_no为奇数，且last_name不为Mary(注意大小写)的员工信息，并按照hire_date逆序排列(题目不能使用mod函数)</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>employees<span class="token punctuation">`</span> <span class="token punctuation">(</span>
+<span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token punctuation">`</span>birth_date<span class="token punctuation">`</span> <span class="token keyword">date</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token punctuation">`</span>first_name<span class="token punctuation">`</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">14</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token punctuation">`</span>last_name<span class="token punctuation">`</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token punctuation">`</span>gender<span class="token punctuation">`</span> char<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token punctuation">`</span>hire_date<span class="token punctuation">`</span> <span class="token keyword">date</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>输出描述</p>
+<table>
+<thead>
+<tr>
+<th align="left">emp_no</th>
+<th align="left">birth_date</th>
+<th align="left">first_name</th>
+<th align="left">last_name</th>
+<th align="left">gender</th>
+<th align="left">hire_date</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">10011</td>
+<td align="left">1953-11-07</td>
+<td align="left">Mary</td>
+<td align="left">Sluis</td>
+<td align="left">F</td>
+<td align="left">1990-01-22</td>
+</tr>
+<tr>
+<td align="left">10005</td>
+<td align="left">1955-01-21</td>
+<td align="left">Kyoichi</td>
+<td align="left">Maliniak</td>
+<td align="left">M</td>
+<td align="left">1989-09-12</td>
+</tr>
+<tr>
+<td align="left">10007</td>
+<td align="left">1957-05-23</td>
+<td align="left">Tzvetan</td>
+<td align="left">Zielinski</td>
+<td align="left">F</td>
+<td align="left">1989-02-10</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>解答</p>
+<p>方法一：</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span>
+<span class="token keyword">from</span> employees
+<span class="token keyword">where</span> emp_no <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">=</span><span class="token number">1</span> <span class="token operator">and</span> last_name <span class="token operator">!=</span> <span class="token string">'Mary'</span>
+<span class="token keyword">order</span> <span class="token keyword">by</span> hire_date <span class="token keyword">desc</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>方法二：</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span>
+<span class="token keyword">from</span> employees
+<span class="token keyword">where</span> emp_no<span class="token operator">&amp;</span><span class="token number">1</span> <span class="token operator">and</span> last_name <span class="token operator">!=</span> <span class="token string">'Mary'</span>
+<span class="token keyword">order</span> <span class="token keyword">by</span> hire_date <span class="token keyword">desc</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>总结</p>
+<ol>
+<li><p>求奇数的方法 ：取余函数 <code>mod()</code> , 运算符 <code>%</code>, 正则表达式。</p>
+</li>
+<li><p>奇偶数查询：<a target="_blank" rel="noopener" href="https://blog.csdn.net/ccStroy/article/details/78061861">https://blog.csdn.net/ccStroy/article/details/78061861</a></p>
+<p>位运算</p>
+<p>奇数查询：<code>SELECT a.user_id FROM t_user_info a WHERE a.user_id&amp;1 LIMIT 5</code></p>
+<p>偶数查询：<code>SELECT a.user_id FROM t_user_info a WHERE a.user_id=(a.user_id&gt;&gt;1)&lt;&lt;1 LIMIT 5</code></p>
+<p>查询奇数的方法 &amp;1：1的二进制是0001，与运算符：1 &amp; 1 = 1, 1 &amp; 0 = 0, 0 &amp; 1 = 0, 0 &amp; 0 = 0；所以可以保证最后一位是奇数。</p>
+<p>查询偶数的方法 字段=（字段&gt;&gt;1）&lt;&lt;1：这是左移和右移运算符，先整除再乘，意思就是先整除2再乘以2，看前后结果是否一样，一样的就是偶数。</p>
+<p>正则表达式</p>
+<p>查询奇数：</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token number">a</span><span class="token punctuation">.</span>idcard_num <span class="token keyword">from</span> t_user_info <span class="token number">a</span> <span class="token keyword">where</span> <span class="token number">a</span><span class="token punctuation">.</span>idcard_num <span class="token operator">regexp</span> <span class="token string">'[13579]$'</span> <span class="token keyword">limit</span> <span class="token number">5</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>查询偶数</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token number">a</span><span class="token punctuation">.</span>idcard_num <span class="token keyword">from</span> t_user_info <span class="token number">a</span> <span class="token keyword">where</span> <span class="token number">a</span><span class="token punctuation">.</span>idcard_num <span class="token operator">regexp</span> <span class="token string">'[02468]$'</span> <span class="token keyword">limit</span> <span class="token number">5</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>正则表达式复习</p>
+<p><code>^aa</code> ：以 aa 为开头；</p>
+<p><code>aa$</code> ：以aa结尾；</p>
+<p><code>.  </code>  ：匹配任何字符；</p>
+<p><code>[abc]</code>：[字符集合]，包含中括号里的字符；</p>
+<p><code>[^abc]</code>：不包含中括号里的字符；</p>
+<p><code>a|b|c</code> ：匹配a或b或c，（中|美）国；</p>
+<p><code>*  </code>：匹配前面的子表达式零次或多次。例如，zo* 能匹配 “z” 以及 “zoo”。* 等价于{0,}；</p>
+<p><code>+</code>  ：匹配前面的子表达式一次或多次。例如，’zo+’ 能匹配 “zo” 以及 “zoo”，但不能匹配 “z”。+ 等价于 {1,}；</p>
+<p><code>{n}</code>  ：n 是一个非负整数。匹配确定的 n 次。例如，’o{2}’ 不能匹配 “Bob” 中的 ‘o’，但是能匹配 “food” 中的两个 o；</p>
+<p><code>{n,m} </code>：m 和 n 均为非负整数，其中n &lt;= m。最少匹配 n 次且最多匹配 m 次。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h1 id="第十六题"><a href="#第十六题" class="headerlink" title="第十六题"></a>第十六题</h1><ul>
+<li><p>题目描述</p>
+<p>统计出当前(titles.to_date=’9999-01-01’)各个title类型对应的员工当前(salaries.to_date=’9999-01-01’)薪水对应的平均工资。结果给出title以及平均工资avg。</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>salaries<span class="token punctuation">`</span>
+<span class="token punctuation">(</span>
+    <span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span>    <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>salary<span class="token punctuation">`</span>    <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>from_date<span class="token punctuation">`</span> <span class="token keyword">date</span>    <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>to_date<span class="token punctuation">`</span>   <span class="token keyword">date</span>    <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>from_date<span class="token punctuation">`</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span> <span class="token string">"titles"</span>
+<span class="token punctuation">(</span>
+    <span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span>    <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span>     <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>title<span class="token punctuation">`</span>     <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>from_date<span class="token punctuation">`</span> <span class="token keyword">date</span>        <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>to_date<span class="token punctuation">`</span>   <span class="token keyword">date</span> <span class="token keyword">DEFAULT</span> <span class="token boolean">NULL</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>输出描述</p>
+<table>
+<thead>
+<tr>
+<th>title</th>
+<th>avg</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Senior Engineer</td>
+<td>62409.25</td>
+</tr>
+<tr>
+<td>Senior Staff</td>
+<td>88070.0</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>解答</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> t1<span class="token punctuation">.</span>title<span class="token punctuation">,</span>
+    <span class="token function">avg</span><span class="token punctuation">(</span>t2<span class="token punctuation">.</span>salary<span class="token punctuation">)</span> <span class="token string">'avg'</span>
+<span class="token keyword">from</span> titles t1
+<span class="token keyword">inner</span> <span class="token keyword">join</span> salaries t2
+<span class="token keyword">on</span> t1<span class="token punctuation">.</span>emp_no <span class="token operator">=</span> t2<span class="token punctuation">.</span>emp_no
+<span class="token keyword">where</span> t1<span class="token punctuation">.</span>to_date <span class="token operator">=</span> <span class="token string">'9999-01-01'</span> 
+    <span class="token operator">and</span> t2<span class="token punctuation">.</span>to_date <span class="token operator">=</span> <span class="token string">'9999-01-01'</span>
+<span class="token keyword">group</span> <span class="token keyword">by</span> title<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>总结</p>
+<ol>
+<li><code>inner join</code> 左连接；</li>
+<li>SQL 语句的执行顺序。</li>
+</ol>
+</li>
+</ul>
+<h1 id="第十七题"><a href="#第十七题" class="headerlink" title="第十七题"></a>第十七题</h1><ul>
+<li><p>题目描述</p>
+<p>获取当前（to_date=’9999-01-01’）薪水第二多的员工的emp_no以及其对应的薪水salary</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>salaries<span class="token punctuation">`</span> <span class="token punctuation">(</span>
+<span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token punctuation">`</span>salary<span class="token punctuation">`</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token punctuation">`</span>from_date<span class="token punctuation">`</span> <span class="token keyword">date</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token punctuation">`</span>to_date<span class="token punctuation">`</span> <span class="token keyword">date</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>from_date<span class="token punctuation">`</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>输出描述</p>
+<table>
+<thead>
+<tr>
+<th align="left">emp_no</th>
+<th align="left">salary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">10009</td>
+<td align="left">94409</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>解答</p>
+<p>方法一： <code>order by</code> + <code>limit</code></p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> emp_no<span class="token punctuation">,</span>
+        salary
+<span class="token keyword">from</span> salaries
+<span class="token keyword">where</span> to_date <span class="token operator">=</span> <span class="token string">'9999-01-01'</span>
+<span class="token keyword">order</span> <span class="token keyword">by</span> salary <span class="token keyword">desc</span>
+<span class="token keyword">limit</span> <span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>方法二：先进行排序，再获取排名第二的</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> t1<span class="token punctuation">.</span>emp_no<span class="token punctuation">,</span>
+        t1<span class="token punctuation">.</span>salary
+<span class="token keyword">from</span> <span class="token punctuation">(</span>
+    <span class="token keyword">select</span> <span class="token operator">*</span><span class="token punctuation">,</span>
+        row_number<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">over</span><span class="token punctuation">(</span><span class="token keyword">order</span> <span class="token keyword">by</span> salary <span class="token keyword">desc</span><span class="token punctuation">)</span> r
+    <span class="token keyword">from</span> salaries
+    <span class="token punctuation">)</span> t1
+<span class="token keyword">where</span> t1<span class="token punctuation">.</span>r <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>方法三</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">SELECT</span> emp_no<span class="token punctuation">,</span> salary
+<span class="token keyword">FROM</span> salaries
+<span class="token keyword">WHERE</span> salary <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">SELECT</span> salary
+                <span class="token keyword">FROM</span> salaries
+                <span class="token keyword">WHERE</span> to_date <span class="token operator">=</span> <span class="token string">'9999-01-01'</span>
+                <span class="token keyword">GROUP</span> <span class="token keyword">BY</span> salary
+                <span class="token keyword">ORDER</span> <span class="token keyword">BY</span> salary <span class="token keyword">DESC</span> <span class="token keyword">LIMIT</span> <span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span> <span class="token punctuation">)</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这种先是对 salary 进行去重，排序，最后取第二高的。（<code>group by</code> 也有去重的作用）</p>
+</li>
+<li><p>总结</p>
+<ol>
+<li>获取第几的问题，可以用 <code>limit</code> 进行获取；但是对于含有重复项的排名，一般先对其进行排名再进行数据获取。</li>
+</ol>
+</li>
+</ul>
+<h1 id="第十八题"><a href="#第十八题" class="headerlink" title="第十八题"></a>第十八题</h1><ul>
+<li><p>题目描述</p>
+<p>查找当前薪水(to_date=’9999-01-01’)排名第二多的员工编号emp_no、薪水salary、last_name以及first_name，<u>你可以不使用order by完成吗?</u></p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>employees<span class="token punctuation">`</span>
+<span class="token punctuation">(</span>
+    <span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span>     <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span>     <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>birth_date<span class="token punctuation">`</span> <span class="token keyword">date</span>        <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>first_name<span class="token punctuation">`</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">14</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>last_name<span class="token punctuation">`</span>  <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>gender<span class="token punctuation">`</span>     char<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>     <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>hire_date<span class="token punctuation">`</span>  <span class="token keyword">date</span>        <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>salaries<span class="token punctuation">`</span>
+<span class="token punctuation">(</span>
+    <span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span>    <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>salary<span class="token punctuation">`</span>    <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>from_date<span class="token punctuation">`</span> <span class="token keyword">date</span>    <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>to_date<span class="token punctuation">`</span>   <span class="token keyword">date</span>    <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>from_date<span class="token punctuation">`</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>输出描述</p>
+<table>
+<thead>
+<tr>
+<th align="left">emp_no</th>
+<th align="left">salary</th>
+<th align="left">last_name</th>
+<th align="left">first_name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">10009</td>
+<td align="left">94409</td>
+<td align="left">Peac</td>
+<td align="left">Sumant</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>解答</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> t1<span class="token punctuation">.</span>emp_no<span class="token punctuation">,</span>
+       t2<span class="token punctuation">.</span>salary<span class="token punctuation">,</span>
+       t1<span class="token punctuation">.</span>last_name<span class="token punctuation">,</span>
+       t1<span class="token punctuation">.</span>first_name
+<span class="token keyword">from</span> employees t1
+         <span class="token keyword">left</span> <span class="token keyword">join</span> salaries t2
+                   <span class="token keyword">on</span> t1<span class="token punctuation">.</span>emp_no <span class="token operator">=</span> t2<span class="token punctuation">.</span>emp_no
+<span class="token keyword">where</span> t2<span class="token punctuation">.</span>salary <span class="token operator">=</span> <span class="token punctuation">(</span>
+    <span class="token keyword">select</span> <span class="token function">max</span><span class="token punctuation">(</span>salary<span class="token punctuation">)</span>
+    <span class="token keyword">from</span> salaries t3
+    <span class="token keyword">where</span> t3<span class="token punctuation">.</span>salary <span class="token operator">!=</span> <span class="token punctuation">(</span>
+        <span class="token keyword">select</span> <span class="token function">max</span><span class="token punctuation">(</span>salary<span class="token punctuation">)</span>
+        <span class="token keyword">from</span> salaries
+        <span class="token keyword">where</span> to_date <span class="token operator">=</span> <span class="token string">'9999-01-01'</span>
+    <span class="token punctuation">)</span>
+      <span class="token operator">and</span> t3<span class="token punctuation">.</span>to_date <span class="token operator">=</span> <span class="token string">'9999-01-01'</span>
+<span class="token punctuation">)</span>
+  <span class="token operator">and</span> t2<span class="token punctuation">.</span>to_date <span class="token operator">=</span> <span class="token string">'9999-01-01'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>解题思路：</p>
+<p>先把最大的出来并将其过滤掉，寻找剩余里面最大的 (也就越是第二大的)，找出第二大的后，就可以用 <code>where</code> 进行条件过了。</p>
+</li>
+</ul>
+<h1 id="第十九题"><a href="#第十九题" class="headerlink" title="第十九题"></a>第十九题</h1><ul>
+<li><p>题目描述</p>
+<p>查找所有员工的last_name和first_name以及对应的dept_name，也包括暂时没有分配部门的员工</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>departments<span class="token punctuation">`</span>
+<span class="token punctuation">(</span>
+    <span class="token punctuation">`</span>dept_no<span class="token punctuation">`</span>   char<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>     <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>dept_name<span class="token punctuation">`</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">40</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>dept_no<span class="token punctuation">`</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>dept_emp<span class="token punctuation">`</span>
+<span class="token punctuation">(</span>
+    <span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span>    <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>dept_no<span class="token punctuation">`</span>   char<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>from_date<span class="token punctuation">`</span> <span class="token keyword">date</span>    <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>to_date<span class="token punctuation">`</span>   <span class="token keyword">date</span>    <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>dept_no<span class="token punctuation">`</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>employees<span class="token punctuation">`</span>
+<span class="token punctuation">(</span>
+    <span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span>     <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span>     <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>birth_date<span class="token punctuation">`</span> <span class="token keyword">date</span>        <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>first_name<span class="token punctuation">`</span> <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">14</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>last_name<span class="token punctuation">`</span>  <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>gender<span class="token punctuation">`</span>     char<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>     <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token punctuation">`</span>hire_date<span class="token punctuation">`</span>  <span class="token keyword">date</span>        <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>输出描述</p>
+<table>
+<thead>
+<tr>
+<th align="left">last_name</th>
+<th align="left">first_name</th>
+<th align="left">dept_name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Facello</td>
+<td align="left">Georgi</td>
+<td align="left">Marketing</td>
+</tr>
+<tr>
+<td align="left">省略</td>
+<td align="left">省略</td>
+<td align="left">省略</td>
+</tr>
+<tr>
+<td align="left">Sluis</td>
+<td align="left">Mary</td>
+<td align="left">NULL</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>解答</p>
+<p>方法一：运用子查询</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span>  t4<span class="token punctuation">.</span>last_name<span class="token punctuation">,</span>
+        t4<span class="token punctuation">.</span>first_name<span class="token punctuation">,</span>
+        t3<span class="token punctuation">.</span>dept_name
+<span class="token keyword">from</span> employees t4
+<span class="token keyword">left</span> <span class="token keyword">join</span> <span class="token punctuation">(</span>
+            <span class="token keyword">select</span> emp_no <span class="token punctuation">,</span> 
+                    dept_name 
+            <span class="token keyword">from</span> dept_emp t1
+            <span class="token keyword">left</span> <span class="token keyword">join</span> departments t2
+            <span class="token keyword">on</span> t1<span class="token punctuation">.</span>dept_no <span class="token operator">=</span> t2<span class="token punctuation">.</span>dept_no
+        <span class="token punctuation">)</span> t3
+<span class="token keyword">on</span> t4<span class="token punctuation">.</span>emp_no <span class="token operator">=</span> t3<span class="token punctuation">.</span>emp_no<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>解题思路：</p>
+<p>先将两个表进行 <code>left join</code> 连接，再用第三各表连接进行连接</p>
+<p>方法二：三表连接（注意连接时的条件）</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token number">e</span><span class="token punctuation">.</span>last_name<span class="token punctuation">,</span><span class="token number">e</span><span class="token punctuation">.</span>first_name<span class="token punctuation">,</span><span class="token number">d</span><span class="token punctuation">.</span>dept_name
+<span class="token keyword">from</span> employees <span class="token number">e</span> <span class="token keyword">left</span> <span class="token keyword">join</span> dept_emp <span class="token number">de</span> <span class="token keyword">on</span> <span class="token number">e</span><span class="token punctuation">.</span>emp_no<span class="token operator">=</span><span class="token number">de</span><span class="token punctuation">.</span>emp_no
+<span class="token keyword">left</span> <span class="token keyword">join</span> departments <span class="token number">d</span> <span class="token keyword">on</span> <span class="token number">de</span><span class="token punctuation">.</span>dept_no<span class="token operator">=</span><span class="token number">d</span><span class="token punctuation">.</span>dept_no<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<ul>
+<li><p>总结</p>
+<ol>
+<li>灵活运用子查询。</li>
+<li>运用方法二的时候，自己第一次老是想着用第一个的字段和第三个表的字段设置连接条件，事实证明，第二个表和第三个表的字段也可以作为连接的条件。</li>
+</ol>
+</li>
+</ul>
+<h1 id="第二十题"><a href="#第二十题" class="headerlink" title="第二十题"></a>第二十题</h1><ul>
+<li><p>题目描述</p>
+<p>查找员工编号emp_no为10001其自入职以来的薪水salary涨幅(总共涨了多少)growth(可能有多次涨薪，没有降薪)</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>salaries<span class="token punctuation">`</span> <span class="token punctuation">(</span>
+<span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token punctuation">`</span>salary<span class="token punctuation">`</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token punctuation">`</span>from_date<span class="token punctuation">`</span> <span class="token keyword">date</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token punctuation">`</span>to_date<span class="token punctuation">`</span> <span class="token keyword">date</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+<span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>emp_no<span class="token punctuation">`</span><span class="token punctuation">,</span><span class="token punctuation">`</span>from_date<span class="token punctuation">`</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>输出描述</p>
+<table>
+<thead>
+<tr>
+<th align="left">growth</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">28841</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>解答</p>
+<p>方法一：</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span>  <span class="token function">max</span><span class="token punctuation">(</span>salary<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token function">min</span><span class="token punctuation">(</span>salary<span class="token punctuation">)</span> growth
+<span class="token keyword">from</span> salaries
+<span class="token keyword">where</span> emp_no <span class="token operator">=</span> <span class="token number">10001</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>方法二：</p>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span>  <span class="token function">max</span><span class="token punctuation">(</span>salary<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token function">min</span><span class="token punctuation">(</span>salary<span class="token punctuation">)</span> growth
+<span class="token keyword">from</span> salaries
+<span class="token keyword">group</span> <span class="token keyword">by</span> emp_no
+<span class="token keyword">having</span> emp_no <span class="token operator">=</span> <span class="token number">10001</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p>参考</p>
+<ul>
+<li>题目来源<a target="_blank" rel="noopener" href="https://www.nowcoder.com/ta/sql">牛客网: 数据库SQL实战</a> </li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script> 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+			本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/4fa33926/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/posts/38a409b0/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            牛客网SQL实战|Day 3
+          
+        </div>
+      </a>
+    
+    
+      <a href="/posts/d6aa689c/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">牛客网SQL实战|Day 1</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<!-- 评论背景 -->                                                         
+<style>
+    #veditor{min-height: 10rem;
+        background-image: url(https://raw.githubusercontent.com/HG95/image/master/20201128231728.gif);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: right;
+        background-color: rgba(255,255,255,0);
+        resize: none;}
+</style>
+<!-- Valine配置 --> 
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "rcJnXG7nEvYWvgGLAEOkaQmH-gzGzoHsz",
+    app_key: "nR5OWuczEKRHudn7Wsqdb5tA",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+  	<ul>
+		<li><i class="fa fa-envelope-o fa-fw"></i></li>
+	</ul>
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2020
+        <i class="ri-heart-fill heart_icon"></i> HG
+		</span>  
+		| 
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+		 
+      </li>
+    </ul>
+
+
+	<!-- 运行天数 -->
+	<ul>
+		<li><span id="runtime_span"></span></li>
+	</ul>
+
+
+  </div>
+</footer>
+
+<script type="text/javascript">			
+    function show_runtime() {
+        window.setTimeout("show_runtime()", 1000);
+        X = new Date("09/10/2020 22:22:22");
+        Y = new Date();
+        T = (Y.getTime() - X.getTime());
+        M = 24 * 60 * 60 * 1000;
+        a = T / M;
+        A = Math.floor(a);
+        b = (a - A) * 24;
+        B = Math.floor(b);
+        c = (b - B) * 60;
+        C = Math.floor((b - B) * 60);
+        D = Math.floor((c - C) * 60);
+        runtime_span.innerHTML = "小站在各种崩坏中坚持了: " + A + "天" + B + "小时" + C + "分" + D + "秒"
+    }
+	show_runtime();
+</script>
+
+
+
+
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://cdn.jsdelivr.net/gh/HG95/CDN/ayer.png" alt="错位的梦寐"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories/excel/">Excel</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/GitBook">GitBook</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://www.notion.so/Reading-List-1d6dc475a1b64737b6739719cf34667a">读书</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://mengmei14679.lofter.com/">相册</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friend">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝瓶农夫三拳吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/HG95/CDN/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/HG95/CDN/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+
+<script src="/js/clickLove.js"></script>
+
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=428391249&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+  <!-- 三角彩带背景 -->
+  <canvas id="evanyou-canvas" style="opacity: 0.3; position: fixed; top: 0px; left: 0px; z-index: -1; width: 100%; height: 100%; pointer-events: none;"></canvas>
+  <script src="https://cdn.jsdelivr.net/gh/XXXZhy/Blog_Image/js/evanyou_canvas.js"></script>
+  
+</body>
+
+</html>
