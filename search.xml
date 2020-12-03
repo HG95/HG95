@@ -5,11 +5,11 @@
     <url>/posts/be627c25/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><a id="more"></a>
 
-<div id="echarts2543" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<div id="echarts6605" style="width: 85%;height: 400px;margin: 0 auto"></div>
 <script src="https://cdn.bootcss.com/echarts/3.8.0/echarts.common.min.js"></script>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts2543'));
+        var myChart = echarts.init(document.getElementById('echarts6605'));
         // 指定图表的配置项和数据
         var option = {
     tooltip : {
@@ -5871,6 +5871,7 @@ abbrlink:
 auto_category:
  enable: true
  depth:</code></pre>
+<h1 id="在Hexo博客中加入豆瓣读书页面"><a href="#在Hexo博客中加入豆瓣读书页面" class="headerlink" title="在Hexo博客中加入豆瓣读书页面"></a>在Hexo博客中加入豆瓣读书页面</h1><p><a href="https://bestzuo.cn/posts/hexo-douban.html">https://bestzuo.cn/posts/hexo-douban.html</a></p>
 <h1 id="部署到github上"><a href="#部署到github上" class="headerlink" title="部署到github上"></a>部署到github上</h1><p><strong>安装插件：</strong></p>
 <pre><code>npm install hexo-deployer-git --save</code></pre>
 <p><strong>修改网站配置文件_config.yml,添加deploy信息：</strong></p>
@@ -5900,6 +5901,9 @@ auto_category:
 <pre><code>$ hexo clean  //清除缓存文件db.json和已生成的静态文件public
 $ hexo g   //生成网站静态文件到默认设置的public文件夹
 $ hexo d   //部署网站到设定的仓库</code></pre>
+<pre><code>hexo clean &amp;&amp; hexo douban -bgm &amp;&amp; hexo g &amp;&amp; hexo s
+
+hexo clean &amp;&amp; hexo douban -bgm &amp;&amp; hexo g &amp;&amp; hexo deploy</code></pre>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
 <li><a href="https://www.xxxzhy.com/2020/04/28/Hexo%E5%8D%9A%E5%AE%A2Ayer%E4%B8%BB%E9%A2%98%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE/" target="_blank">Hexo博客Ayer主题自定义配置</a></li>
 <li><a href="https://wenyan.online/2020/08/09/hexo-bo-ke-da-jian/" target="_blank">hexo博客搭建</a></li>
