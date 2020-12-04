@@ -198,13 +198,6 @@
   </url>
   
   <url>
-    <loc>http://example.com/links.json</loc>
-    
-    <lastmod>2020-11-28</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://example.com/friend/links.json</loc>
     
     <lastmod>2020-11-28</lastmod>
