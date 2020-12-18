@@ -1,45 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>draw.io、Origin和Visio等导出在word显示无损高清图</title>
-    <url>/posts/2fca8b56/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>draw.io、Origin和Visio等导出在word显示无损高清图。</p>
-<p>如何在visio的框图中插入公式 visio如何插入word中的数学公式。</p>
+    <title>origin如何设置图形X轴为时间序列</title>
+    <url>/posts/d2ee1474/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>origin2021 如何设置图形 X 轴为时间序列</p>
 <a id="more"></a>
 
-<h1 id="draw-io"><a href="#draw-io" class="headerlink" title="draw.io"></a>draw.io</h1><p>draw.io和Visio 都可以制作流程图等，但draw.io 操作更为便捷。Visio制作的图虽然可以直接插入到word中，但有时候会存在各种问题。</p>
-<p>draw.io 可以导出的图片格式如图所示，</p>
-<img src="https://raw.githubusercontent.com/HG95/image/master/20201208224122.png" alt="Snipaste_2020-12-08_22-35-58" style="zoom:80%;">
+<p>未处理的数据，A 为普通的数据格式，为2012年每天的数据，想要X轴显示<code>年月</code>的形式:</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201218152753.png" alt="image-20201218145422242" style="zoom:67%;">
 
-<p>但是导出的图片都不能在word实现无损方法的效果，最近发现可以导出VSDX格式的文件(该文件可以在Visio打开)，Visio 打开该文件后，再将文件保存为 <code>.emf</code> 格式的文件。</p>
-<img src="https://raw.githubusercontent.com/HG95/image/master/20201208224556.png" alt="image-20201208224546836" style="zoom:80%;">
+<p>选择要处理的数据列：<code>Format</code> -&gt;<code>Column Properties</code> :</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201218152801.png" alt="image-20201218150346432" style="zoom:67%;">
 
-<p>导出后的文件可以直接导入word,下图是放大1600%的效果：</p>
-<img src="https://raw.githubusercontent.com/HG95/image/master/20201208224812.png" alt="image-20201208224721619" style="zoom: 50%;">
+<p>这里选择的显示格式，只是在数据表中的显示格式。</p>
+<p>选中两列数据绘制折线图：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201218152820.png" alt="image-20201218152458838" style="zoom:80%;">
 
-<h1 id="怎样在word中得到无损放大的origin组合图"><a href="#怎样在word中得到无损放大的origin组合图" class="headerlink" title="怎样在word中得到无损放大的origin组合图"></a>怎样在word中得到无损放大的origin组合图</h1><p>在 origin 中绘好图之后，复制</p>
-<img src="https://raw.githubusercontent.com/HG95/image/master/20201208225519.png" alt="image-20201208225502184" style="zoom:80%;">
+<p>这里看到X轴显示的不是期望的 <code>年月</code> 形式的。</p>
+<p>双击X轴，打开对话框：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201218152840.png" alt="image-20201218151502016" style="zoom: 50%;">
 
-<p>新建一页空白 PPT 文档，将复制的图粘贴到空白文档里：</p>
-<img src="https://raw.githubusercontent.com/HG95/image/master/20201208225656.png" alt="image-20201208225647370" style="zoom:80%;">
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201218152858.png" alt="image-20201218152322706" style="zoom: 50%;">
 
-<p>然后选择图片，将其另存为<code>.emf</code> 格式的文件。</p>
-<img src="https://raw.githubusercontent.com/HG95/image/master/20201208225848.png" alt="image-20201208225818944" style="zoom:80%;">
+<p>最后显示的效果：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201218152908.png" alt="image-20201218152429611" style="zoom:80%;">
 
-<p>再将文件导入word 后，就实现了无损方法的效果。</p>
-<h1 id="Visio-中如何插入数学公式"><a href="#Visio-中如何插入数学公式" class="headerlink" title="Visio 中如何插入数学公式"></a>Visio 中如何插入数学公式</h1><p>先在<a href="https://www.office26.com/word/">word</a>中用自带的公式编辑器将公式写好，如下图</p>
-<img src="https://raw.githubusercontent.com/HG95/image/master/20201208230221.png" alt="image-20201208230209424" style="zoom:50%;">
-
-<p>此时选中公式，复制或者Ctrl+C</p>
-<p>到<a href="https://www.office26.com/visio/">visio</a>的空白的地方，鼠标右键，点击选择性粘贴，选择Microsoft <a href="https://www.office26.com/word/">Word </a>文档，点击确定后，即可实现公式的粘贴</p>
-<img src="https://raw.githubusercontent.com/HG95/image/master/20201208230628.png" alt="image-20201208230331223" style="zoom:50%;">
-
-<p>将公式拖动到合适的位置即可。</p>
-<p>最后还可使用Ctrl+G将框图和公式组合到一起，这样移动时两个一起移动，更方便些。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="https://www.bilibili.com/video/BV1wp4y1e7oW?from=search&amp;seid=4078241403795458791">怎样在word中得到无损放大的origin组合图</a></li>
-<li><a href="https://www.office26.com/visio/visio_14931.html">如何在visio的框图中插入公式 visio如何插入word中的数学公式</a> </li>
-</ul>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -60,12 +45,10 @@
           });
       </script>]]></content>
       <categories>
-        <category>Tools</category>
+        <category>Origin绘图</category>
       </categories>
       <tags>
-        <tag>draw.io</tag>
-        <tag>Origin</tag>
-        <tag>Viso</tag>
+        <tag>origin</tag>
       </tags>
   </entry>
   <entry>
@@ -141,11 +124,11 @@
     <url>/posts/be627c25/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><a id="more"></a>
 
-<div id="echarts8670" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<div id="echarts9758" style="width: 85%;height: 400px;margin: 0 auto"></div>
 <script src="https://cdn.bootcss.com/echarts/3.8.0/echarts.common.min.js"></script>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts8670'));
+        var myChart = echarts.init(document.getElementById('echarts9758'));
         // 指定图表的配置项和数据
         var option = {
     tooltip : {
