@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    SQL |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
+    [Excel技巧]:常用函数 |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -49,111 +49,276 @@
       
     <main class="content on">
       <section class="outer">
-  
-  <article class="articles">
+  <article
+  id="post-Excel技巧-常用函数"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
     
-    
-    <h1 class="page-type-title">SQL</h1>
-    
-    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  [Excel技巧]:常用函数
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/posts/27c26887/" class="article-date">
+  <time datetime="2020-12-28T09:00:32.000Z" itemprop="datePublished">2020-12-28</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Excel/">Excel</a>
+  </div>
   
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2020" class="archive-year">2020</a>
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">3 分钟</span>
+        </span>
+    </span>
+</div>
+ 
     </div>
-    <div class="archives">
       
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/posts/a6c09c13/" class="archive-article-date">
-  <time datetime="2020-09-19T07:33:03.000Z" itemprop="datePublished">09/19</time>
-</a>
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
        
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/posts/a6c09c13/"
-    >牛客网SQL实战|Day 4</a> 
-</h2>
- 
+  <p>办公常用的十大函数</p>
+<p>@SUBTOTAL函数</p>
+<a id="more"></a>
 
-    </header>
-    
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/SQL/">SQL</a>
-  </div>
+<h1 id="subtotal函数基本功能"><a href="#subtotal函数基本功能" class="headerlink" title="subtotal函数基本功能"></a>subtotal函数基本功能</h1><p>分类汇总函数**<code>SUBTOTAL</code><strong>，它可以包括</strong>求和<strong>、</strong>汇总<strong>、</strong>平均<strong>等等多个函数的使用。<code>SUBTOTAL</code>函数的</strong>优点<strong>在于可以</strong>忽略隐藏的单元格<strong>、</strong>支持三维运算<strong>和</strong>区域数组引用**。</p>
+<p><code>SUBTOTAL</code>函数就是返回一个列表或数据库中的分类汇总情况。</p>
+<p><strong>语法</strong>：</p>
+<pre><code>SUBTOTAL(function_num,ref1,[ref2],...)</code></pre>
+<p><strong>参数</strong>：</p>
+<ul>
+<li><p><strong>Function_num</strong>：必需。 数字 1-11 或 101-111，用于指定要为分类汇总使用的函数。 如果使用 1-11，将包括手动隐藏的行，如果使用 101-111，则排除手动隐藏的行；始终排除已筛选掉的单元格。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201228183630.png" alt="v2-babae3fb435ea4df26f14c538b080df1_r" style="zoom:80%;">
+</li>
+<li><p><strong>ref1</strong>：必需。要对其进行分类汇总计算的第一个命名区域或引用。</p>
+</li>
+<li><p>**ref2…**：可选。要对其进行分类汇总计算的第 2 个至第 254 个命名区域或引用。</p>
+</li>
+</ul>
+<h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><h2 id="一、利用subtotal函数给表格自动编号"><a href="#一、利用subtotal函数给表格自动编号" class="headerlink" title="一、利用subtotal函数给表格自动编号"></a>一、利用subtotal函数给表格自动编号</h2><p><strong>如何做才能得到这样自动编号效果（当单行或者多行被隐藏或者取消隐藏时，A列序号会自动调整）呢？</strong></p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201228183637.webp" alt="1719125-8247568fb865ec08" style="zoom:67%;">
 
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/posts/4fa33926/" class="archive-article-date">
-  <time datetime="2020-09-16T11:00:30.000Z" itemprop="datePublished">09/16</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/posts/4fa33926/"
-    >牛客网SQL实战|Day 2</a> 
-</h2>
- 
+<p>仔细观察，序号是从小排到大的，且A列每一个序号等于其对于B列单元格向上数非空单元格的个数，例如，A3单元格值为2，即是b2:B3单元格区域中非空单元格的个数；A7单元格的值为6，即是B2：B7单元格区域中非空单元格的个数。因此我们直接在A2单元格中输入公式：=counta(B$2:B2),然后复制到整列即可。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201228183700.webp" alt="1719125-e7f7e26fa48ac7c6" style="zoom:67%;">
 
-    </header>
-    
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/SQL/">SQL</a>
-  </div>
+<p>然而，当我们隐藏某些行列时，我们发现行列时，A列的序号却无法自动更新调整。如下图：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201228183706.webp" alt="1719125-1c3be39b4da14009" style="zoom:67%;">
 
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/posts/d6aa689c/" class="archive-article-date">
-  <time datetime="2020-09-15T12:14:53.000Z" itemprop="datePublished">09/15</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/posts/d6aa689c/"
-    >牛客网SQL实战|Day 1</a> 
-</h2>
- 
+<p>如何解决这个问题呢？很显然，使用counta函数已经无法得到我们想要的效果了，因此我们请出subtotal函数来帮忙，前面我们提到，subtotal函数在第一参数使用101到111代码时，会自动忽略隐藏值，subtotal中计算非空单元格数的代码为103，因此我们可以写出下面的公式：A2单元格中输入公式：=subtotal(103,B$2:B2)，然后将此公式复制到全列即可。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201228183710.webp" alt="1719125-6015a78b2cabea93" style="zoom:67%;">
 
-    </header>
-    
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/SQL/">SQL</a>
-  </div>
+<h2 id="二、利用subtotal函数计算选手最后得分"><a href="#二、利用subtotal函数计算选手最后得分" class="headerlink" title="二、利用subtotal函数计算选手最后得分"></a>二、利用subtotal函数计算选手最后得分</h2><p>看下图，如何快速计算出选手的最后得分呢？</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201228183715.webp" alt="1719125-8ce44870508d752b" style="zoom:67%;">
 
-    
-    
-  </div>
-</article>
+<p>一般比赛的要求都是去掉一个最高分，再去掉一个最低分，然后再取剩余值的平均值。因此我们解题步骤通常如下：</p>
+<p>1.求总分：=SUM(B2:J2)</p>
+<p>2.减去最低分和最高分：=SUM(B2:J2)-max(B2:J2)-min(B2:J2)</p>
+<p>3.剩余的值求平均值，本例子中共有9位评委，去掉最低和最高两个评委，将剩下的7位评委的分数求平均分，因此公式为：=(SUM(B2:J2)-max(B2:J2)-min(B2:J2))/7</p>
+<p>在普通解法中，我们用到了三个函数，思路很简单，但是还是比较麻烦的，如果我们使用subtotal函数，2个函数就可以搞定选手的最后得分了。公式如下：<code>{=SUM(SUBTOTAL({9,4,5},B2:J2)*{1,-1,-1})/7}</code></p>
+<p>subtotal函数共2个参数，第一个参数为{9,4,5},9为求和，4为最大值，5为最小值，第二个参数为B2:J2；</p>
+<p>在subtotal函数乘一个数组{1，-1，-1}，即得到sum(B2:J2)，-max(B2:J2),-min(B2:J2)，接下来利用sum函数将这几个值加起来就相当于公式：=SUM(B2:J2)-max(B2:J2)-min(B2:J2)；</p>
+<p>将得到的结果除以7即得到了=SUM(SUBTOTAL({9,4,5},B2:J2)*{1,-1,-1})/7的公式，最后按下Ctrl+Shift+Enter完成数组公式的输入。</p>
+<h2 id="三、合并汇总"><a href="#三、合并汇总" class="headerlink" title="三、合并汇总"></a>三、合并汇总</h2><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/06c64f2f47f6">Subtotal函数：各种简单统计</a></li>
+<li></li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script> 
+      <!-- reward -->
       
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
       
     </div>
-  </div>
-  
-  
+    
 
-  
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+			本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/27c26887/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/excel/" rel="tag">excel</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/posts/d2ee1474/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">origin如何设置图形X轴为时间序列</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<!-- 评论背景 -->                                                         
+<style>
+    #veditor{min-height: 10rem;
+        background-image: url(https://raw.githubusercontent.com/HG95/image/master/20201128231728.gif);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: right;
+        background-color: rgba(255,255,255,0);
+        resize: none;}
+</style>
+<!-- Valine配置 --> 
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "rcJnXG7nEvYWvgGLAEOkaQmH-gzGzoHsz",
+    app_key: "nR5OWuczEKRHudn7Wsqdb5tA",
+    path: window.location.pathname,
+    avatar: "wavatar",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
 </section>
       <footer class="footer">
   <div class="outer">
@@ -330,6 +495,23 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
