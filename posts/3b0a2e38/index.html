@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="读书的意义大概就是用生活所感去读书，用读书所得去生活。" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    『Graphics』 绘制二维数据集的置信椭圆 |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/HG95/CDN/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+  
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+</html>
+
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Python-绘制二维数据集的置信椭圆"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  『Graphics』 绘制二维数据集的置信椭圆
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/posts/3b0a2e38/" class="article-date">
+  <time datetime="2020-12-31T06:30:43.000Z" itemprop="datePublished">2020-12-31</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Graphics/">Graphics</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.9k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">7 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>如何绘制二维正态分布数据的误差椭圆，又名置信椭圆。</p>
+<a id="more"></a>
+
+<p>在二维或者更高维的空间里，数据的聚类往往需要添加一个“置信区间”。仿照一维空间的数据，置信区间往往相对于点估计而来的，在统计学中，一个概率样本的置信区间（Confidence interval）是对这个样本的某个总体参数的区间估计。置信区间展现的是这个参数的真实值有一定概率落在测量结果的周围的程度，其给出的是被测量参数的测量值的可信程度，一般我们用95%置信区间来表示。<br> 那么二维空间的数据也是如此，二维空间的置信区间往往利用置信椭圆来描述，展现真实值的可信程度，一般我们用95%置信椭圆来表示。<br> 为什么是置信椭圆呢，<strong>往往是因为我们的而数据分布形似椭圆</strong></p>
+<h1 id="置信椭圆绘制原理"><a href="#置信椭圆绘制原理" class="headerlink" title="置信椭圆绘制原理"></a>置信椭圆绘制原理</h1><h2 id="一、数据中心在原点且轴对齐型"><a href="#一、数据中心在原点且轴对齐型" class="headerlink" title="一、数据中心在原点且轴对齐型"></a>一、数据中心在原点且轴对齐型</h2><p>先看最简单的，轴对齐型的，比方说椭圆长轴平行于x轴</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201231164412.webp" alt="19396348-3efc6f55365e4510" style="zoom:67%;">
+
+<p>假设我有两列随机变量 x 和 y<br>对于该二维数据，x和y，我们不妨计算下x和y的协方差矩阵：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201231164425.webp" alt="19396348-ee85a1eb300b094e" style="zoom:50%;">
+
+<p>由于我们的数据，形似椭圆，并且椭圆长轴平行于x轴，那么<strong>协方差矩阵中x轴方向的方差为8.4213，y轴方向的方差为0.9387。</strong>由于x方向与y方向正交，所以x和y这两个随机变量的协方差为0，也可以理解为相关性为0。</p>
+<p><strong><em>由于我们的数据点分布形似椭圆，所以我们定义置信区间就把它定义为椭圆\</em></strong>，我们知道椭圆的标准方程为：<br>$$<br>\left(\frac{x}{a}\right)^{2}+\left(\frac{y}{b}\right)^{2}=1<br>$$<br>那么我们不妨将椭圆的半长轴a定义为σx，半短轴b定义为σy，那么有：<br>$$<br>\left(\frac{x}{\sigma_{x}}\right)^{2}+\left(\frac{y}{\sigma_{y}}\right)^{2}=s<br>$$<br>σ_x与σ_y分别代表x和y的标准差，s与置信度有关。</p>
+<p>显然，该椭圆的数据中心为**(0,0)**。<br>其中s定义椭圆的规模，可以是任意的数（例如，s=1）。现在的问题是如何选择s，使得所得到的椭圆规模代表我们所选择的置信水平（例如，95％的置信水平对应于s =5.991）。(不太明白这个椭圆的规模是什么意思)<br> 这个s=5.991可以通过卡方分布（随机变量平方和）进行计算（假设随机变量x和y服从高斯分布），并且自由度为2.<br>$$<br>\left(\frac{x}{\sigma_{x}}\right)^{2}+\left(\frac{y}{\sigma_{y}}\right)^{2}=s<br>$$</p>
+<p>联想到<strong>卡方分布</strong>，上式左侧可以看作为随机变量的平方和，通过查询卡方表，有：<br>$$<br>P(s&lt;5.991)=1-0.05=0.95<br>$$<br>我们知道当 s = 5.991 时，<strong>P(s &lt; 5.991) = 0.95</strong>，也就是说，我们要寻找一个在椭圆上的点，使得 s = 5.991，那么将 s = 5.991 带入椭圆方程：<br>$$<br>\left(\frac{x}{\sigma_{x}}\right)^{2}+\left(\frac{y}{\sigma_{y}}\right)^{2}&lt;5.991<br>$$<br>这个等式表明数据点小于5.991的概率为95%（在椭圆内表示数据点小于5.991）。<br> 那么，s=5.991即为95%置信区间，表示有一组数据，其x方向方差为σx，y方向方差为σy时，如果s=5.991，那么95%的数据点在该椭圆内。<br> 那么置信椭圆的长轴2a：<br>$$<br>2 \sigma_{x} \sqrt{5.991}<br>$$<br>置信椭圆的短轴2b：<br>$$<br>2 \sigma_{y} \sqrt{5.991}<br>$$</p>
+<h2 id="二、数据中心在原点且任意方向的置信椭圆"><a href="#二、数据中心在原点且任意方向的置信椭圆" class="headerlink" title="二、数据中心在原点且任意方向的置信椭圆"></a>二、数据中心在原点且任意方向的置信椭圆</h2><p>在数据是相关的情况下，例如存在协方差，所产生的误差椭圆不会是轴对齐的。在这种情况下，如果我们暂时定义一个新的坐标系，使得所述椭圆变为轴对齐，然后旋转所产生的椭圆，那么上面的结论依然有效。</p>
+<p>换句话说，之前我们计算平行于x轴和y轴的方差，现在我们计算平行于置信椭圆长轴和短轴的方差，需要计算的方差方向由图1粉红和绿色箭头表示出来。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201231164446.webp" alt="19396348-d91cc601dd29d79b" style="zoom:67%;">
+
+<p>首先计算随机变量x和y的协方差矩阵，根据协方差矩阵计算该矩阵的特征向量（上图绿色为椭圆短轴方向的特征向量；粉红色为椭圆长轴方向的特征向量），我们定义椭圆长轴方向的特征向量为v1，椭圆短轴方向的特征向量为v2；而特征向量大小为特征值，我们定义椭圆长轴方向的特征值为λ1，椭圆短轴方向的特征值为λ2。<br> 此时椭圆的长轴为：<br>$$<br>2 \sqrt{5.991\lambda_1}<br>$$<br>椭圆的短轴为：<br>$$<br>2 \sqrt{5.991\lambda_2}<br>$$<br>并且定义椭圆长轴与x轴正方向夹角为α：(为了获得椭圆的方向，我们简单地计算最大特征向量的角度)</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201231164452.webp" alt="19396348-d21ad76a3d39336c" style="zoom:67%;">
+$$
+\alpha=\arctan \frac{\mathbf{v}_{1}(y)}{\mathbf{v}_{1}(x)}
+$$
+那么，我们就可以根据角度来对置信椭圆进行“旋转”。
+
+<h2 id="三、任意位置置信椭圆"><a href="#三、任意位置置信椭圆" class="headerlink" title="三、任意位置置信椭圆"></a>三、任意位置置信椭圆</h2><p>有了上面的介绍，那么任意位置的椭圆无非是满足数据中心不在原点，且椭圆长轴与x轴正方向夹角为任意角α。并以此来建立椭圆方程，画出置信椭圆（可见数据中心化可以简便很多计算）</p>
+<h1 id="python-绘制置信椭圆"><a href="#python-绘制置信椭圆" class="headerlink" title="python 绘制置信椭圆"></a>python 绘制置信椭圆</h1><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># -*- encoding: utf-8 -*-</span>
+<span class="token triple-quoted-string string">"""
+@software: PyCharm
+@file : 112.py
+@time : 2020/12/31 
+"""</span>
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+<span class="token keyword">from</span> matplotlib<span class="token punctuation">.</span>patches <span class="token keyword">import</span> Ellipse
+<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>transforms <span class="token keyword">as</span> transforms
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+
+
+<span class="token keyword">def</span> <span class="token function">confidence_ellipse</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> ax<span class="token punctuation">,</span> n_std<span class="token operator">=</span><span class="token number">3.0</span><span class="token punctuation">,</span> facecolor<span class="token operator">=</span><span class="token string">'none'</span><span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
+    Create a plot of the covariance confidence ellipse of *x* and *y*.
+
+    Parameters
+    ----------
+    x, y : array-like, shape (n, )
+        Input data.
+
+    ax : matplotlib.axes.Axes
+        The axes object to draw the ellipse into.
+
+    n_std : float
+        The number of standard deviations to determine the ellipse's radiuses.
+
+    Returns
+    -------
+    matplotlib.patches.Ellipse
+
+    Other parameters
+    ----------------
+    kwargs : `~matplotlib.patches.Patch` properties
+    """</span>
+    <span class="token keyword">if</span> x<span class="token punctuation">.</span>size <span class="token operator">!=</span> y<span class="token punctuation">.</span>size<span class="token punctuation">:</span>
+        <span class="token keyword">raise</span> ValueError<span class="token punctuation">(</span><span class="token string">"x and y must be the same size"</span><span class="token punctuation">)</span>
+
+    cov <span class="token operator">=</span> np<span class="token punctuation">.</span>cov<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
+    lambda_<span class="token punctuation">,</span> v <span class="token operator">=</span> np<span class="token punctuation">.</span>linalg<span class="token punctuation">.</span>eig<span class="token punctuation">(</span>cov<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 计算特征值和特征向量</span>
+    angle <span class="token operator">=</span> np<span class="token punctuation">.</span>rad2deg<span class="token punctuation">(</span>np<span class="token punctuation">.</span>arccos<span class="token punctuation">(</span>v<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 计算旋转角度</span>
+
+    ell_radius_x <span class="token operator">=</span> np<span class="token punctuation">.</span>sqrt<span class="token punctuation">(</span>n_std<span class="token operator">*</span>lambda_<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    ell_radius_y <span class="token operator">=</span> np<span class="token punctuation">.</span>sqrt<span class="token punctuation">(</span>n_std<span class="token operator">*</span>lambda_<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true"># 默认椭圆中心为原点</span>
+    mean_x<span class="token punctuation">,</span>mean_y <span class="token operator">=</span> np<span class="token punctuation">.</span>mean<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span>mean<span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+    ellipse <span class="token operator">=</span> Ellipse<span class="token punctuation">(</span><span class="token punctuation">(</span>mean_x<span class="token punctuation">,</span>mean_y<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                      width<span class="token operator">=</span>ell_radius_x <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">,</span>
+                      height<span class="token operator">=</span>ell_radius_y <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">,</span>
+                      facecolor<span class="token operator">=</span>facecolor<span class="token punctuation">,</span>
+                      angle<span class="token operator">=</span>angle<span class="token punctuation">,</span>
+                      <span class="token operator">**</span>kwargs<span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> ax<span class="token punctuation">.</span>add_patch<span class="token punctuation">(</span>ellipse<span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    data <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_excel<span class="token punctuation">(</span><span class="token string">'data.xlsx'</span><span class="token punctuation">,</span> index_col<span class="token operator">=</span>None<span class="token punctuation">)</span>
+    x <span class="token operator">=</span> data<span class="token punctuation">[</span><span class="token string">'x'</span><span class="token punctuation">]</span>
+    y <span class="token operator">=</span> data<span class="token punctuation">[</span><span class="token string">'y'</span><span class="token punctuation">]</span>
+
+    <span class="token comment" spellcheck="true"># 卡方值， 95％的置信水平对应于s =5.991</span>
+    ss <span class="token operator">=</span> <span class="token number">5.991</span>
+
+    fig<span class="token punctuation">,</span> ax_kwargs <span class="token operator">=</span> plt<span class="token punctuation">.</span>subplots<span class="token punctuation">(</span>figsize<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true"># ax_kwargs.axvline(c='grey', lw=1)</span>
+    <span class="token comment" spellcheck="true"># ax_kwargs.axhline(c='grey', lw=1)</span>
+
+
+    confidence_ellipse<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> ax_kwargs<span class="token punctuation">,</span>n_std<span class="token operator">=</span>ss<span class="token punctuation">,</span>
+                       alpha<span class="token operator">=</span><span class="token number">0.9</span><span class="token punctuation">,</span>  edgecolor<span class="token operator">=</span><span class="token string">'red'</span><span class="token punctuation">,</span> zorder<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
+    ax_kwargs<span class="token punctuation">.</span>scatter<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> s<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span>
+    ax_kwargs<span class="token punctuation">.</span>scatter<span class="token punctuation">(</span>np<span class="token punctuation">.</span>mean<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">,</span>np<span class="token punctuation">.</span>mean<span class="token punctuation">(</span>y<span class="token punctuation">)</span><span class="token punctuation">,</span> c<span class="token operator">=</span><span class="token string">'red'</span><span class="token punctuation">,</span> s<span class="token operator">=</span><span class="token number">9</span><span class="token punctuation">)</span>
+    plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="Origin-绘制置信椭圆"><a href="#Origin-绘制置信椭圆" class="headerlink" title="Origin 绘制置信椭圆"></a>Origin 绘制置信椭圆</h1><p>在 Apps 里面添加 <code>2D Confidence Ellipse</code></p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201231164501.png" alt="image-20201231161309391" style="zoom:67%;">
+
+<p>首先激活要绘制置信椭圆的散点图图层：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201231164506.png" alt="image-20201231161602870" style="zoom: 67%;">
+
+<p>选择右边Apps 里面的 <code>2D Confidence Ellipse</code></p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201231164511.png" alt="image-20201231161654625" style="zoom:80%;">
+
+<p>此时会弹出对话框：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201231164516.png" alt="image-20201231162046509" style="zoom:67%;">
+
+<p>效果图：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201231164521.png" alt="image-20201231162156951" style="zoom:67%;">
+
+
+
+
+
+
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c3caf3524705">置信椭圆</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36097393/article/details/87605173">从从协方差的误差椭圆到PCA从从协方差的误差椭圆到PCA</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.osgeo.cn/matplotlib/gallery/statistics/confidence_ellipse.html">matplotlib:绘制二维数据集的置信椭圆</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.coder.work/article/96588">python - 使用matplotlib在散点图中创建置信椭圆</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.geek-share.com/detail/2792936587.html">置信椭圆-python</a> </li>
+<li><a target="_blank" rel="noopener" href="https://www.originlab.com/FileExchange/details.aspx?v=0&amp;fid=365">OriginLab:2D Confidence Ellipse </a></li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script> 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+			本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/3b0a2e38/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Origin/" rel="tag">Origin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/posts/27c26887/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">『Excel技巧』常用函数</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<!-- 评论背景 -->                                                         
+<style>
+    #veditor{min-height: 10rem;
+        background-image: url(https://raw.githubusercontent.com/HG95/image/master/20201128231728.gif);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: right;
+        background-color: rgba(255,255,255,0);
+        resize: none;}
+</style>
+<!-- Valine配置 --> 
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "rcJnXG7nEvYWvgGLAEOkaQmH-gzGzoHsz",
+    app_key: "nR5OWuczEKRHudn7Wsqdb5tA",
+    path: window.location.pathname,
+    avatar: "wavatar",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+  	<ul>
+		<li><i class="fa fa-envelope-o fa-fw"></i></li>
+	</ul>
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2020
+        <i class="ri-heart-fill heart_icon"></i> HG
+		</span>  
+		| 
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+		 
+      </li>
+    </ul>
+
+
+	<!-- 运行天数 -->
+	<ul>
+		<li><span id="runtime_span"></span></li>
+	</ul>
+
+
+  </div>
+</footer>
+
+<script type="text/javascript">			
+    function show_runtime() {
+        window.setTimeout("show_runtime()", 1000);
+        X = new Date("09/10/2020 22:22:22");
+        Y = new Date();
+        T = (Y.getTime() - X.getTime());
+        M = 24 * 60 * 60 * 1000;
+        a = T / M;
+        A = Math.floor(a);
+        b = (a - A) * 24;
+        B = Math.floor(b);
+        c = (b - B) * 60;
+        C = Math.floor((b - B) * 60);
+        D = Math.floor((c - C) * 60);
+        runtime_span.innerHTML = "小站在各种崩坏中坚持了: " + A + "天" + B + "小时" + C + "分" + D + "秒"
+    }
+	show_runtime();
+</script>
+
+
+
+
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://cdn.jsdelivr.net/gh/HG95/CDN/ayer.png" alt="错位的梦寐"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories/excel/">Excel</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/movies">电影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/books">阅读</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://mengmei14679.lofter.com/">相册</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/ziyuan">导航</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friend">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝瓶农夫三拳吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/HG95/CDN/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/HG95/CDN/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+
+<script src="/js/clickLove.js"></script>
+
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=428391249&auto=0&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+  <!-- 三角彩带背景 -->
+  <canvas id="evanyou-canvas" style="opacity: 0.3; position: fixed; top: 0px; left: 0px; z-index: -1; width: 100%; height: 100%; pointer-events: none;"></canvas>
+  <script src="https://cdn.jsdelivr.net/gh/XXXZhy/Blog_Image/js/evanyou_canvas.js"></script>
+  
+</body>
+
+</html>
