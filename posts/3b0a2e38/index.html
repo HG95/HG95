@@ -80,7 +80,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.9k</span>
+            <span class="post-count">1.8k</span>
         </span>
     </span>
 
@@ -115,8 +115,8 @@
 <img src="https://raw.githubusercontent.com/HG95/image/master/20201231164425.webp" alt="19396348-ee85a1eb300b094e" style="zoom:50%;">
 
 <p>由于我们的数据，形似椭圆，并且椭圆长轴平行于x轴，那么<strong>协方差矩阵中x轴方向的方差为8.4213，y轴方向的方差为0.9387。</strong>由于x方向与y方向正交，所以x和y这两个随机变量的协方差为0，也可以理解为相关性为0。</p>
-<p><strong><em>由于我们的数据点分布形似椭圆，所以我们定义置信区间就把它定义为椭圆\</em></strong>，我们知道椭圆的标准方程为：<br>$$<br>\left(\frac{x}{a}\right)^{2}+\left(\frac{y}{b}\right)^{2}=1<br>$$<br>那么我们不妨将椭圆的半长轴a定义为σx，半短轴b定义为σy，那么有：<br>$$<br>\left(\frac{x}{\sigma_{x}}\right)^{2}+\left(\frac{y}{\sigma_{y}}\right)^{2}=s<br>$$<br>σ_x与σ_y分别代表x和y的标准差，s与置信度有关。</p>
-<p>显然，该椭圆的数据中心为**(0,0)**。<br>其中s定义椭圆的规模，可以是任意的数（例如，s=1）。现在的问题是如何选择s，使得所得到的椭圆规模代表我们所选择的置信水平（例如，95％的置信水平对应于s =5.991）。(不太明白这个椭圆的规模是什么意思)<br> 这个s=5.991可以通过卡方分布（随机变量平方和）进行计算（假设随机变量x和y服从高斯分布），并且自由度为2.<br>$$<br>\left(\frac{x}{\sigma_{x}}\right)^{2}+\left(\frac{y}{\sigma_{y}}\right)^{2}=s<br>$$</p>
+<p><strong>由于我们的数据点分布形似椭圆，所以我们定义置信区间就把它定义为椭圆</strong>，我们知道椭圆的标准方程为：<br>$$<br>\left(\frac{x}{a}\right)^{2}+\left(\frac{y}{b}\right)^{2}=1<br>$$<br>那么我们不妨将椭圆的半长轴a定义为σx，半短轴b定义为σy，那么有：<br>$$<br>\left(\frac{x}{\sigma_{x}}\right)^{2}+\left(\frac{y}{\sigma_{y}}\right)^{2}=s<br>$$<br>σ_x与σ_y分别代表x和y的标准差，s与置信度有关。</p>
+<p>显然，该椭圆的数据中心为(0,0)。<br>其中s定义椭圆的规模，可以是任意的数（例如，s=1）。现在的问题是如何选择s，使得所得到的椭圆规模代表我们所选择的置信水平（例如，95％的置信水平对应于s =5.991）。(不太明白这个椭圆的规模是什么意思)<br> 这个s=5.991可以通过卡方分布（随机变量平方和）进行计算（假设随机变量x和y服从高斯分布），并且自由度为2.<br>$$<br>\left(\frac{x}{\sigma_{x}}\right)^{2}+\left(\frac{y}{\sigma_{y}}\right)^{2}=s<br>$$</p>
 <p>联想到<strong>卡方分布</strong>，上式左侧可以看作为随机变量的平方和，通过查询卡方表，有：<br>$$<br>P(s&lt;5.991)=1-0.05=0.95<br>$$<br>我们知道当 s = 5.991 时，<strong>P(s &lt; 5.991) = 0.95</strong>，也就是说，我们要寻找一个在椭圆上的点，使得 s = 5.991，那么将 s = 5.991 带入椭圆方程：<br>$$<br>\left(\frac{x}{\sigma_{x}}\right)^{2}+\left(\frac{y}{\sigma_{y}}\right)^{2}&lt;5.991<br>$$<br>这个等式表明数据点小于5.991的概率为95%（在椭圆内表示数据点小于5.991）。<br> 那么，s=5.991即为95%置信区间，表示有一组数据，其x方向方差为σx，y方向方差为σy时，如果s=5.991，那么95%的数据点在该椭圆内。<br> 那么置信椭圆的长轴2a：<br>$$<br>2 \sigma_{x} \sqrt{5.991}<br>$$<br>置信椭圆的短轴2b：<br>$$<br>2 \sigma_{y} \sqrt{5.991}<br>$$</p>
 <h2 id="二、数据中心在原点且任意方向的置信椭圆"><a href="#二、数据中心在原点且任意方向的置信椭圆" class="headerlink" title="二、数据中心在原点且任意方向的置信椭圆"></a>二、数据中心在原点且任意方向的置信椭圆</h2><p>在数据是相关的情况下，例如存在协方差，所产生的误差椭圆不会是轴对齐的。在这种情况下，如果我们暂时定义一个新的坐标系，使得所述椭圆变为轴对齐，然后旋转所产生的椭圆，那么上面的结论依然有效。</p>
 <p>换句话说，之前我们计算平行于x轴和y轴的方差，现在我们计算平行于置信椭圆长轴和短轴的方差，需要计算的方差方向由图1粉红和绿色箭头表示出来。</p>
@@ -144,28 +144,6 @@ $$
 
 
 <span class="token keyword">def</span> <span class="token function">confidence_ellipse</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> ax<span class="token punctuation">,</span> n_std<span class="token operator">=</span><span class="token number">3.0</span><span class="token punctuation">,</span> facecolor<span class="token operator">=</span><span class="token string">'none'</span><span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token triple-quoted-string string">"""
-    Create a plot of the covariance confidence ellipse of *x* and *y*.
-
-    Parameters
-    ----------
-    x, y : array-like, shape (n, )
-        Input data.
-
-    ax : matplotlib.axes.Axes
-        The axes object to draw the ellipse into.
-
-    n_std : float
-        The number of standard deviations to determine the ellipse's radiuses.
-
-    Returns
-    -------
-    matplotlib.patches.Ellipse
-
-    Other parameters
-    ----------------
-    kwargs : `~matplotlib.patches.Patch` properties
-    """</span>
     <span class="token keyword">if</span> x<span class="token punctuation">.</span>size <span class="token operator">!=</span> y<span class="token punctuation">.</span>size<span class="token punctuation">:</span>
         <span class="token keyword">raise</span> ValueError<span class="token punctuation">(</span><span class="token string">"x and y must be the same size"</span><span class="token punctuation">)</span>
 
@@ -205,7 +183,7 @@ $$
                        alpha<span class="token operator">=</span><span class="token number">0.9</span><span class="token punctuation">,</span>  edgecolor<span class="token operator">=</span><span class="token string">'red'</span><span class="token punctuation">,</span> zorder<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
     ax_kwargs<span class="token punctuation">.</span>scatter<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> s<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span>
     ax_kwargs<span class="token punctuation">.</span>scatter<span class="token punctuation">(</span>np<span class="token punctuation">.</span>mean<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">,</span>np<span class="token punctuation">.</span>mean<span class="token punctuation">(</span>y<span class="token punctuation">)</span><span class="token punctuation">,</span> c<span class="token operator">=</span><span class="token string">'red'</span><span class="token punctuation">,</span> s<span class="token operator">=</span><span class="token number">9</span><span class="token punctuation">)</span>
-    plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="Origin-绘制置信椭圆"><a href="#Origin-绘制置信椭圆" class="headerlink" title="Origin 绘制置信椭圆"></a>Origin 绘制置信椭圆</h1><p>在 Apps 里面添加 <code>2D Confidence Ellipse</code></p>
 <img src="https://raw.githubusercontent.com/HG95/image/master/20201231164501.png" alt="image-20201231161309391" style="zoom:67%;">
 
