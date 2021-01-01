@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    ArcGIS 10.2.2利用Anaconda集成scipy和pandas |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
+    『OriginPro』  柱状图 |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -50,7 +50,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-ArcGIS-10-2-2利用Anaconda集成scipy和pandas"
+  id="post-OriginPro-柱状图"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -61,18 +61,18 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  ArcGIS 10.2.2利用Anaconda集成scipy和pandas
+  『OriginPro』  柱状图
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/posts/9de15300/" class="article-date">
-  <time datetime="2020-11-02T02:33:16.000Z" itemprop="datePublished">2020-11-02</time>
+      <a href="/posts/c093d808/" class="article-date">
+  <time datetime="2021-01-01T02:44:31.000Z" itemprop="datePublished">2021-01-01</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/arcpy/">arcpy</a>
+    <a class="article-category-link" href="/categories/Origin%E7%BB%98%E5%9B%BE/">Origin绘图</a>
   </div>
   
 <div class="word_count">
@@ -80,7 +80,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">673</span>
+            <span class="post-count">1.3k</span>
         </span>
     </span>
 
@@ -89,7 +89,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">2 分钟</span>
+            <span class="post-count">4 分钟</span>
         </span>
     </span>
 </div>
@@ -104,44 +104,225 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>利用Anaconda创建虚拟环境，将Anaconda里的第三方包集成到ArcGIS。</p>
+  <img src="https://raw.githubusercontent.com/HG95/image/master/20210101120601.png" alt="主要内容" style="zoom:150%;">
+
+
+
+
+
 <a id="more"></a>
 
-<h1 id="一、Anaconda安装与配置"><a href="#一、Anaconda安装与配置" class="headerlink" title="一、Anaconda安装与配置"></a>一、Anaconda安装与配置</h1><p>这里是之前安装好的，Anaconda3，原博主安装的是Miniconda，效果都是一样的。</p>
-<p>Miniconda安装参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f3d58072c85d">https://www.jianshu.com/p/f3d58072c85d</a></p>
-<h1 id="二、ArcGIS与Anaconda集成"><a href="#二、ArcGIS与Anaconda集成" class="headerlink" title="二、ArcGIS与Anaconda集成"></a>二、ArcGIS与Anaconda集成</h1><p>这步是主要参考的内容</p>
-<h2 id="Anaconda中创建新的python环境"><a href="#Anaconda中创建新的python环境" class="headerlink" title="Anaconda中创建新的python环境"></a>Anaconda中创建新的python环境</h2><p>（1）确定ArcGIS自带的Python版本</p>
-<p>先明确ArcGIS里的python，numpy和matplotlib分别是什么版本。具体步骤为：<br> 打开ArcGIS Desktop 10.2.2，【Geoprocessing】–&gt;【Python】，输入如下代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> sys<span class="token punctuation">,</span> numpy<span class="token punctuation">,</span> matplotlib
-<span class="token keyword">print</span><span class="token punctuation">(</span>sys<span class="token punctuation">.</span>version<span class="token punctuation">,</span> numpy<span class="token punctuation">.</span>__version__<span class="token punctuation">,</span> matplotlib<span class="token punctuation">.</span>__version__<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>可以看到，ArcGIS Desktop 10.2.2中得到的结果如下：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token punctuation">(</span><span class="token string">'2.7.5 (default, May 15 2013, 22:43:36) [MSC v.1500 32 bit (Intel)]'</span><span class="token punctuation">,</span> <span class="token string">'1.7.1'</span><span class="token punctuation">,</span> <span class="token string">'1.3.0'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>也就是Python 2.7.5， numpy 1.7.1，matplotlib 1.3.0<br> （2）创建虚拟python环境<br> 先将Anaconda的环境置为32bit （因为ArcGIS Desktop默认用的是32位的Python），然后再创建环境。<br> 在Anaconda Prompt窗口（<strong>右键以管理员身份运行</strong>）中，输入以下命令行，创建目录以准备自动下载和安装各种第三方包：</p>
-<pre class="line-numbers language-python"><code class="language-python">set CONDA_FORCE_32BIT<span class="token operator">=</span><span class="token number">1</span>
-conda create <span class="token operator">-</span>n arc1022 python<span class="token operator">=</span><span class="token number">2.7</span><span class="token punctuation">.</span><span class="token number">5</span> numpy<span class="token operator">=</span><span class="token number">1.7</span><span class="token punctuation">.</span><span class="token number">1</span> matplotlib<span class="token operator">=</span><span class="token number">1.3</span><span class="token punctuation">.</span><span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>这样就创建好了新的Python环境，其名称为<strong>arc1022</strong>。</p>
-<blockquote>
-<p>当然，如果你暂时不想安装第三方包，可以只用输入：</p>
-<pre class="line-numbers language-python"><code class="language-python">conda create <span class="token operator">-</span>n arc1022<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-</blockquote>
-<p>默认的Python环境为<strong>base</strong>，要激活刚创建的arc1022虚拟环境，请输入<code>conda activate arc1022</code><br>然后，就可以在arc1022环境中使用conda安装各种包了。例如：</p>
-<pre class="line-numbers language-python"><code class="language-python">conda install scipy
-conda install pandas<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h2 id="将Anaconda里的第三方包集成到ArcGIS"><a href="#将Anaconda里的第三方包集成到ArcGIS" class="headerlink" title="将Anaconda里的第三方包集成到ArcGIS"></a>将Anaconda里的第三方包集成到ArcGIS</h2><p><strong>里所谓的集成，其实只是让ArcGIS自带的Python知道本机的哪个目录里还有合适第三方包</strong>。</p>
-<p>上面的Miniconda是安装在<strong>C:\Python27\Miniconda2</strong>这个目录，并且用conda create命令创建的目录是<strong>arc1022</strong>，则所有用conda install xxx 新安装的第三方包都在下面这个目录里：</p>
-<pre><code> C:\Python27\Miniconda2\envs\arc1022\Lib\site-packages</code></pre>
-<p>下面把该目录告诉ArcGIS 10.2.2自带的Python 2.7.5，以便它能import该目录下的第三方包。</p>
-<ol>
-<li><p>创建一个后缀名为pth的文件，例如：<strong>findArc1022inMiniconda.pth</strong>，该文件里只需要一行文本：</p>
-<pre><code> C:\Python27\Miniconda2\envs\arc1022\Lib\site-packages</code></pre>
-<p> 这样，arcgis就知道到arc1022环境所在的目录下去找第三方包了。</p>
+<h1 id="一、单一柱状图"><a href="#一、单一柱状图" class="headerlink" title="一、单一柱状图"></a>一、单一柱状图</h1><ul>
+<li><p>数据整理<br>将柱状图的状态名称作为x轴（A列），各个状态的指标（COD）作为Y轴（B列）</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120115.png" alt="image-20201212225711708" style="zoom:67%;">
 </li>
-<li><p>将这个pth文件拷贝到ArcGIS自带Python的第三方包存放目录中，这个目录是：</p>
-<pre><code>C:\Python27\ArcGIS10.2\Lib\site-packages</code></pre>
+<li><p>选中A、B两列，【Plot】-【column/bar/pie】-【coloumn】</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120119.png" alt="image-20201212225815713" style="zoom: 67%;">
 </li>
-</ol>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="https://www.jianshu.com/p/f3d58072c85d" target="_blank">ArcGIS 10.2.2利用Anaconda集成scipy和pandas</a> </li>
+<li><p>生成图像如下：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120124.png" alt="image-20201212225952205" style="zoom: 33%;">
+</li>
+<li><p>如果希望各色柱颜色变化，双击色柱图，将border、fill的颜色分别设为【color】-【increment】-【starting color】</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120128.png" alt="image-20201212230525831" style="zoom: 67%;">
+
+<p>也可以根据提示：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120133.png" alt="image-20201212230428175" style="zoom: 50%;">
+
+</li>
+</ul>
+<h1 id="二、柱状组图"><a href="#二、柱状组图" class="headerlink" title="二、柱状组图"></a>二、柱状组图</h1><p>如果每个状态下都有多个指标需要比较，那么宜采用柱状组图。</p>
+<ul>
+<li><p>多个指标（COD、TOC）的数据组织形式如下，两种指标分别作为B、C列</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120138.png" alt="image-20201212231044048" style="zoom: 67%;">
+</li>
+<li><p>绘图操作同上，选中A、B、C列，【Plot】-【column/bar/pie】-【coloumn】</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120142.png" alt="image-20201212225815713" style="zoom:50%;">
+
+<p>效果：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120148.png" alt="image-20201212231240130" style="zoom: 33%;">
+</li>
+<li><p>添加数据标签</p>
+<p>绘图时，如果选用【column+label】可以显示数据标签：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120153.png" alt="image-20201212231346010" style="zoom:50%;">
+
+<p>效果：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120158.png" alt="image-20201212231441398" style="zoom: 33%;">
+
+</li>
+</ul>
+<h1 id="三、分组柱状图"><a href="#三、分组柱状图" class="headerlink" title="三、分组柱状图"></a>三、分组柱状图</h1><ul>
+<li><p>数据格式</p>
+<p>采用<code>XX YyEr YyEr</code>类型的数据格式</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120203.png" alt="image-20201215164925349" style="zoom:50%;">
+
+<p>第一个<code>X</code>为分组信息，第二各<code>X</code>为点信息，后面的分别为柱形图和散点图及对应误差棒的数据。</p>
+<p>选中<code>yEr</code>数据，右击，<code>Set as-&gt;Y Error</code>。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120209.png" alt="image-20201215165001229" style="zoom:50%;">
+
+
+
+</li>
+</ul>
+<p>绘制图形</p>
+<ul>
+<li><p>选中后面的<code>YyEr YyEr</code>数据，右键选择<code>Grouped Columns - Indexed Data</code>模板</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120214.png" alt="image-20201215165125888" style="zoom: 67%;">
+</li>
+<li><p>在弹出的对话框中选择<strong>分组信息</strong>，此处选中A和B列</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120219.png" alt="image-20201215165215768" style="zoom:67%;">
+
+<p>点击<code>OK</code>，完成基本图形的绘制。</p>
+</li>
+</ul>
+<p>格式设置</p>
+<ul>
+<li><p>在右侧<code>Object Manager</code>里选中<code>g1</code>，右击，选择<code>Ungroup</code>，取消组合。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120224.png" alt="image-20201215165314779" style="zoom:67%;">
+</li>
+<li><p>在<code>Object Manager</code>中双击<code>Scatter</code>，打开<code>Plot Properties</code>页面进行格式设置。选中<strong>散点图</strong>所对应的数据，将<code>Plot Type</code>改为<code>Scatter</code></p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120229.png" alt="image-20201215165457368" style="zoom: 50%;">
+</li>
+<li><p>点击<code>Apply</code>后，图形的基本形状就有了，后续进行颜色等设置。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120233.png" alt="image-20201215165622052" style="zoom: 50%;">
+</li>
+<li><p>接下来对横坐标的格式进行设置。双击坐标轴打开<code>Axis Properties</code>页面，设置<code>Table</code>的格式。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120238.png" alt="image-20201215165714951" style="zoom: 50%;">
+
+<p>最后效果：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120244.png" alt="image-20201215165813688" style="zoom: 50%;">
+
+</li>
+</ul>
+<h1 id="四、分组双Y轴柱状图（一）"><a href="#四、分组双Y轴柱状图（一）" class="headerlink" title="四、分组双Y轴柱状图（一）"></a>四、分组双Y轴柱状图（一）</h1><ul>
+<li><p>之所以选用<strong>双Y轴</strong>图形，是因为右侧的<code>Group3</code>的数值较小，如果只用一个Y轴，则不能很好的显示该组数据。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120249.png" alt="image-20210101110442994" style="zoom:50%;">
+</li>
+<li><p>数据格式：</p>
+<p>将<code>GroupA</code>和<code>GroupB</code>的数据放置在一列，<code>GroupC</code>的数据单独放置。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120253.png" alt="image-20210101110538181" style="zoom:50%;">
+
+<p>注意<code>GroupC</code>的数据的量纲变化。</p>
+</li>
+<li><p>图形绘制</p>
+</li>
+<li><p>选中<code>J-M</code>列数据，绘制<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzIzMjA1MjAyOA==&amp;mid=2651734006&amp;idx=1&amp;sn=ec45a1e7dd990ff47ff67ef2a384b7b9&amp;chksm=f3605ba5c417d2b3ec27f1555d8b71ed64758796b8a40cd20f2ab1f9a03e86d438653132a84b&amp;token=108488943&amp;lang=zh_CN&amp;scene=21#wechat_redirect">分组柱形图叠加分组散点图</a></p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120259.png" alt="image-20210101110726495" style="zoom:33%;">
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>选中<code>P-S</code>列数据，同样方法绘制<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzIzMjA1MjAyOA==&amp;mid=2651734006&amp;idx=1&amp;sn=ec45a1e7dd990ff47ff67ef2a384b7b9&amp;chksm=f3605ba5c417d2b3ec27f1555d8b71ed64758796b8a40cd20f2ab1f9a03e86d438653132a84b&amp;token=108488943&amp;lang=zh_CN&amp;scene=21#wechat_redirect">分组柱形图叠加分组散点图</a></p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120303.png" alt="image-20210101110759473" style="zoom: 33%;">
+</li>
+<li><p>点击右侧工具栏上的<code>Merge</code>按钮，打开合并图形对话框</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120308.png" alt="image-20210101110853804" style="zoom:50%;">
+
+<p>选中上面绘制的两个图形，<code>在Arrange Setings</code>里设为<strong>1行2列</strong>，点击<code>OK</code>完成图形的合并</p>
+</li>
+</ul>
+<p>格式设置</p>
+<ul>
+<li><p>将右侧图形的坐标轴标签改到右侧显示</p>
+</li>
+<li><p>双击图形打开<code>Layer Properties</code>对话框，激活<code>Layer2</code>，切换到<code>Link Axes Scales</code>页面，将<code>Link to</code>选为<code>Layer1</code>，即与图层1关联</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120313.png" alt="image-20210101111151394" style="zoom:50%;">
+</li>
+<li><p>切换到<code>Size</code>页面，将<code>Units</code>选为<code>% of Linked Layer</code>，<code>Left</code>设为<strong>100</strong>，<code>Width</code>设为<strong>50</strong>，即宽度为左侧图形的一半</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120318.png" alt="image-20210101111224527" style="zoom:67%;">
+</li>
+<li><p>调整图层的尺寸，使之大小合适：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120323.png" alt="image-20210101111347942" style="zoom:67%;">
+
+
+
+</li>
+</ul>
+<h1 id="五、双Y轴堆积状图（二）"><a href="#五、双Y轴堆积状图（二）" class="headerlink" title="五、双Y轴堆积状图（二）"></a>五、双Y轴堆积状图（二）</h1><ul>
+<li><p>数据：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120328.png" alt="image-20201215213457464" style="zoom:50%;">
+
+<p>B、C 列数据大小相似，D列明显小了很多，此时可以选择双Y轴</p>
+</li>
+<li><p>选中B和D列数据，选取绘图模板：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120333.png" alt="image-20201215215246709" style="zoom:80%;">
+
+<p>效果：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120339.png" alt="image-20201215215407861" style="zoom: 50%;">
+</li>
+<li><p>将C列添加到第一图层里面：双击左上角的<code>1</code> ,将其添加到图层<code>1</code>，显示为柱状图:</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120343.png" alt="image-20201215215546097" style="zoom:67%;">
+</li>
+<li><p>将右侧两个数据成组：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120349.png" alt="image-20201215215722233" style="zoom:67%;">
+
+<p>效果：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120353.png" alt="image-20201215215815714" style="zoom: 50%;">
+</li>
+<li><p>颜色调整：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120359.png" alt="image-20201215220000535" style="zoom:67%;">
+
+<p>最终效果：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120403.png" alt="image-20201215220107139" style="zoom: 50%;">
+
+<p>此时双Y轴的图已经绘制好，下面将其改编为堆积柱状图</p>
+</li>
+<li><p>上面的图绘制好后复制一份：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120408.png" alt="image-20201215220230685" style="zoom: 80%;">
+</li>
+<li><p>打开绘图细节对话框，选择图层1：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120411.png" alt="image-20201215220420463" style="zoom: 67%;">
+
+<p>效果：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120416.png" alt="image-20201215220455972" style="zoom: 50%;">
+</li>
+<li><p>部分柱体显示不完全，选取右侧的重新设置Y轴范围按钮：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120422.png" alt="image-20201215220641184" style="zoom:67%;">
+
+<p>就可以显示全部的柱体了，最后的效果：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120426.png" alt="image-20201215220728678" style="zoom: 50%;">
+
+</li>
+</ul>
+<h1 id="六、堆积柱状图"><a href="#六、堆积柱状图" class="headerlink" title="六、堆积柱状图"></a>六、堆积柱状图</h1><h2 id="百分比堆积柱状图"><a href="#百分比堆积柱状图" class="headerlink" title="百分比堆积柱状图"></a>百分比堆积柱状图</h2><p>百分比堆积柱状图是一个很好的展现各个指标或者物种之间比例的图谱</p>
+<ul>
+<li><p>数据</p>
+<p>一组数据，分别是左侧的四个组别(正常对照组，模型组，阳性药组，实验组)，每个组别分别测量5个指标(Factor 1，Factor 2， Factor 3， Factor 4， Factor 5)。我们想要显示出在每个组中，每个指标的相对丰度。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120432.png" alt="image-20201212234911658" style="zoom:67%;">
+</li>
+<li><p>选中数据，选择百分比堆积柱状图。Origin里面提供了两个模板绘制百分比堆积柱状图(横向或者竖向)，我们选择竖着的堆积柱状图。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120436.png" alt="image-20201212235101144" style="zoom:67%;">
+
+<p>基本图形就出来了：一幅带有标签的百分比堆积柱状图。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120446.png" alt="image-20201212235123495" style="zoom:67%;">
+
+</li>
+</ul>
+<p>格式调整：</p>
+<ul>
+<li><p>双击柱子，调整颜色。使用从属，用颜色系进行填充，可以将填充色和边框色设置成一样的，比较好看。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120452.png" alt="image-20201213000238440" style="zoom:50%;">
+</li>
+<li><p>设置中间的连线为白色，这样就不用显示了</p>
+<img src="C:\Users\Hu\AppData\Roaming\Typora\typora-user-images\image-20201212235555276.png" alt="image-20201212235555276" style="zoom:67%;">
+</li>
+<li><p>设置一个合适的间距</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120456.png" alt="image-20201212235637962" style="zoom:67%;">
+
+<p>如果你觉得显示的图例不合适，你可以显示成数据表中各个指标的数字：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120500.png" alt="image-20201212235919161" style="zoom:50%;">
+
+<p>最后将图中的标签更改一下：</p>
+<ul>
+<li>删除Y轴标签，重新填写；</li>
+<li>将图例右击放成水平；</li>
+<li>X，Y轴次坐标取消，字体新罗马加粗；</li>
+</ul>
+<p>最后得效果：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210101120506.png" alt="image-20201213000304867" style="zoom:50%;">
+
+</li>
 </ul>
 <script>
         document.querySelectorAll('.github-emoji')
@@ -229,12 +410,12 @@ conda install pandas<span aria-hidden="true" class="line-numbers-rows"><span></s
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/9de15300/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/c093d808/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GIS/" rel="tag">GIS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/arcpy/" rel="tag">arcpy</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OriginPro/" rel="tag">OriginPro</a></li></ul>
 
     </footer>
   </div>
@@ -242,19 +423,10 @@ conda install pandas<span aria-hidden="true" class="line-numbers-rows"><span></s
    
   <nav class="article-nav">
     
-      <a href="/posts/cdd2e0dc/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            GDAL读写遥感影像数据
-          
-        </div>
-      </a>
     
-    
-      <a href="/posts/892c256e/" class="article-nav-link">
+      <a href="/posts/3b0a2e38/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">python中arcpy库的应用！</div>
+        <div class="article-nav-title">『Graphics』 绘制二维数据集的置信椭圆</div>
       </a>
     
   </nav>
