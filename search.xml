@@ -848,15 +848,103 @@ $$
       </tags>
   </entry>
   <entry>
+    <title>『OriginPro』 如何美化科学计数法的坐标轴？</title>
+    <url>/posts/1d83386a/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id=""><a href="#" class="headerlink" title=""></a><img src="https://raw.githubusercontent.com/HG95/image/master/20210103141944.png" alt="image-20210103141324610" style="zoom: 80%;"></h1><a id="more"></a>
+
+<p>当坐标轴数值比较大时，无论是以10进制显示坐标轴数值（如图1）还是科学计数法显示坐标轴数值（如图2）都不太美观。如何美化科学计数法的坐标轴（如图3）呢？</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210103141951.png" alt="image-20201214110821637" style="zoom: 80%;">
+
+<p>A：用户可执行：</p>
+<ol>
+<li><p>双击坐标轴打开Axis对话框，选择Tick Label:Display选项卡</p>
+</li>
+<li><p>在Divide by Factor键入需要省略的“10的n次幂”</p>
+</li>
+<li><p>勾选Set Decimal Places为设置小数点位数，在Decimal Number中可键入需要显示的小数点位数</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210103141958.png" alt="image-20201214110931916" style="zoom:67%;">
+</li>
+<li><p>选择Special Ticks选项卡，在坐标轴最末端的位置新增一个Tick，显示为末端值*10的n次幂（LastNum x 10+(n)）</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210103142003.png" alt="image-20201214111025976" style="zoom:67%;">
+
+<p>效果：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210103142010.png" alt="image-20210103141607951" style="zoom:80%;"></li>
+</ol>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>Origin绘图</category>
+      </categories>
+      <tags>
+        <tag>OriginPro</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>『OriginPro』 坐标轴显示部分刻度</title>
+    <url>/posts/2f51bfdc/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id=""><a href="#" class="headerlink" title=""></a><img src="https://raw.githubusercontent.com/HG95/image/master/20210103142356.png" alt="image-20210103142250338" style="zoom:80%;"></h1><a id="more"></a>
+
+<p>正常的坐标轴显示：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210103142401.png" alt="image-20201219161606893" style="zoom:80%;">
+
+<p>想要只显示一部分刻度，例如3，4，5</p>
+<p>双击坐标轴：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210103142405.png" alt="image-20201219161837679" style="zoom:80%;">
+
+<p>效果：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210103142412.png" alt="image-20201219161906316" style="zoom:80%;"><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>Origin绘图</category>
+      </categories>
+      <tags>
+        <tag>OriginPro</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>sdws</title>
     <url>/posts/be627c25/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><a id="more"></a>
 
-<div id="echarts9498" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<div id="echarts726" style="width: 85%;height: 400px;margin: 0 auto"></div>
 <script src="https://cdn.bootcss.com/echarts/3.8.0/echarts.common.min.js"></script>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts9498'));
+        var myChart = echarts.init(document.getElementById('echarts726'));
         // 指定图表的配置项和数据
         var option = {
     tooltip : {
