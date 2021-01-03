@@ -1,6 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>『OriginPro』 多元拟合分析</title>
+    <url>/posts/5f339216/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>多元回归分析</p>
+<a id="more"></a>
+
+<p>加载excel数据，将excel拖入origin，选择第一行将其转为长名称：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210103215552.png" alt="image-20210103214203462" style="zoom:80%;">
+
+<h1 id="多元回归分析——带截距"><a href="#多元回归分析——带截距" class="headerlink" title="多元回归分析——带截距"></a>多元回归分析——带截距</h1><p>上方菜单栏：<code>Analysis</code>-&gt;<code>Fitting</code>-&gt;<code>Multiple Linear Regression</code></p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210103215559.png" alt="image-20210103214535901" style="zoom:80%;">
+
+<p>数据选择：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210103215604.png" alt="image-20210103214738950" style="zoom: 80%;">
+
+<p>其它参数默认即可，点击🆗，得到拟合的结果：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210103215609.png" alt="image-20210103214904529" style="zoom: 67%;">
+
+<h1 id="多元回归分析——自定义截距"><a href="#多元回归分析——自定义截距" class="headerlink" title="多元回归分析——自定义截距"></a>多元回归分析——自定义截距</h1><p>打开多元回归分析的对话框，数据选择后，切换到<code>Fit Control</code>,如图所示：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210103215619.png" alt="image-20210103215212812" style="zoom:80%;">
+
+<p>点击🆗，和上面的结果相比可以看到截距为0：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210103215628.png" alt="image-20210103215424336" style="zoom:67%;">
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://www.bilibili.com/video/BV1jK411g7gq">回归拟合分析</a> </li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>Origin绘图</category>
+      </categories>
+      <tags>
+        <tag>OriginPro</tag>
+        <tag>多元拟合分析</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>『OriginPro』  柱状图</title>
     <url>/posts/c093d808/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><img src="https://raw.githubusercontent.com/HG95/image/master/20210101120601.png" alt="主要内容" style="zoom:150%;">
@@ -940,11 +994,11 @@ $$
     <url>/posts/be627c25/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><a id="more"></a>
 
-<div id="echarts726" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<div id="echarts2580" style="width: 85%;height: 400px;margin: 0 auto"></div>
 <script src="https://cdn.bootcss.com/echarts/3.8.0/echarts.common.min.js"></script>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts726'));
+        var myChart = echarts.init(document.getElementById('echarts2580'));
         // 指定图表的配置项和数据
         var option = {
     tooltip : {
