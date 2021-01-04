@@ -1,6 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>『Arcpy』 像元统计 (Spatial Analyst)</title>
+    <url>/posts/2c5ccb85/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>根据多个栅格数据计算每个像元的统计数据。</p>
+<p>可用的统计数据有：众数、最大值、均值、中位数、最小值、少数、范围、标准差、总和及变异度。</p>
+<a id="more"></a>
+
+<h1 id="插图"><a href="#插图" class="headerlink" title="插图"></a>插图</h1><img src="https://gitee.com/HHG1092090447/img/raw/master/20210104142724.png" alt="GUID-D8BD897C-B7A2-46A5-93DC-121409FF4C0D-web">
+
+<p><em>OutRas = CellStatistics([InRas1, InRas2, InRas3], “SUM”, “NODATA”, “SINGLE_BAND”)</em></p>
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><ul>
+<li><p>使用此工具时输入栅格的顺序不重要。</p>
+</li>
+<li><p>对于最大值、最小值、均值、中位数、众数、少数及总和统计数据类型，如果将单个栅格数据用作输入，则输出像元值将与输入像元值相同。对于范围和标准偏差，输出像元值将全部为 0。对于 Variety，它将是 1。</p>
+</li>
+<li><p>如果未选中<strong>以多波段方式处理</strong>参数（在 Python 中，process_as_multiband 设置为 SINGLE_BAND），则来自多波段栅格输入的每个波段都将分别作为单波段栅格进行处理，且输出将是单波段栅格。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210104142811.png" alt="GUID-65E29EE7-3679-4CE0-833A-E3F29F1EB319-web">
+
+<p><em>当作为 SINGLE_BAND 进行处理时，像元统计工具将创建单波段输出。</em></p>
+</li>
+<li><p>如果选中<strong>以多波段方式处理</strong>参数（在 Python 中，process_as_multiband 设定为 MULTI_BAND），每个多波段栅格输入都将被作为多波段栅格进行处理，而输出将是多波段栅格。如果输入是多波段栅格和常量的组合，则输出栅格也将是多波段。每个多波段输入中的波段数必须相同。</p>
+<p>该工具将使用另一个输入的相应波段对一个输入的每个波段执行操作。如果输入之一是多波段栅格，而另一个输入是常量，则该工具将使用多波段输入中每个波段的常量值执行操作。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210104142825.png" alt="GUID-E2051A7D-8304-4CC0-B57F-EF9F68690906-web">
+
+<p><em>当作为 MULTI_BAND 进行处理时，像元统计工具将创建多波段输出。</em></p>
+</li>
+</ul>
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><pre class="line-numbers language-python"><code class="language-python">CellStatistics<span class="token punctuation">(</span>in_rasters_or_constants<span class="token punctuation">,</span> <span class="token punctuation">{</span>statistics_type<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>ignore_nodata<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>process_as_multiband<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th align="left">说明</th>
+<th>数据类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>in_rasters_or_constants<br>[in_raster_or_constant,…]</td>
+<td align="left">输入栅格列表，将为其中的输入栅格计算“分析”窗口中各个像元的统计数据。可使用一个数字作为输入；但是，像元大小和范围必须先在环境中进行设置。如果将 processing_as_multiband 参数设置为 MULTI_BAND，则所有多波段输入应具有相等数量的波段。</td>
+<td>Raster Layer; Constant</td>
+</tr>
+<tr>
+<td>statistics_type（可选）</td>
+<td align="left">指定要计算的统计数据类型。MEAN —将计算输入的平均值。MAJORITY —将计算输入的众数（出现次数最多的值）。MAXIMUM —将计算输入的最大值。MEDIAN —将计算输入的中值。MINIMUM —将计算输入的最小值。MINORITY —将计算输入的少数（出现次数最少的值）。RANGE —将计算输入的范围（最大值和最小值之差）。STD —将计算输入的标准偏差。SUM —将计算输入的总和（所有值的总和）。VARIETY —将计算输入的变异度（唯一值的数量）。默认统计类型为平均值。</td>
+<td>String</td>
+</tr>
+<tr>
+<td>ignore_nodata（可选）</td>
+<td align="left">指定在进行统计计算时是否将忽略 NoData 值。DATA —在处理像元位置处，如果任意输入栅格具有 NoData，将忽略该 NoData 值。仅考虑具有有效数据的像元来计算统计数据。这是默认设置。NODATA —如果任意输入栅格的处理像元位置为 NoData，该像元的输出将为 NoData。</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>process_as_multiband（可选）</td>
+<td align="left">指定如何处理输入多波段栅格波段。SINGLE_BAND —来自多波段栅格输入的每个波段将被单独处理为单波段栅格。这是默认设置。MULTI_BAND —每个多波段栅格输入都将作为多波段栅格进行处理。将使用其他输入的相应波段数对一个输入的每个波段执行操作。</td>
+<td>Boolean</td>
+</tr>
+</tbody></table>
+<h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+<th>数据类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>out_raster</td>
+<td>输出栅格。对于各个像元，可通过将指定统计数据类型应用到该位置处的输入栅格来确定该值。</td>
+<td>Raster</td>
+</tr>
+</tbody></table>
+<h1 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h1><p>CellStatistics 示例 1（Python 窗口）</p>
+<p>在本示例中，将针对多个输入 Grid 栅格中的每个像元计算标准差，并将结果输出为 IMG 栅格。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
+<span class="token keyword">from</span> arcpy <span class="token keyword">import</span> env
+<span class="token keyword">from</span> arcpy<span class="token punctuation">.</span>sa <span class="token keyword">import</span> <span class="token operator">*</span>
+env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> <span class="token string">"C:/sapyexamples/data"</span>
+outCellStats <span class="token operator">=</span> CellStatistics<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">"degs"</span><span class="token punctuation">,</span> <span class="token string">"negs"</span><span class="token punctuation">,</span> <span class="token string">"cost"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"STD"</span><span class="token punctuation">,</span> <span class="token string">"DATA"</span><span class="token punctuation">)</span>
+outCellStats<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token string">"C:/sapyexamples/output/outcellstats.img"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在自己使用的过程中发现需要将计算的影像放到同一个文件夹下，才能正确的运行程序，</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># -*- coding: utf-8 -*-</span>
+<span class="token comment" spellcheck="true"># 白天晚上对应得影像相加，最后输出46张影像</span>
+
+<span class="token keyword">import</span> arcpy
+<span class="token keyword">from</span> arcpy <span class="token keyword">import</span> env
+<span class="token keyword">from</span> arcpy<span class="token punctuation">.</span>sa <span class="token keyword">import</span> <span class="token operator">*</span>
+<span class="token keyword">import</span> os
+<span class="token keyword">import</span> shutil
+
+
+arcpy<span class="token punctuation">.</span>CheckOutExtension<span class="token punctuation">(</span><span class="token string">"ImageAnalyst"</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 检查许可</span>
+arcpy<span class="token punctuation">.</span>CheckOutExtension<span class="token punctuation">(</span><span class="token string">"spatial"</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 检查许可</span>
+
+
+<span class="token keyword">def</span> <span class="token function">mean_tif</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> o_tif<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> t
+    Rasters <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>ListRasters<span class="token punctuation">(</span><span class="token string">"*"</span><span class="token punctuation">,</span> <span class="token string">'tif'</span><span class="token punctuation">)</span>
+    outCellStatistics <span class="token operator">=</span> CellStatistics<span class="token punctuation">(</span>Rasters<span class="token punctuation">,</span> <span class="token string">"MEAN"</span><span class="token punctuation">)</span>
+    outCellStatistics<span class="token punctuation">.</span>save<span class="token punctuation">(</span>o_tif<span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">del_file</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    paths <span class="token operator">=</span> <span class="token punctuation">[</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>path<span class="token punctuation">,</span> file<span class="token punctuation">)</span> <span class="token keyword">for</span> file <span class="token keyword">in</span> os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> file <span class="token keyword">in</span> paths<span class="token punctuation">:</span>
+        os<span class="token punctuation">.</span>remove<span class="token punctuation">(</span>file<span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">parse_tif</span><span class="token punctuation">(</span>day<span class="token punctuation">,</span> night<span class="token punctuation">,</span> temporary_file<span class="token punctuation">,</span> out<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> <span class="token operator">not</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>exists<span class="token punctuation">(</span>temporary_file<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        os<span class="token punctuation">.</span>makedirs<span class="token punctuation">(</span>te<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token operator">not</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>exists<span class="token punctuation">(</span>out<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        os<span class="token punctuation">.</span>makedirs<span class="token punctuation">(</span>out<span class="token punctuation">)</span>
+
+    days <span class="token operator">=</span> <span class="token punctuation">[</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>day<span class="token punctuation">,</span> name<span class="token punctuation">)</span> <span class="token keyword">for</span> name <span class="token keyword">in</span> os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span>day<span class="token punctuation">)</span><span class="token punctuation">]</span>
+    nights <span class="token operator">=</span> <span class="token punctuation">[</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>night<span class="token punctuation">,</span> name<span class="token punctuation">)</span> <span class="token keyword">for</span> name <span class="token keyword">in</span> os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span>night<span class="token punctuation">)</span><span class="token punctuation">]</span>
+    outs <span class="token operator">=</span> <span class="token punctuation">[</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>out<span class="token punctuation">,</span> name<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">'LST_Day_1km'</span><span class="token punctuation">,</span> <span class="token string">'mean'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">for</span> name <span class="token keyword">in</span> os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span>day<span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">for</span> d_tif<span class="token punctuation">,</span> n_tif<span class="token punctuation">,</span> o_tif <span class="token keyword">in</span> zip<span class="token punctuation">(</span>days<span class="token punctuation">,</span> nights<span class="token punctuation">,</span> outs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        shutil<span class="token punctuation">.</span>copy<span class="token punctuation">(</span>d_tif<span class="token punctuation">,</span> temporary_file<span class="token punctuation">)</span>
+        shutil<span class="token punctuation">.</span>copy<span class="token punctuation">(</span>n_tif<span class="token punctuation">,</span> temporary_file<span class="token punctuation">)</span>
+        mean_tif<span class="token punctuation">(</span>temporary_file<span class="token punctuation">,</span> o_tif<span class="token punctuation">)</span>
+        <span class="token keyword">print</span> d_tif<span class="token punctuation">,</span> n_tif
+        del_file<span class="token punctuation">(</span>temporary_file<span class="token punctuation">)</span>
+
+    shutil<span class="token punctuation">.</span>rmtree<span class="token punctuation">(</span>temporary_file<span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    day <span class="token operator">=</span> r<span class="token string">'F:\CodeFile\d'</span>
+    night <span class="token operator">=</span> r<span class="token string">'F:\CodeFile\n'</span>
+    <span class="token comment" spellcheck="true"># 临时文件夹,如何不存在,会自动建立,程序运行完会自动删除</span>
+    te <span class="token operator">=</span> r<span class="token string">'F:\CodeFile\means'</span>
+    <span class="token comment" spellcheck="true"># 文件输出,如何不存在,会自动建立</span>
+    out_file <span class="token operator">=</span> r<span class="token string">'F:\CodeFile\mean'</span>
+
+    parse_tif<span class="token punctuation">(</span>day<span class="token punctuation">,</span> night<span class="token punctuation">,</span> te<span class="token punctuation">,</span> out_file<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://pro.arcgis.com/zh-cn/pro-app/tool-reference/spatial-analyst/cell-statistics.htm">像元统计 (Spatial Analyst)</a> </li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>Arcpy</category>
+      </categories>
+      <tags>
+        <tag>GIS</tag>
+        <tag>Arcpy</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>『OriginPro』 多元拟合分析</title>
     <url>/posts/5f339216/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>多元回归分析</p>
@@ -994,11 +1161,11 @@ $$
     <url>/posts/be627c25/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><a id="more"></a>
 
-<div id="echarts2580" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<div id="echarts6936" style="width: 85%;height: 400px;margin: 0 auto"></div>
 <script src="https://cdn.bootcss.com/echarts/3.8.0/echarts.common.min.js"></script>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts2580'));
+        var myChart = echarts.init(document.getElementById('echarts6936'));
         // 指定图表的配置项和数据
         var option = {
     tooltip : {
@@ -1515,7 +1682,7 @@ conda install pandas<span aria-hidden="true" class="line-numbers-rows"><span></s
       </tags>
   </entry>
   <entry>
-    <title>python中arcpy库的应用！</title>
+    <title>『Arcpy』python中arcpy库的应用！</title>
     <url>/posts/892c256e/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>遇到的使用<code>aracpy</code> 处理数据的方法！</p>
 <a id="more"></a>
@@ -1651,8 +1818,8 @@ field name :a  field length : 4  filed type : SmallInteger</code></pre>
         <category>arcpy</category>
       </categories>
       <tags>
-        <tag>arcpy</tag>
         <tag>GIS</tag>
+        <tag>Arcpy</tag>
       </tags>
   </entry>
   <entry>

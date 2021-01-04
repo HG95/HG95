@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    ArcGIS 10.2.2利用Anaconda集成scipy和pandas |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
+    『Arcpy』 像元统计 (Spatial Analyst) |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -50,7 +50,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-ArcGIS-10-2-2利用Anaconda集成scipy和pandas"
+  id="post-Arcpy-像元统计-Spatial-Analyst"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -61,18 +61,18 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  ArcGIS 10.2.2利用Anaconda集成scipy和pandas
+  『Arcpy』 像元统计 (Spatial Analyst)
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/posts/9de15300/" class="article-date">
-  <time datetime="2020-11-02T02:33:16.000Z" itemprop="datePublished">2020-11-02</time>
+      <a href="/posts/2c5ccb85/" class="article-date">
+  <time datetime="2021-01-04T03:36:29.000Z" itemprop="datePublished">2021-01-04</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/arcpy/">arcpy</a>
+    <a class="article-category-link" href="/categories/Arcpy/">Arcpy</a>
   </div>
   
 <div class="word_count">
@@ -80,7 +80,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">673</span>
+            <span class="post-count">1.4k</span>
         </span>
     </span>
 
@@ -89,7 +89,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">2 分钟</span>
+            <span class="post-count">5 分钟</span>
         </span>
     </span>
 </div>
@@ -104,44 +104,142 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>利用Anaconda创建虚拟环境，将Anaconda里的第三方包集成到ArcGIS。</p>
+  <p>根据多个栅格数据计算每个像元的统计数据。</p>
+<p>可用的统计数据有：众数、最大值、均值、中位数、最小值、少数、范围、标准差、总和及变异度。</p>
 <a id="more"></a>
 
-<h1 id="一、Anaconda安装与配置"><a href="#一、Anaconda安装与配置" class="headerlink" title="一、Anaconda安装与配置"></a>一、Anaconda安装与配置</h1><p>这里是之前安装好的，Anaconda3，原博主安装的是Miniconda，效果都是一样的。</p>
-<p>Miniconda安装参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f3d58072c85d">https://www.jianshu.com/p/f3d58072c85d</a></p>
-<h1 id="二、ArcGIS与Anaconda集成"><a href="#二、ArcGIS与Anaconda集成" class="headerlink" title="二、ArcGIS与Anaconda集成"></a>二、ArcGIS与Anaconda集成</h1><p>这步是主要参考的内容</p>
-<h2 id="Anaconda中创建新的python环境"><a href="#Anaconda中创建新的python环境" class="headerlink" title="Anaconda中创建新的python环境"></a>Anaconda中创建新的python环境</h2><p>（1）确定ArcGIS自带的Python版本</p>
-<p>先明确ArcGIS里的python，numpy和matplotlib分别是什么版本。具体步骤为：<br> 打开ArcGIS Desktop 10.2.2，【Geoprocessing】–&gt;【Python】，输入如下代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> sys<span class="token punctuation">,</span> numpy<span class="token punctuation">,</span> matplotlib
-<span class="token keyword">print</span><span class="token punctuation">(</span>sys<span class="token punctuation">.</span>version<span class="token punctuation">,</span> numpy<span class="token punctuation">.</span>__version__<span class="token punctuation">,</span> matplotlib<span class="token punctuation">.</span>__version__<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>可以看到，ArcGIS Desktop 10.2.2中得到的结果如下：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token punctuation">(</span><span class="token string">'2.7.5 (default, May 15 2013, 22:43:36) [MSC v.1500 32 bit (Intel)]'</span><span class="token punctuation">,</span> <span class="token string">'1.7.1'</span><span class="token punctuation">,</span> <span class="token string">'1.3.0'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>也就是Python 2.7.5， numpy 1.7.1，matplotlib 1.3.0<br> （2）创建虚拟python环境<br> 先将Anaconda的环境置为32bit （因为ArcGIS Desktop默认用的是32位的Python），然后再创建环境。<br> 在Anaconda Prompt窗口（<strong>右键以管理员身份运行</strong>）中，输入以下命令行，创建目录以准备自动下载和安装各种第三方包：</p>
-<pre class="line-numbers language-python"><code class="language-python">set CONDA_FORCE_32BIT<span class="token operator">=</span><span class="token number">1</span>
-conda create <span class="token operator">-</span>n arc1022 python<span class="token operator">=</span><span class="token number">2.7</span><span class="token punctuation">.</span><span class="token number">5</span> numpy<span class="token operator">=</span><span class="token number">1.7</span><span class="token punctuation">.</span><span class="token number">1</span> matplotlib<span class="token operator">=</span><span class="token number">1.3</span><span class="token punctuation">.</span><span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>这样就创建好了新的Python环境，其名称为<strong>arc1022</strong>。</p>
-<blockquote>
-<p>当然，如果你暂时不想安装第三方包，可以只用输入：</p>
-<pre class="line-numbers language-python"><code class="language-python">conda create <span class="token operator">-</span>n arc1022<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-</blockquote>
-<p>默认的Python环境为<strong>base</strong>，要激活刚创建的arc1022虚拟环境，请输入<code>conda activate arc1022</code><br>然后，就可以在arc1022环境中使用conda安装各种包了。例如：</p>
-<pre class="line-numbers language-python"><code class="language-python">conda install scipy
-conda install pandas<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h2 id="将Anaconda里的第三方包集成到ArcGIS"><a href="#将Anaconda里的第三方包集成到ArcGIS" class="headerlink" title="将Anaconda里的第三方包集成到ArcGIS"></a>将Anaconda里的第三方包集成到ArcGIS</h2><p><strong>里所谓的集成，其实只是让ArcGIS自带的Python知道本机的哪个目录里还有合适第三方包</strong>。</p>
-<p>上面的Miniconda是安装在<strong>C:\Python27\Miniconda2</strong>这个目录，并且用conda create命令创建的目录是<strong>arc1022</strong>，则所有用conda install xxx 新安装的第三方包都在下面这个目录里：</p>
-<pre><code> C:\Python27\Miniconda2\envs\arc1022\Lib\site-packages</code></pre>
-<p>下面把该目录告诉ArcGIS 10.2.2自带的Python 2.7.5，以便它能import该目录下的第三方包。</p>
-<ol>
-<li><p>创建一个后缀名为pth的文件，例如：<strong>findArc1022inMiniconda.pth</strong>，该文件里只需要一行文本：</p>
-<pre><code> C:\Python27\Miniconda2\envs\arc1022\Lib\site-packages</code></pre>
-<p> 这样，arcgis就知道到arc1022环境所在的目录下去找第三方包了。</p>
+<h1 id="插图"><a href="#插图" class="headerlink" title="插图"></a>插图</h1><img src="https://gitee.com/HHG1092090447/img/raw/master/20210104142724.png" alt="GUID-D8BD897C-B7A2-46A5-93DC-121409FF4C0D-web">
+
+<p><em>OutRas = CellStatistics([InRas1, InRas2, InRas3], “SUM”, “NODATA”, “SINGLE_BAND”)</em></p>
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><ul>
+<li><p>使用此工具时输入栅格的顺序不重要。</p>
 </li>
-<li><p>将这个pth文件拷贝到ArcGIS自带Python的第三方包存放目录中，这个目录是：</p>
-<pre><code>C:\Python27\ArcGIS10.2\Lib\site-packages</code></pre>
+<li><p>对于最大值、最小值、均值、中位数、众数、少数及总和统计数据类型，如果将单个栅格数据用作输入，则输出像元值将与输入像元值相同。对于范围和标准偏差，输出像元值将全部为 0。对于 Variety，它将是 1。</p>
 </li>
-</ol>
+<li><p>如果未选中<strong>以多波段方式处理</strong>参数（在 Python 中，process_as_multiband 设置为 SINGLE_BAND），则来自多波段栅格输入的每个波段都将分别作为单波段栅格进行处理，且输出将是单波段栅格。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210104142811.png" alt="GUID-65E29EE7-3679-4CE0-833A-E3F29F1EB319-web">
+
+<p><em>当作为 SINGLE_BAND 进行处理时，像元统计工具将创建单波段输出。</em></p>
+</li>
+<li><p>如果选中<strong>以多波段方式处理</strong>参数（在 Python 中，process_as_multiband 设定为 MULTI_BAND），每个多波段栅格输入都将被作为多波段栅格进行处理，而输出将是多波段栅格。如果输入是多波段栅格和常量的组合，则输出栅格也将是多波段。每个多波段输入中的波段数必须相同。</p>
+<p>该工具将使用另一个输入的相应波段对一个输入的每个波段执行操作。如果输入之一是多波段栅格，而另一个输入是常量，则该工具将使用多波段输入中每个波段的常量值执行操作。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210104142825.png" alt="GUID-E2051A7D-8304-4CC0-B57F-EF9F68690906-web">
+
+<p><em>当作为 MULTI_BAND 进行处理时，像元统计工具将创建多波段输出。</em></p>
+</li>
+</ul>
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><pre class="line-numbers language-python"><code class="language-python">CellStatistics<span class="token punctuation">(</span>in_rasters_or_constants<span class="token punctuation">,</span> <span class="token punctuation">{</span>statistics_type<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>ignore_nodata<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>process_as_multiband<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th align="left">说明</th>
+<th>数据类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>in_rasters_or_constants<br>[in_raster_or_constant,…]</td>
+<td align="left">输入栅格列表，将为其中的输入栅格计算“分析”窗口中各个像元的统计数据。可使用一个数字作为输入；但是，像元大小和范围必须先在环境中进行设置。如果将 processing_as_multiband 参数设置为 MULTI_BAND，则所有多波段输入应具有相等数量的波段。</td>
+<td>Raster Layer; Constant</td>
+</tr>
+<tr>
+<td>statistics_type（可选）</td>
+<td align="left">指定要计算的统计数据类型。MEAN —将计算输入的平均值。MAJORITY —将计算输入的众数（出现次数最多的值）。MAXIMUM —将计算输入的最大值。MEDIAN —将计算输入的中值。MINIMUM —将计算输入的最小值。MINORITY —将计算输入的少数（出现次数最少的值）。RANGE —将计算输入的范围（最大值和最小值之差）。STD —将计算输入的标准偏差。SUM —将计算输入的总和（所有值的总和）。VARIETY —将计算输入的变异度（唯一值的数量）。默认统计类型为平均值。</td>
+<td>String</td>
+</tr>
+<tr>
+<td>ignore_nodata（可选）</td>
+<td align="left">指定在进行统计计算时是否将忽略 NoData 值。DATA —在处理像元位置处，如果任意输入栅格具有 NoData，将忽略该 NoData 值。仅考虑具有有效数据的像元来计算统计数据。这是默认设置。NODATA —如果任意输入栅格的处理像元位置为 NoData，该像元的输出将为 NoData。</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>process_as_multiband（可选）</td>
+<td align="left">指定如何处理输入多波段栅格波段。SINGLE_BAND —来自多波段栅格输入的每个波段将被单独处理为单波段栅格。这是默认设置。MULTI_BAND —每个多波段栅格输入都将作为多波段栅格进行处理。将使用其他输入的相应波段数对一个输入的每个波段执行操作。</td>
+<td>Boolean</td>
+</tr>
+</tbody></table>
+<h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+<th>数据类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>out_raster</td>
+<td>输出栅格。对于各个像元，可通过将指定统计数据类型应用到该位置处的输入栅格来确定该值。</td>
+<td>Raster</td>
+</tr>
+</tbody></table>
+<h1 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h1><p>CellStatistics 示例 1（Python 窗口）</p>
+<p>在本示例中，将针对多个输入 Grid 栅格中的每个像元计算标准差，并将结果输出为 IMG 栅格。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
+<span class="token keyword">from</span> arcpy <span class="token keyword">import</span> env
+<span class="token keyword">from</span> arcpy<span class="token punctuation">.</span>sa <span class="token keyword">import</span> <span class="token operator">*</span>
+env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> <span class="token string">"C:/sapyexamples/data"</span>
+outCellStats <span class="token operator">=</span> CellStatistics<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">"degs"</span><span class="token punctuation">,</span> <span class="token string">"negs"</span><span class="token punctuation">,</span> <span class="token string">"cost"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"STD"</span><span class="token punctuation">,</span> <span class="token string">"DATA"</span><span class="token punctuation">)</span>
+outCellStats<span class="token punctuation">.</span>save<span class="token punctuation">(</span><span class="token string">"C:/sapyexamples/output/outcellstats.img"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在自己使用的过程中发现需要将计算的影像放到同一个文件夹下，才能正确的运行程序，</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># -*- coding: utf-8 -*-</span>
+<span class="token comment" spellcheck="true"># 白天晚上对应得影像相加，最后输出46张影像</span>
+
+<span class="token keyword">import</span> arcpy
+<span class="token keyword">from</span> arcpy <span class="token keyword">import</span> env
+<span class="token keyword">from</span> arcpy<span class="token punctuation">.</span>sa <span class="token keyword">import</span> <span class="token operator">*</span>
+<span class="token keyword">import</span> os
+<span class="token keyword">import</span> shutil
+
+
+arcpy<span class="token punctuation">.</span>CheckOutExtension<span class="token punctuation">(</span><span class="token string">"ImageAnalyst"</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 检查许可</span>
+arcpy<span class="token punctuation">.</span>CheckOutExtension<span class="token punctuation">(</span><span class="token string">"spatial"</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 检查许可</span>
+
+
+<span class="token keyword">def</span> <span class="token function">mean_tif</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> o_tif<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> t
+    Rasters <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>ListRasters<span class="token punctuation">(</span><span class="token string">"*"</span><span class="token punctuation">,</span> <span class="token string">'tif'</span><span class="token punctuation">)</span>
+    outCellStatistics <span class="token operator">=</span> CellStatistics<span class="token punctuation">(</span>Rasters<span class="token punctuation">,</span> <span class="token string">"MEAN"</span><span class="token punctuation">)</span>
+    outCellStatistics<span class="token punctuation">.</span>save<span class="token punctuation">(</span>o_tif<span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">del_file</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    paths <span class="token operator">=</span> <span class="token punctuation">[</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>path<span class="token punctuation">,</span> file<span class="token punctuation">)</span> <span class="token keyword">for</span> file <span class="token keyword">in</span> os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> file <span class="token keyword">in</span> paths<span class="token punctuation">:</span>
+        os<span class="token punctuation">.</span>remove<span class="token punctuation">(</span>file<span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">parse_tif</span><span class="token punctuation">(</span>day<span class="token punctuation">,</span> night<span class="token punctuation">,</span> temporary_file<span class="token punctuation">,</span> out<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> <span class="token operator">not</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>exists<span class="token punctuation">(</span>temporary_file<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        os<span class="token punctuation">.</span>makedirs<span class="token punctuation">(</span>te<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token operator">not</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>exists<span class="token punctuation">(</span>out<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        os<span class="token punctuation">.</span>makedirs<span class="token punctuation">(</span>out<span class="token punctuation">)</span>
+
+    days <span class="token operator">=</span> <span class="token punctuation">[</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>day<span class="token punctuation">,</span> name<span class="token punctuation">)</span> <span class="token keyword">for</span> name <span class="token keyword">in</span> os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span>day<span class="token punctuation">)</span><span class="token punctuation">]</span>
+    nights <span class="token operator">=</span> <span class="token punctuation">[</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>night<span class="token punctuation">,</span> name<span class="token punctuation">)</span> <span class="token keyword">for</span> name <span class="token keyword">in</span> os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span>night<span class="token punctuation">)</span><span class="token punctuation">]</span>
+    outs <span class="token operator">=</span> <span class="token punctuation">[</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>out<span class="token punctuation">,</span> name<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">'LST_Day_1km'</span><span class="token punctuation">,</span> <span class="token string">'mean'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">for</span> name <span class="token keyword">in</span> os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span>day<span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">for</span> d_tif<span class="token punctuation">,</span> n_tif<span class="token punctuation">,</span> o_tif <span class="token keyword">in</span> zip<span class="token punctuation">(</span>days<span class="token punctuation">,</span> nights<span class="token punctuation">,</span> outs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        shutil<span class="token punctuation">.</span>copy<span class="token punctuation">(</span>d_tif<span class="token punctuation">,</span> temporary_file<span class="token punctuation">)</span>
+        shutil<span class="token punctuation">.</span>copy<span class="token punctuation">(</span>n_tif<span class="token punctuation">,</span> temporary_file<span class="token punctuation">)</span>
+        mean_tif<span class="token punctuation">(</span>temporary_file<span class="token punctuation">,</span> o_tif<span class="token punctuation">)</span>
+        <span class="token keyword">print</span> d_tif<span class="token punctuation">,</span> n_tif
+        del_file<span class="token punctuation">(</span>temporary_file<span class="token punctuation">)</span>
+
+    shutil<span class="token punctuation">.</span>rmtree<span class="token punctuation">(</span>temporary_file<span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    day <span class="token operator">=</span> r<span class="token string">'F:\CodeFile\d'</span>
+    night <span class="token operator">=</span> r<span class="token string">'F:\CodeFile\n'</span>
+    <span class="token comment" spellcheck="true"># 临时文件夹,如何不存在,会自动建立,程序运行完会自动删除</span>
+    te <span class="token operator">=</span> r<span class="token string">'F:\CodeFile\means'</span>
+    <span class="token comment" spellcheck="true"># 文件输出,如何不存在,会自动建立</span>
+    out_file <span class="token operator">=</span> r<span class="token string">'F:\CodeFile\mean'</span>
+
+    parse_tif<span class="token punctuation">(</span>day<span class="token punctuation">,</span> night<span class="token punctuation">,</span> te<span class="token punctuation">,</span> out_file<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="https://www.jianshu.com/p/f3d58072c85d" target="_blank">ArcGIS 10.2.2利用Anaconda集成scipy和pandas</a> </li>
+<li><a target="_blank" rel="noopener" href="https://pro.arcgis.com/zh-cn/pro-app/tool-reference/spatial-analyst/cell-statistics.htm">像元统计 (Spatial Analyst)</a> </li>
 </ul>
 <script>
         document.querySelectorAll('.github-emoji')
@@ -229,12 +327,12 @@ conda install pandas<span aria-hidden="true" class="line-numbers-rows"><span></s
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/9de15300/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/2c5ccb85/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GIS/" rel="tag">GIS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/arcpy/" rel="tag">arcpy</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Arcpy/" rel="tag">Arcpy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GIS/" rel="tag">GIS</a></li></ul>
 
     </footer>
   </div>
@@ -242,19 +340,10 @@ conda install pandas<span aria-hidden="true" class="line-numbers-rows"><span></s
    
   <nav class="article-nav">
     
-      <a href="/posts/cdd2e0dc/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            GDAL读写遥感影像数据
-          
-        </div>
-      </a>
     
-    
-      <a href="/posts/892c256e/" class="article-nav-link">
+      <a href="/posts/5f339216/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">『Arcpy』python中arcpy库的应用！</div>
+        <div class="article-nav-title">『OriginPro』 多元拟合分析</div>
       </a>
     
   </nav>
