@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Excel:LOOKUP函数用法！ |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
+    『Statistics』K-S检验 |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -50,7 +50,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-Excel-LOOKUP函数用法！"
+  id="post-Statistics-K-S检验"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -61,18 +61,18 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Excel:LOOKUP函数用法！
+  『Statistics』K-S检验
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/posts/5d5b464a/" class="article-date">
-  <time datetime="2020-09-14T05:07:01.000Z" itemprop="datePublished">2020-09-14</time>
+      <a href="/posts/f5615112/" class="article-date">
+  <time datetime="2021-01-05T06:47:40.000Z" itemprop="datePublished">2021-01-05</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Excel/">Excel</a>
+    <a class="article-category-link" href="/categories/Statistics/">Statistics</a>
   </div>
   
 <div class="word_count">
@@ -80,7 +80,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">2.9k</span>
+            <span class="post-count">1.7k</span>
         </span>
     </span>
 
@@ -89,7 +89,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">10 分钟</span>
+            <span class="post-count">6 分钟</span>
         </span>
     </span>
 </div>
@@ -104,135 +104,66 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>使用VLOOKUP函数的时候，经常都会遇到一些麻烦事，那就是VLOOKUP查找只找到满足条件的第一个值就不找了，并且还只能从左往右查找，太多限制了。LOOKUP函数，可以完美的解决这两个问题，太好用了！</p>
-<p>LOOKUP函数非常强大，有引用函数之王的称号。要想完全掌握它，必须了解它的5种常见用法和它的二分法查找原理。</p>
+  <p>柯尔莫可洛夫-斯米洛夫检验(Kolmogorov–Smirnov test，K-S test)</p>
+<p>K-S检验方法能够利用样本数据推断样本来自的总体是否服从某一理论分布，是一种拟合优度的检验方法，适用于探索连续型随机变量的分布。</p>
 <a id="more"></a>
 
-<h1 id="常规引用"><a href="#常规引用" class="headerlink" title="常规引用"></a>常规引用</h1><p>格式：LOOKUP（查找值，查找区域）</p>
-<p>例1：根据姓名查找语文成绩，公式为<code>=LOOKUP(H2,C2:D19)</code></p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141614.png" alt="20180706113315661001" style="zoom:80%;">
+<h1 id="柯尔莫可洛夫-斯米洛夫检验"><a href="#柯尔莫可洛夫-斯米洛夫检验" class="headerlink" title="柯尔莫可洛夫-斯米洛夫检验"></a><strong>柯尔莫可洛夫-斯米洛夫检验</strong></h1><p>Kolmogorov-Smirnov检验是比较一个频率分布<code>f(x)</code>与理论分布<code>g(x)</code>或者两个观测值分布的检验方法。其原假设H0:两个数据分布一致或者数据符合理论分布。<code>D=max| f(x)- g(x)|</code>，当实际观测值<code>D&gt;D(n,α)</code>则拒绝H0，否则则接受H0假设。</p>
+<p>K-S检验与t-检验之类的其他方法不同是K-S检验不需要知道数据的分布情况，可以算是一种非参数检验方法。当然这样方便的代价就是当检验的数据分布符合特定的分布事，K-S检验的灵敏度没有相应的检验来的高。在样本量比较小的时候，KS检验最为非参数检验在分析两组数据之间是否不同时相当常用。</p>
+<p>PS：t-检验的假设是检验的数据满足正态分布，否则对于小样本不满足正态分布的数据用t-检验就会造成较大的偏差，虽然对于大样本不满足正态分布的数据而言t-检验还是相当精确有效的手段。</p>
+<h1 id="KS检验是如何工作的？"><a href="#KS检验是如何工作的？" class="headerlink" title="KS检验是如何工作的？"></a><strong>KS检验是如何工作的？</strong></h1><h2 id="一、分析数据"><a href="#一、分析数据" class="headerlink" title="一、分析数据"></a>一、分析数据</h2><p>对于以下两组数据：</p>
+<p>controlB={1.26, 0.34, 0.70, 1.75, 50.57, 1.55, 0.08, 0.42, 0.50, 3.20, 0.15, 0.49, 0.95, 0.24, 1.37, 0.17, 6.98, 0.10, 0.94, 0.38}</p>
+<p>treatmentB= {2.37, 2.16, 14.82, 1.73, 41.04, 0.23, 1.32, 2.91, 39.41, 0.11, 27.44, 4.51, 0.51, 4.50, 0.18, 14.68, 4.66, 1.30, 2.06, 1.19}</p>
+<p>对于controlB，这些数据的统计描述如下：</p>
+<pre><code>Mean = 3.61
+Median = 0.60
+High = 50.6 Low = 0.08
+Standard Deviation = 11.2</code></pre>
+<p>可以发现这组数据并不符合正态分布， 否则大约有15%的数据会小于均值-标准差（3.61-11.2），而数据中显然没有小于0的数。</p>
+<h2 id="二、观察数据的累计分段函数（Cumulative-Fraction-Function）"><a href="#二、观察数据的累计分段函数（Cumulative-Fraction-Function）" class="headerlink" title="二、观察数据的累计分段函数（Cumulative Fraction Function）"></a>二、观察数据的累计分段函数（Cumulative Fraction Function）</h2><p>对controlB数据从小到大进行排序：</p>
+<p>sorted controlB={0.08, 0.10, 0.15, 0.17, 0.24, 0.34, 0.38, 0.42, 0.49, 0.50, 0.70, 0.94, 0.95, 1.26, 1.37, 1.55, 1.75, 3.20, 6.98, 50.57}。</p>
+<p>10%的数据（2/20）小于0.15，85%（17/20）的数据小于3。所以，对任何数x来说，其累计分段就是所有比x小的数在数据集中所占的比例。下图就是controlB数据集的累计分段图</p>
+<img src="C:\Users\Hu\Desktop\947235-20160515232906352-1228478989.gif" alt="947235-20160515232906352-1228478989" style="zoom:67%;">
 
-<p>例2：根据姓名查找英语成绩，公式为：<code>=LOOKUP(H2,C2:F19)</code></p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141621.png" alt="20180706113316770002" style="zoom:80%;">
+<p>可以看到大多数数据都几种在图片左侧（数据值比较小），这就是非正态分布的标志。为了更好的观测数据在x轴上的分布，可以对x轴的坐标进行非等分的划分。<strong>在数据都为正的时候有一个很好的方法就是对x轴进行log转换。</strong>下图就是上图做log转换以后的图：</p>
+<img src="C:\Users\Hu\Desktop\947235-20160515233425758-1921619457.gif" alt="947235-20160515233425758-1921619457" style="zoom:67%;">
 
-<p>通过这两个例子我们可以发现，LOOKUP在进行查找时公式的结构非常简单，<strong>查找值和要找的结果分别位于查找区域的首列和末列。</strong></p>
-<p>但是仅仅了解这个用法是远远不够的，如果我们再试一个数据的话，有可能就会发现问题：</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141626.png" alt="20180706113316228003" style="zoom:80%;">
+<p>将treatmentB的数据也做相同的图（如下），可以发现treatmentB和controlB的数据分布范围大致相同（0.1 - 50）。但是对于大部分x值，在controlB数据集中比x小的数据所占的比例比在treatmentB中要高，也就是说达到相同累计比例的值在treatment组中比control中要高。KS检验使用的是两条累计分布曲线之间的最大垂直差作为D值（statistic D）作为描述两组数据之间的差异。在此图中这个D值出现在x=1附近，而D值为0.45（0.65-0.25）。</p>
+<img src="C:\Users\Hu\Desktop\947235-20160515234827492-2021303306.gif" alt="947235-20160515234827492-2021303306" style="zoom:67%;">
 
-<p>当查找姓名变成赵永福的时候，结果就不对了，这是因为<strong>LOOKUP**</strong>函数使用的是二分法查找**，也就是模糊匹配。</p>
-<p>因此，在使用LOOKUP进行常规查找的时候，有一个非常重要的步骤，就是按照查找内容（姓名所在的c列）<strong>升序排序</strong>。</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914142058.png" alt="20180706113317304004" style="zoom:80%;">
+<p>值得注意的是虽然累计分布曲线的性状会随着对数据做转换处理而改变（如log转换），但是D值的大小是不会变的。</p>
+<h2 id="三、百分比图（percentile-plot）"><a href="#三、百分比图（percentile-plot）" class="headerlink" title="三、百分比图（percentile plot）"></a>三、百分比图（percentile plot）</h2><p>估算分布函数肩形图（Estimated Distribution Function Ogive）是一种累计分段图的替代方式。其优势在于可以让你使用概率图纸作图（坐标轴经过特殊分段处理，y轴上的数值间隔符合正态分布），从而根据概率在y轴上的分布可以直观的判断数据到底有多符合正态分布，因为正态分布的数据在这种坐标上是呈一条直线。</p>
+<p>那么这种图是如何画的呢？</p>
+<p>假设我们有这5个数{-0.45, 1.11, 0.48, -0.82, -1.26}，从小到大对它们进行排序，{ -1.26, -0.82, -0.45, 0.48, 1.11 }。0.45是中位数，百分比为0.5，而0.45的累计分布函数中占了0.4到0.6的区间。根据数据x在数据集（N）中排位r可以计算x的百分数（percentile）为r/(N+1)。将上述数据与他们的百分数配对，得到{ (-1.26,.167), (-0.82,.333), (-0.45,.5), (0.48,.667), (1.11,.833) }。然后将各点之间用直线连接就是百分比图了。如下图中红线所示（另一条线为累计分段曲线）。</p>
+<img src="C:\Users\Hu\Desktop\947235-20160516001905227-2140659646.gif" alt="947235-20160516001905227-2140659646" style="zoom:67%;">
 
-<p>当我们排序以后，公式的结果立刻变成了正确的，是不是很神奇！</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914142053.png" alt="20180706113317822005" style="zoom:80%;">
+<p>treatmentB的数据近似对数正态分布，其几何均值为2.563，标准差为6.795。该数据的百分图（红）与其近似的对数正态分布曲线（蓝）如下。</p>
+<img src="C:\Users\Hu\Desktop\947235-20160516002849055-1777305498.gif" alt="947235-20160516002849055-1777305498" style="zoom:67%;">
 
-<p>这又引出了一个新的问题，如果数据不能排序的话，LOOKUP函数还能用吗？</p>
-<p>肯定能用啊，下面来看看LOOKUP函数的第二种用法。</p>
-<h1 id="精确查找的套路"><a href="#精确查找的套路" class="headerlink" title="精确查找的套路"></a><strong>精确查找的套路</strong></h1><p>格式：=LOOKUP（1,0/(查找范围=查找值),结果范围）</p>
-<p>在I2单元格输入公式：<code>=LOOKUP(1,0/(C2:C19=H2)，D2:D19)</code>,</p>
-<p>回车，可看到正确结果。</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914142046.png" alt="20180706113318909006" style="zoom:80%;">
-
-<p>关于这个套路的1和0/到底是什么意思，也是提问率最高的问题之一，在未讲解二分法原理之前，简单来说一下公式的意思。1就是要查找的值，但是条件变了，不是直接查找姓名，而是根据姓名得到的一组逻辑值：</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914142040.png" alt="20180706113319722007" style="zoom:80%;">
-
-<p>注意这里只有一个TRUE，也就是我们要找的姓名。</p>
-<p>接下来用0除以这些逻辑值，在进行计算的时候逻辑值TRUE代表1，FALSE代表0，当分母为0也就是FALSE的时候，计算结果是错误值：</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914142034.jpg" alt="20180706113319379008" style="zoom:80%;">
-
-<p>因此，LOOKUP的工作就变成了在一组数据中找1。由于这组数据只有一个0，其他都是错误值，<strong>二分法使得</strong> <strong>LOOKUP</strong> <strong>只能找到不大于查找值的最后一个数字</strong>，因此只能找到0，最后根据0的行位置（第2行）得到第三参数对应位置的数据，即D2就是我们需要的结果。</p>
-<p>当对数组和逻辑值这两大要点掌握比较熟练的时候，这些内容就很好理解了。目前如果不能完全理解，记住这个套路就行：**<code>=LOOKUP（1,0/(查找范围=查找值),结果范围）</code>**。同时这个套路还能延伸出多条件精确查找用法：</p>
-<p><code>=LOOKUP（1,0/((查找范围1=查找值1)* (查找范围2=查找值2)* (查找范围3=查找值3)),结果范围）</code></p>
-<p>就是在每个查找范围内找到要找的值，得到的逻辑值相乘后同时符合多个条件的位置就是1，原理与单条件的一样。</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914142025.png" alt="20180706113319291009" style="zoom:80%;">
-
-<h1 id="反向查找的套路"><a href="#反向查找的套路" class="headerlink" title="反向查找的套路"></a>反向查找的套路</h1><p>与我们熟知的VLOOKUP不同，使用LOOKUP函数进行反向查找时非常简单，</p>
-<p>公式结构为：**<code>=LOOKUP（查找值，查找列，结果列）</code>**，</p>
-<p>下面这个例子是按照姓名排序后再反向查找的效果：</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914142020.png" alt="20180706113319479010" style="zoom:80%;">
-
+<p>由于数据近似正态分布，所以对其采用t-检验是最佳的检验方法。</p>
+<h1 id="与类似的分布检验方式比较"><a href="#与类似的分布检验方式比较" class="headerlink" title="与类似的分布检验方式比较"></a>与类似的分布检验方式比较</h1><ul>
+<li>经常使用的拟合优度检验和Kolmogorov-Smirnov检验的检验功效较低，在许多计算机软件的Kolmogorov-Smirnov检验无论是大小样本都用大样本近似的公式，很不精准，一般使用Shapiro-Wilk检验和Lilliefor检验。</li>
+<li>Kolmogorov-Smirnov检验只能检验是否一个样本来自于一个已知样本，而Lilliefor检验可以检验是否来自未知总体。</li>
+<li>Shapiro-Wilk检验和Lilliefor检验都是进行大小排序后得到的，所以易受异常值的影响。</li>
+<li>Shapiro-Wilk检验只适用于小样本场合（3≤n≤50）,其他方法的检验功效一般随样本容量的增大而增大。</li>
+<li>拟合优度检验和Kolmogorov-Smirnov检验都采用实际频数和期望频数进行检验，前者既可用于连续总体，又可用于离散总体，而Kolmogorov-Smirnov检验只适用于连续和定量数据。</li>
+<li>拟合优度检验的检验结果依赖于分组，而其他方法的检验结果与区间划分无关。</li>
+</ul>
 
 
-<p>如果数据不能排序的话，使用精确查找的套路：<code>=LOOKUP(1,0/(C2:C19=H8),B2:B19)</code></p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914142014.png" alt="20180706113320897011" style="zoom:80%;">
-
-<h1 id="按区间查找的套路"><a href="#按区间查找的套路" class="headerlink" title="按区间查找的套路"></a>按区间查找的套路</h1><p>据学生的总分给出相应的评语。50分以下的为“很差”，50-100分的为“差”，100-150分的为“一般”，150-200分的为“较好”，200-250分的为“优秀”，250分及以上的为“能手”。</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914142009.png" alt="20180706113320113012" style="zoom:80%;">
-
-<p>这里用的公式为：</p>
-<p><code>=LOOKUP(G2,{0,50,100,150,200,250;"很差","差","一般","较好","优秀","能手"})</code></p>
-<p>按照评语的要求分成了六个等级，如果用if函数去做就很啰嗦，使用LOOKUP处理这类问题非常方便，公式结构也很简单：</p>
-<p><code>=LOOKUP（分数值，{下限1, 下限2……;评语1,评语2……}）</code></p>
-<p>在写这个公式的时候注意两点：</p>
-<ol>
-<li>LOOKUP的第二参数使用了常量<u>数组</u>，这里的大括号是手动输入的，括号内用一个分号分开，左边是每个等级的下限，例如50分以下这个表述里下限就是0，50-100的下限就是50，以此类推，每个数字之间用逗号分开；分号右边是对应的评语，评语应当使用引号，同时用逗号分开（公式里的所有符号都是英文状态下的）；</li>
-<li>数字区间应当遵循升序的排列顺序，否则结果就会错误。</li>
-</ol>
-<h1 id="关于数据排序的重要性"><a href="#关于数据排序的重要性" class="headerlink" title="关于数据排序的重要性"></a>关于数据排序的重要性</h1><img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914142003.png" alt="20180706113320685013" style="zoom:67%;">
-
-<p>当我们按照学号查找姓名的时候，发现会出现错误，学号也是按升序排列的啊，怎么会错？</p>
-<p>这是一种最常见的错误，这里的学号升序排列只是我们感觉如此而已，实际上升序的效果是这样的：</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141958.png" alt="20180706113321188014" style="zoom:67%;">
-
-<p>在使用LOOKUP的时候，如果不使用精确查找的套路，切记一定要排序才能保证公式结果的正确性。</p>
-<h1 id="二分法原理"><a href="#二分法原理" class="headerlink" title="二分法原理"></a>二分法原理</h1><p>按序号查找成绩，序号是升序排列的，公式<code>=LOOKUP(J2,A2:D19)</code>的结果正确。</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141952.png" alt="20180707144605964001" style="zoom:67%;">
-
-<h2 id="二分法查找原理"><a href="#二分法查找原理" class="headerlink" title="二分法查找原理"></a>二分法查找原理</h2><p>二分法查找是把查找范围中的数据按照个数一分为二找到位于中间位置的一个数据，中间值，然后用我们的查找值和中间值做比较。当中间值等于查找值时，直接去获取结果；当中间值小于查找值时，则向下继续进行二分法查找比较（也就是在不含中间值在内的下方的那一半数据中继续进行二分法查找）；当中间值大于查找值时，则向上继续进行二分法查找比较（也就是在不含中间值在内的上方的那一半数据中继续进行二分法查找）。如果如此二分到最后一个数据都未找到等于查找值的数据：最后一个数据小于查找值的，那就以最后一个数据的位置去获取结果值；最后一个数据大于查找值的，那就再向上找一个位置最靠近最后一个数据的小于或等于查找值的数据，再以这个数据的位置去获取结果。</p>
-<p>结合上面的例子，具体看看如何通过序号5，找到语文成绩79的。</p>
-<p>第一次比较：查找范围<code>A2~A19一共18个数据，中间位置是18÷2=9，即中间值是A10单元格的9。显然查找值5小于9，所以继续向上在A2~A9</code>中查找；</p>
-<p>提示：*如果查找范围数据个数是单数，中间位置就是（个数+1）÷2，例如11行的话，中间位置就是（11+1）÷2=6；如果数据个数是偶数，中间位置就是（个数）÷2。</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141945.png" alt="20180707144605830002 (1)" style="zoom:80%;">
-
-<p>第二次比较：只有8个数据，中间位置是8÷2=4，中间值是A5单元格的4，查找值5大于4，所以继续向下在A6~A9中找。注意此时下面只有四个数，第一次查找时直接将9下面的数据都排除了。</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141941.png" alt="20180707144605971003" style="zoom:67%;">
-
-<p>第三次比较：4个数据，中间值是A7的6，查找值5小于6，所以向上找。此时只剩下一个数据A6单元格的5，与查找值一致，因此就得到5所对应的D列数据79。</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141934.png" alt="20180707144605130004" style="zoom:67%;">
+	<div class="row">
+    <embed src="/PDFfile/Kolmogorov-Smirnov检验.pdf" width="100%" height="550" type="application/pdf">
+	</div>
 
 
 
-<h1 id="LOOKUP实现数据的四舍五入"><a href="#LOOKUP实现数据的四舍五入" class="headerlink" title="LOOKUP实现数据的四舍五入"></a>LOOKUP实现数据的四舍五入</h1><p>用LOOKUP解决了一个四舍五入的问题</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141929.png" alt="20180707144607014010" style="zoom:67%;">
 
-<p>原来这个公式是用LOOKUP函数将一个数字百位以下全部舍去，实现了百分位取整。</p>
-<p>在了解过二分法原理以后，是时候让LOOKUP还大家一个解释了。首先说明<code>ROW（A:A）*100</code>这部分。它其实就是得到了一组数字。为了让大家看明白，把 A:A 范围给小一点，用<code>=ROW(A1:A31)*100</code>作说明：</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141924.jpg" alt="20180707144607494011" style="zoom:80%;">
-
-<p>虽然单元格中只能看到一个100，实际上是31个数字，我们可以用f9功能键来看看具体内容：</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141920.jpg" alt="20180707144607259012" style="zoom: 80%;">
-
-<p>ROW函数用于获取单元格的行号，<code>ROW(A1:A31)*100</code>就是用A1到A31单元格的行号分别乘以100，得到一组百位取整的数据{100;200;300;……3000;3100}。</p>
-<p>然后LOOKUP上场了。它要在上述得到的已经百位取整的数组中查找A1。因为数组是按升序排列的，所以查找A1的实质就是在数组中找**<u>小于等于A1的最大值</u>**。</p>
-<p>以2517.32为例，唯有2500是小于它的最大值，因此结果就是2500。有兴趣的朋友可以自己用二分法原理去试试，看看对不对。</p>
-<p>其他数字的查找方式都是如此。这个公式之所以巧妙，就是把一个四舍五入的问题变成了查找引用的问题，真是妙！</p>
-<h1 id="LOOKUP进行数据提取"><a href="#LOOKUP进行数据提取" class="headerlink" title="LOOKUP进行数据提取"></a>LOOKUP进行数据提取</h1><p>原题如图所示提取学号：</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141855.png" alt="20180707144608427014" style="zoom:67%;">
-
-<p>用上图的第一个数据来解释。在N1单元格中输入“10张勇a”，然后在O1单元格中输入公式<code>=-LOOKUP(1,-LEFT(N1,ROW(1:9)))</code>提取学号。</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141850.jpg" alt="20180707144608499015" style="zoom:67%;">
-
-<p>LOOKUP不是引用函数吗，怎么又可以提取数字了？</p>
-<p>LEFT函数的第二个参数使用了一个数组，ROW(1:9)相当于{1;2;3;4;5;6;7;8;9}。LEFT是把第一参数指定的数据从左边开始提取，提取的长度由第二参数来确定。 LEFT按照数组{1;2;3;4;5;6;7;8;9}提取，得到9个结果：</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141845.jpg" alt="20180707144608966016" style="zoom:67%;">
-
-<p>也就是从左边开始提取1位，2位……一直到9位。因为LEFT提取的结果都是文本类型，在LEFT前面加上负号，就可以把其中的文本型数字转为数值，文字变成错误值：</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141840.jpg" alt="20180707144608831017" style="zoom:67%;">
-
-<p>错误值被LOOKUP忽略，现在就变成了在{-1; -10}中找1。1比这组数据都大，<u><strong>根据二分法查找原理，二分后只能向下找，直到最后一位小于1的数据</strong></u>。因此，我们可以简单理解成：<u>当查找值大于查找范围中所有数据（不管是否是升序排列）时，LOOKUP的实质就是在找最后一个数据。</u></p>
-<p>其实将公式中的1变成0也是可以的，因为0也比所有的负数大：</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141835.jpg" alt="20180707144608301018" style="zoom:67%;">
-
-<p>当前最后一个数是-10，所以我们在LOOKUP前面再加个负号，就变成10了，也就是我们需要提取的数字。</p>
-<h1 id="LOOKUP-与合并单元格"><a href="#LOOKUP-与合并单元格" class="headerlink" title="LOOKUP()与合并单元格"></a>LOOKUP()与合并单元格</h1><p>原始格式</p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141828.png" alt="image-20200914140801692" style="zoom:67%;">
-
-<p>在 C 列分别显示对应的第一列的名称：</p>
-<p>公式：<code>=LOOKUP("座",$A$1:A1)</code></p>
-<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141823.png" alt="image-20200914141031170" style="zoom:67%;">
 
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="http://www.itblw.com/graphic/139fcf04c051737b903bf13d4fbd1e8f.html" target="">LOOKUP函数用法全解</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.physics.csbsju.edu/stats/KS-test.n.plot_form.html">在线：KS-test</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.physics.csbsju.edu/stats/KS-test.html">Kolmogorov-Smirnov Test</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/arkenstone/p/5496761.html">KS-检验（Kolmogorov-Smirnov test）</a> </li>
+<li><a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_403aa80a01019ly5.html">R语言 Kolmogorov-Smirnov检验</a> </li>
 </ul>
 <script>
         document.querySelectorAll('.github-emoji')
@@ -320,30 +251,23 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/5d5b464a/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/f5615112/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/K-S%E6%A3%80%E9%AA%8C/" rel="tag">K-S检验</a></li></ul>
+
     </footer>
   </div>
 
    
   <nav class="article-nav">
     
-      <a href="/posts/36d720f0/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            『Graphics』QQ图(分位数图)&#39;
-          
-        </div>
-      </a>
     
-    
-      <a href="/posts/9061c292/" class="article-nav-link">
+      <a href="/posts/2c5ccb85/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Excel:VLOOKUP函数常用方法集合！</div>
+        <div class="article-nav-title">『Arcpy』 像元统计 (Spatial Analyst)</div>
       </a>
     
   </nav>
