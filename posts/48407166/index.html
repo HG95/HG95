@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    sdws |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
+    『ArcGIS』 实现山体阴影和晕渲 |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -50,7 +50,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-sdws"
+  id="post-ArcGIS-实现山体阴影和晕渲"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -61,22 +61,26 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  sdws
+  『ArcGIS』 实现山体阴影和晕渲
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/posts/be627c25/" class="article-date">
-  <time datetime="2020-11-28T08:49:35.000Z" itemprop="datePublished">2020-11-28</time>
-</a>   
+      <a href="/posts/48407166/" class="article-date">
+  <time datetime="2021-01-09T09:30:40.000Z" itemprop="datePublished">2021-01-09</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ArcGIS/">ArcGIS</a>
+  </div>
+  
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">239</span>
+            <span class="post-count">289</span>
         </span>
     </span>
 
@@ -98,87 +102,48 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <a id="more"></a>
+  <p>基于ArcGIS实现山体阴影和晕渲</p>
+<a id="more"></a>
 
-<div id="echarts9658" style="width: 85%;height: 400px;margin: 0 auto"></div>
-<script src="https://cdn.bootcss.com/echarts/3.8.0/echarts.common.min.js"></script>
-<script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts9658'));
-        // 指定图表的配置项和数据
-        var option = {
-    tooltip : {
-        trigger: 'axis',
-        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-        }
-    },
-    legend: {
-        data:['利润', '支出', '收入']
-    },
-    grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-    },
-    xAxis : [
-        {
-            type : 'value'
-        }
-    ],
-    yAxis : [
-        {
-            type : 'category',
-            axisTick : {show: false},
-            data : ['周一','周二','周三','周四','周五','周六','周日']
-        }
-    ],
-    series : [
-        {
-            name:'利润',
-            type:'bar',
-            itemStyle : {
-                normal: {
-                    label: {show: true, position: 'inside'}
-                }
-            },
-            data:[200, 170, 240, 244, 200, 220, 210]
-        },
-        {
-            name:'收入',
-            type:'bar',
-            stack: '总量',
-            itemStyle: {
-                normal: {
-                    label : {show: true}
-                }
-            },
-            data:[320, 302, 341, 374, 390, 450, 420]
-        },
-        {
-            name:'支出',
-            type:'bar',
-            stack: '总量',
-            itemStyle: {normal: {
-                label : {show: true, position: 'left'}
-            }},
-            data:[-120, -132, -101, -134, -190, -230, -210]
-        }
-    ]
-};
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-</script>
+<ol>
+<li><p>启动ArcMap，加载栅格数据DEM:</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143145.png" alt="image-20201015142318133" style="zoom: 50%;">
+</li>
+<li><p>在搜索窗口中搜索“山体阴影”（或Hillshade）工具(或在ArcToolbox中打开“山体阴影”（或Hillshade）工具，输入数据源选择DEM图层，其他参数默认)</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143156.png" alt="image-20201015141539982" style="zoom: 67%;">
+
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143202.png" alt="image-20201015141657853" style="zoom: 67%;">
+</li>
+<li><p>单击<strong>OK</strong>，生成新的栅格数据图层HillSha_dem；</p>
+</li>
+<li><p>在内容列表中，右键单击HillSha_dem图层，选择Properties；</p>
+</li>
+<li><p>打开图层属性窗口，切换到Display页，设置图层透明度为35%，如图；</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143206.png" alt="image-20201015141901592" style="zoom: 67%;">
+</li>
+<li><p>单击<strong>确定</strong>，关闭图层属性窗口；</p>
+</li>
+<li><p>在内容列表中，将HillSha_dem图层移至DEM图层上方，查看地图效果，如图</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143211.png" alt="image-20201015142030425" style="zoom: 50%;">
+</li>
+<li><p>在内容列表中，右键单击DEM图层，选择Properties；</p>
+</li>
+<li><p>打开图层属性窗口，切换到Symbology页，选择Stretched，设置Stretch Type为Min-Max，选择带有晕渲效果的色带，如图:</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143221.png" alt="image-20201015142217927" style="zoom:67%;">
+</li>
+<li><p>单击<strong>确定</strong>，查看地图效果，如图。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143226.png" alt="image-20201015142257444" style="zoom: 50%;">
 
 
 
 
 
-
-
-
-
+</li>
+</ol>
+<p>参考</p>
+<ul>
+<li><a href="https://malagis.com/arcgis-mapping-works-3-2-moutain-shadow-hill-shading.html" target="_blank">ArcGIS制图手册(3-2)山体阴影和晕渲</a></li>
+</ul>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -265,7 +230,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/be627c25/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/48407166/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -276,19 +241,10 @@
    
   <nav class="article-nav">
     
-      <a href="/posts/2f51bfdc/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            『OriginPro』 坐标轴显示部分刻度
-          
-        </div>
-      </a>
     
-    
-      <a href="/posts/eebdf3f9/" class="article-nav-link">
+      <a href="/posts/5f339216/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">利用 Python 批量合并 Excel 文件</div>
+        <div class="article-nav-title">『OriginPro』 多元拟合分析</div>
       </a>
     
   </nav>
