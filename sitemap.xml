@@ -16,27 +16,6 @@
   </url>
   
   <url>
-    <loc>http://example.com/posts/3677eeee/</loc>
-    
-    <lastmod>2021-01-09</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/posts/bd504bf7/</loc>
-    
-    <lastmod>2021-01-09</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/posts/f5615112/</loc>
-    
-    <lastmod>2021-01-09</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://example.com/posts/e20385d1/</loc>
     
     <lastmod>2021-01-05</lastmod>
@@ -66,27 +45,6 @@
   
   <url>
     <loc>http://example.com/posts/36d720f0/</loc>
-    
-    <lastmod>2021-01-05</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/posts/dc5d043f/</loc>
-    
-    <lastmod>2021-01-05</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/posts/517e3c05/</loc>
-    
-    <lastmod>2021-01-05</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/posts/99b548ed/</loc>
     
     <lastmod>2021-01-05</lastmod>
     
@@ -403,13 +361,6 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/K-S%E6%A3%80%E9%AA%8C/</loc>
-    <lastmod>2021-01-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://example.com/tags/Zotreo/</loc>
     <lastmod>2021-01-09</lastmod>
     <changefreq>daily</changefreq>
@@ -453,13 +404,6 @@
   
   <url>
     <loc>http://example.com/tags/p-value/</loc>
-    <lastmod>2021-01-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/tags/ANOVA/</loc>
     <lastmod>2021-01-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -517,13 +461,6 @@
   </url>
   
   <url>
-    <loc>http://example.com/categories/Statistics/</loc>
-    <lastmod>2021-01-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://example.com/categories/Tools/</loc>
     <lastmod>2021-01-09</lastmod>
     <changefreq>daily</changefreq>
@@ -532,6 +469,13 @@
   
   <url>
     <loc>http://example.com/categories/Applets/</loc>
+    <lastmod>2021-01-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/categories/Statistics/</loc>
     <lastmod>2021-01-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

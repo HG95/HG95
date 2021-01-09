@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    『Statistics』K-S检验 |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
+    This is my movie title |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -50,8 +50,8 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-Statistics-K-S检验"
-  class="article article-type-post"
+  id="-movies"
+  class="article article-type-"
   itemscope
   itemprop="blogPost"
   data-scroll-reveal
@@ -61,129 +61,361 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  『Statistics』K-S检验
+  This is my movie title
 </h1>
  
 
     </header>
-     
-    <div class="article-meta">
-      <a href="/posts/f5615112/" class="article-date">
-  <time datetime="2021-01-05T06:47:40.000Z" itemprop="datePublished">2021-01-05</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Statistics/">Statistics</a>
-  </div>
-  
-<div class="word_count">
-    <span class="post-time">
-        <span class="post-meta-item-icon">
-            <i class="ri-quill-pen-line"></i>
-            <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.7k</span>
-        </span>
-    </span>
-
-    <span class="post-time">
-        &nbsp; | &nbsp;
-        <span class="post-meta-item-icon">
-            <i class="ri-book-open-line"></i>
-            <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">6 分钟</span>
-        </span>
-    </span>
-</div>
- 
-    </div>
-      
-    <div class="tocbot"></div>
-
-
-
-
-  
+       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>柯尔莫可洛夫-斯米洛夫检验(Kolmogorov–Smirnov test，K-S test)</p>
-<p>K-S检验方法能够利用样本数据推断样本来自的总体是否服从某一理论分布，是一种拟合优度的检验方法，适用于探索连续型随机变量的分布。</p>
-<a id="more"></a>
+  <blockquote>
+    <p>This is my movie quote</p>
+</blockquote>
 
-<h1 id="柯尔莫可洛夫-斯米洛夫检验"><a href="#柯尔莫可洛夫-斯米洛夫检验" class="headerlink" title="柯尔莫可洛夫-斯米洛夫检验"></a><strong>柯尔莫可洛夫-斯米洛夫检验</strong></h1><p>Kolmogorov-Smirnov检验是比较一个频率分布<code>f(x)</code>与理论分布<code>g(x)</code>或者两个观测值分布的检验方法。其原假设H0:两个数据分布一致或者数据符合理论分布。<code>D=max| f(x)- g(x)|</code>，当实际观测值<code>D&gt;D(n,α)</code>则拒绝H0，否则则接受H0假设。</p>
-<p>K-S检验与t-检验之类的其他方法不同是K-S检验不需要知道数据的分布情况，可以算是一种非参数检验方法。当然这样方便的代价就是当检验的数据分布符合特定的分布事，K-S检验的灵敏度没有相应的检验来的高。在样本量比较小的时候，KS检验最为非参数检验在分析两组数据之间是否不同时相当常用。</p>
-<p>PS：t-检验的假设是检验的数据满足正态分布，否则对于小样本不满足正态分布的数据用t-检验就会造成较大的偏差，虽然对于大样本不满足正态分布的数据而言t-检验还是相当精确有效的手段。</p>
-<h1 id="KS检验是如何工作的？"><a href="#KS检验是如何工作的？" class="headerlink" title="KS检验是如何工作的？"></a><strong>KS检验是如何工作的？</strong></h1><h2 id="一、分析数据"><a href="#一、分析数据" class="headerlink" title="一、分析数据"></a>一、分析数据</h2><p>对于以下两组数据：</p>
-<p>controlB={1.26, 0.34, 0.70, 1.75, 50.57, 1.55, 0.08, 0.42, 0.50, 3.20, 0.15, 0.49, 0.95, 0.24, 1.37, 0.17, 6.98, 0.10, 0.94, 0.38}</p>
-<p>treatmentB= {2.37, 2.16, 14.82, 1.73, 41.04, 0.23, 1.32, 2.91, 39.41, 0.11, 27.44, 4.51, 0.51, 4.50, 0.18, 14.68, 4.66, 1.30, 2.06, 1.19}</p>
-<p>对于controlB，这些数据的统计描述如下：</p>
-<pre><code>Mean = 3.61
-Median = 0.60
-High = 50.6 Low = 0.08
-Standard Deviation = 11.2</code></pre>
-<p>可以发现这组数据并不符合正态分布， 否则大约有15%的数据会小于均值-标准差（3.61-11.2），而数据中显然没有小于0的数。</p>
-<h2 id="二、观察数据的累计分段函数（Cumulative-Fraction-Function）"><a href="#二、观察数据的累计分段函数（Cumulative-Fraction-Function）" class="headerlink" title="二、观察数据的累计分段函数（Cumulative Fraction Function）"></a>二、观察数据的累计分段函数（Cumulative Fraction Function）</h2><p>对controlB数据从小到大进行排序：</p>
-<p>sorted controlB={0.08, 0.10, 0.15, 0.17, 0.24, 0.34, 0.38, 0.42, 0.49, 0.50, 0.70, 0.94, 0.95, 1.26, 1.37, 1.55, 1.75, 3.20, 6.98, 50.57}。</p>
-<p>10%的数据（2/20）小于0.15，85%（17/20）的数据小于3。所以，对任何数x来说，其累计分段就是所有比x小的数在数据集中所占的比例。下图就是controlB数据集的累计分段图</p>
-<img src="https://gitee.com/HHG1092090447/img/raw/master/20210106092545.gif" alt="947235-20160515232906352-1228478989" style="zoom:67%;">
+<style>
+    
+.hexo-douban-tabs {
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
 
-<p>可以看到大多数数据都几种在图片左侧（数据值比较小），这就是非正态分布的标志。为了更好的观测数据在x轴上的分布，可以对x轴的坐标进行非等分的划分。<strong>在数据都为正的时候有一个很好的方法就是对x轴进行log转换。</strong>下图就是上图做log转换以后的图：</p>
-<img src="https://gitee.com/HHG1092090447/img/raw/master/20210106092551.gif" alt="947235-20160515233425758-1921619457" style="zoom:67%;">
+.hexo-douban-tab {
+    padding: 5px;
+}
 
-<p>将treatmentB的数据也做相同的图（如下），可以发现treatmentB和controlB的数据分布范围大致相同（0.1 - 50）。但是对于大部分x值，在controlB数据集中比x小的数据所占的比例比在treatmentB中要高，也就是说达到相同累计比例的值在treatment组中比control中要高。KS检验使用的是两条累计分布曲线之间的最大垂直差作为D值（statistic D）作为描述两组数据之间的差异。在此图中这个D值出现在x=1附近，而D值为0.45（0.65-0.25）。</p>
-<img src="https://gitee.com/HHG1092090447/img/raw/master/20210106092556.gif" alt="947235-20160515234827492-2021303306" style="zoom:67%;">
+.hexo-douban-active {
+    background: #657b83;
+    color: #fff;
+}
 
-<p>值得注意的是虽然累计分布曲线的性状会随着对数据做转换处理而改变（如log转换），但是D值的大小是不会变的。</p>
-<h2 id="三、百分比图（percentile-plot）"><a href="#三、百分比图（percentile-plot）" class="headerlink" title="三、百分比图（percentile plot）"></a>三、百分比图（percentile plot）</h2><p>估算分布函数肩形图（Estimated Distribution Function Ogive）是一种累计分段图的替代方式。其优势在于可以让你使用概率图纸作图（坐标轴经过特殊分段处理，y轴上的数值间隔符合正态分布），从而根据概率在y轴上的分布可以直观的判断数据到底有多符合正态分布，因为正态分布的数据在这种坐标上是呈一条直线。</p>
-<p>那么这种图是如何画的呢？</p>
-<p>假设我们有这5个数{-0.45, 1.11, 0.48, -0.82, -1.26}，从小到大对它们进行排序，{ -1.26, -0.82, -0.45, 0.48, 1.11 }。0.45是中位数，百分比为0.5，而0.45的累计分布函数中占了0.4到0.6的区间。根据数据x在数据集（N）中排位r可以计算x的百分数（percentile）为r/(N+1)。将上述数据与他们的百分数配对，得到{ (-1.26,.167), (-0.82,.333), (-0.45,.5), (0.48,.667), (1.11,.833) }。然后将各点之间用直线连接就是百分比图了。如下图中红线所示（另一条线为累计分段曲线）。</p>
-<img src="https://gitee.com/HHG1092090447/img/raw/master/20210106092602.gif" alt="947235-20160516001905227-2140659646" style="zoom:67%;">
+.hexo-douban-item {
+    padding-bottom: 10px;
+    position: relative;
+    clear: both;
+    min-height: 170px;
+    padding: 10px 0;
+    border-bottom: 1px #ddd solid;
+}
 
-<p>treatmentB的数据近似对数正态分布，其几何均值为2.563，标准差为6.795。该数据的百分图（红）与其近似的对数正态分布曲线（蓝）如下。</p>
-<img src="https://gitee.com/HHG1092090447/img/raw/master/20210106092605.gif" alt="947235-20160516002849055-1777305498" style="zoom:67%;">
+@media screen and (max-width: 600px) {
+    .hexo-douban-item {
+        width: 100%;
+    }
+}
 
-<p>由于数据近似正态分布，所以对其采用t-检验是最佳的检验方法。</p>
-<h1 id="与类似的分布检验方式比较"><a href="#与类似的分布检验方式比较" class="headerlink" title="与类似的分布检验方式比较"></a>与类似的分布检验方式比较</h1><ul>
-<li>经常使用的拟合优度检验和Kolmogorov-Smirnov检验的检验功效较低，在许多计算机软件的Kolmogorov-Smirnov检验无论是大小样本都用大样本近似的公式，很不精准，一般使用Shapiro-Wilk检验和Lilliefor检验。</li>
-<li>Kolmogorov-Smirnov检验只能检验是否一个样本来自于一个已知样本，而Lilliefor检验可以检验是否来自未知总体。</li>
-<li>Shapiro-Wilk检验和Lilliefor检验都是进行大小排序后得到的，所以易受异常值的影响。</li>
-<li>Shapiro-Wilk检验只适用于小样本场合（3≤n≤50）,其他方法的检验功效一般随样本容量的增大而增大。</li>
-<li>拟合优度检验和Kolmogorov-Smirnov检验都采用实际频数和期望频数进行检验，前者既可用于连续总体，又可用于离散总体，而Kolmogorov-Smirnov检验只适用于连续和定量数据。</li>
-<li>拟合优度检验的检验结果依赖于分组，而其他方法的检验结果与区间划分无关。</li>
-</ul>
+.hexo-douban-picture {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 100px;
+}
+
+.hexo-douban-info {
+    padding-left: 120px;
+}
+
+.hexo-douban-meta {
+    font-size: 12px;
+    padding-right: 10px;
+}
+
+.hexo-douban-comments {
+    font-size: 12px;
+}
+
+.hexo-douban-pagination {
+    margin-top: 15px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.hexo-douban-button {
+    padding: 5px;
+}
+
+.hexo-douban-button:hover {
+    background: #657b83;
+    color: #fff;
+}
+
+.hexo-douban-hide {
+    display: none;
+}
+
+.hexo-douban-show {
+    display: block;
+}
 
 
-	<div class="row">
-    <embed src="/PDFfile/Kolmogorov-Smirnov检验.pdf" width="100%" height="550" type="application/pdf">
-	</div>
+</style>
+
+<div class="hexo-douban-tabs">
+    <a class="hexo-douban-tab" id="hexo-douban-tab1" href="javascript:;"
+       rel="external">
+        在看
+        (0)</a>
+    <a class="hexo-douban-tab" id="hexo-douban-tab2" href="javascript:;"
+       rel="external">
+        想看
+        (0)</a>
+    <a class="hexo-douban-tab" id="hexo-douban-tab3" href="javascript:;"
+       rel="external">
+        已看
+        (8)</a>
+</div>
+<div>
+    <div id="hexo-douban-item1">
+        
+        <div class="hexo-douban-pagination">
+    <a class="hexo-douban-button hexo-douban-firstpage" href="javascript:;"> 首页</a>
+    <a class="hexo-douban-button hexo-douban-previouspage" href="javascript:;">上一页</a>
+    <span class="hexo-douban-pagenum">2 / 3</span>
+    <a class="hexo-douban-button hexo-douban-nextpage" href="javascript:;">下一页</a>
+    <a class="hexo-douban-button hexo-douban-lastpage" href="javascript:;">尾页</a>
+</div>
+    </div>
+    <div id="hexo-douban-item2">
+        
+        <div class="hexo-douban-pagination">
+    <a class="hexo-douban-button hexo-douban-firstpage" href="javascript:;"> 首页</a>
+    <a class="hexo-douban-button hexo-douban-previouspage" href="javascript:;">上一页</a>
+    <span class="hexo-douban-pagenum">2 / 3</span>
+    <a class="hexo-douban-button hexo-douban-nextpage" href="javascript:;">下一页</a>
+    <a class="hexo-douban-button hexo-douban-lastpage" href="javascript:;">尾页</a>
+</div>
+    </div>
+    <div id="hexo-douban-item3">
+        
+        <div class="hexo-douban-item">
+    <div class="hexo-douban-picture"><img src="/assets/douban-loading.gif" data-src="https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2621201524.jpg" referrerPolicy="no-referrer" /></div>
+    <div class="hexo-douban-info">
+        <div class="hexo-douban-title">
+            <a target="_blank" href="https://movie.douban.com/subject/32579283/">后翼弃兵 / The Queen&#39;s Gambit</a>
+        </div>
+        <div class="hexo-douban-meta">2021-01-05 /  女性 天才 2020 国际象棋 / ★★★★★ 力荐 </div>
+        <div class="hexo-douban-comments"> </div>
+    </div>
+</div>
 
 
+        
+        <div class="hexo-douban-item">
+    <div class="hexo-douban-picture"><img src="/assets/douban-loading.gif" data-src="https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2620453443.jpg" referrerPolicy="no-referrer" /></div>
+    <div class="hexo-douban-info">
+        <div class="hexo-douban-title">
+            <a target="_blank" href="https://movie.douban.com/subject/35051512/">我和我的家乡</a>
+        </div>
+        <div class="hexo-douban-meta">2021-01-03 /  喜剧 爱国 2020 中国大陆 / ★★★★★ 力荐 </div>
+        <div class="hexo-douban-comments"> 神笔马亮，小感动——2020/01/02</div>
+    </div>
+</div>
 
 
+        
+        <div class="hexo-douban-item">
+    <div class="hexo-douban-picture"><img src="/assets/douban-loading.gif" data-src="https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2624607255.jpg" referrerPolicy="no-referrer" /></div>
+    <div class="hexo-douban-info">
+        <div class="hexo-douban-title">
+            <a target="_blank" href="https://movie.douban.com/subject/24298954/">疯狂原始人2 / The Croods: A New Age</a>
+        </div>
+        <div class="hexo-douban-meta">2021-01-01 /  温情 动画 2020 搞笑 / ★★★★★ 力荐 </div>
+        <div class="hexo-douban-comments"> 2021/01/01</div>
+    </div>
+</div>
 
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a target="_blank" rel="noopener" href="http://www.physics.csbsju.edu/stats/KS-test.n.plot_form.html">在线：KS-test</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.physics.csbsju.edu/stats/KS-test.html">Kolmogorov-Smirnov Test</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/arkenstone/p/5496761.html">KS-检验（Kolmogorov-Smirnov test）</a> </li>
-<li><a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_403aa80a01019ly5.html">R语言 Kolmogorov-Smirnov检验</a> </li>
-</ul>
+
+        
+        <div class="hexo-douban-item">
+    <div class="hexo-douban-picture"><img src="/assets/douban-loading.gif" data-src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2629465650.jpg" referrerPolicy="no-referrer" /></div>
+    <div class="hexo-douban-info">
+        <div class="hexo-douban-title">
+            <a target="_blank" href="https://movie.douban.com/subject/35207868/">陈翔六点半之民间高手</a>
+        </div>
+        <div class="hexo-douban-meta">2020-12-31 /  励志 电影 陈翔六点半 喜剧 / ★★★★★ 力荐 </div>
+        <div class="hexo-douban-comments"> 有点小感动--2020/12/31</div>
+    </div>
+</div>
+
+
+        
+        <div class="hexo-douban-item">
+    <div class="hexo-douban-picture"><img src="/assets/douban-loading.gif" data-src="https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2568902055.jpg" referrerPolicy="no-referrer" /></div>
+    <div class="hexo-douban-info">
+        <div class="hexo-douban-title">
+            <a target="_blank" href="https://movie.douban.com/subject/6981153/">爱尔兰人 / The Irishman</a>
+        </div>
+        <div class="hexo-douban-meta">2020-12-20 /  真实事件改编 历史 美国 / ★★★★★ 力荐 </div>
+        <div class="hexo-douban-comments"> </div>
+    </div>
+</div>
+
+
+        
+        <div class="hexo-douban-item">
+    <div class="hexo-douban-picture"><img src="/assets/douban-loading.gif" data-src="https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2352310242.jpg" referrerPolicy="no-referrer" /></div>
+    <div class="hexo-douban-info">
+        <div class="hexo-douban-title">
+            <a target="_blank" href="https://movie.douban.com/subject/6873736/">愤怒的小鸟 / Angry Birds</a>
+        </div>
+        <div class="hexo-douban-meta">2020-12-05 /  美国 愤怒的小鸟 动画 搞笑 / ★★★★☆ 推荐 </div>
+        <div class="hexo-douban-comments"> </div>
+    </div>
+</div>
+
+
+        
+        <div class="hexo-douban-item">
+    <div class="hexo-douban-picture"><img src="/assets/douban-loading.gif" data-src="https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2417263298.jpg" referrerPolicy="no-referrer" /></div>
+    <div class="hexo-douban-info">
+        <div class="hexo-douban-title">
+            <a target="_blank" href="https://movie.douban.com/subject/26741568/">我的恐怖妻子 / 僕のヤバイ妻</a>
+        </div>
+        <div class="hexo-douban-meta">2020-12-05 /  电视剧 日本 犯罪 日剧 剧情 悬疑 / ★★★★☆ 推荐 </div>
+        <div class="hexo-douban-comments"> </div>
+    </div>
+</div>
+
+
+        
+        <div class="hexo-douban-item">
+    <div class="hexo-douban-picture"><img src="/assets/douban-loading.gif" data-src="https://img1.doubanio.com/view/photo/s_ratio_poster/public/p1546987967.jpg" referrerPolicy="no-referrer" /></div>
+    <div class="hexo-douban-info">
+        <div class="hexo-douban-title">
+            <a target="_blank" href="https://movie.douban.com/subject/6985810/">狩猎 / Jagten</a>
+        </div>
+        <div class="hexo-douban-meta">2020-12-05 /  人性 剧情 / ★★★★☆ 推荐 </div>
+        <div class="hexo-douban-comments"> 社会性死亡</div>
+    </div>
+</div>
+
+
+        
+        <div class="hexo-douban-pagination">
+    <a class="hexo-douban-button hexo-douban-firstpage" href="javascript:;"> 首页</a>
+    <a class="hexo-douban-button hexo-douban-previouspage" href="javascript:;">上一页</a>
+    <span class="hexo-douban-pagenum">2 / 3</span>
+    <a class="hexo-douban-button hexo-douban-nextpage" href="javascript:;">下一页</a>
+    <a class="hexo-douban-button hexo-douban-lastpage" href="javascript:;">尾页</a>
+</div>
+    </div>
+</div>
+
 <script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script> 
+    /**
+ * Created by myths on 18-2-8.
+ */
+
+Element.prototype.siblings = function () {
+    var siblingElement = [];
+    var sibs = this.parentNode.children;
+    for (var i = 0; i < sibs.length; i++) {
+        if (sibs[i] !== this) {
+            siblingElement.push(sibs[i]);
+        }
+    }
+    return siblingElement;
+};
+function tabClick() {
+    //修改标签样式
+    this.classList.add('hexo-douban-active');
+    var sibs = this.siblings();
+    for (var j = 0; j < sibs.length; j++) {
+        sibs[j].classList.remove('hexo-douban-active');
+    }
+    //显示对应板块
+    var itemId = this.id.replace('tab', 'item');
+    var target = document.getElementById(itemId);
+    target.classList.remove('hexo-douban-hide');
+    target.classList.add('hexo-douban-show');
+    sibs = document.getElementById(itemId).siblings();
+    for (var k = 0; k < sibs.length; k++) {
+        sibs[k].classList.remove('hexo-douban-show');
+        sibs[k].classList.add('hexo-douban-hide');
+    }
+}
+var tabs = document.getElementsByClassName("hexo-douban-tab");
+for (var i = 0; i < tabs.length; i++) {
+    tabs[i].onclick = tabClick;
+    tabs[i].onclick.apply(tabs[i]);
+}
+tabs[2].click();
+
+    var firstpages = document.getElementsByClassName("hexo-douban-firstpage");
+var previouspages = document.getElementsByClassName("hexo-douban-previouspage");
+var nextpages = document.getElementsByClassName("hexo-douban-nextpage");
+var lastpages = document.getElementsByClassName("hexo-douban-lastpage");
+var pagenums = document.getElementsByClassName("hexo-douban-pagenum");
+
+function makePageNum(num, arr) {
+    return (num + 1) + ' / ' + (Math.ceil(arr.length / 10 === 0 ? 1 : Math.ceil(arr.length / 10)));
+}
+
+function firstBtn() {
+    var sibs = this.parentNode.siblings();
+    displayPage(sibs, 0);
+    this.parentNode.getElementsByClassName('hexo-douban-pagenum')[0].innerText = makePageNum(0, sibs);
+}
+
+function previousBtn() {
+    var sibs = this.parentNode.siblings();
+    var currNum = this.parentNode.getElementsByClassName('hexo-douban-pagenum')[0].innerText;
+    currNum = currNum.substr(0, currNum.indexOf('/') - 1);
+    currNum = parseInt(currNum, 10) - 1;
+    if (currNum > 0) {
+        currNum--;
+    }
+    displayPage(sibs, currNum);
+    this.parentNode.getElementsByClassName('hexo-douban-pagenum')[0].innerText = makePageNum(currNum, sibs);
+}
+
+function nextBtn() {
+    var sibs = this.parentNode.siblings();
+    var currNum = this.parentNode.getElementsByClassName('hexo-douban-pagenum')[0].innerText;
+    currNum = currNum.substr(0, currNum.indexOf('/') - 1);
+    currNum = parseInt(currNum, 10) - 1;
+    if (currNum < Math.ceil(sibs.length / 10) - 1) {
+        currNum++;
+    }
+    displayPage(sibs, currNum);
+    this.parentNode.getElementsByClassName('hexo-douban-pagenum')[0].innerText = makePageNum(currNum, sibs);
+}
+
+function lastBtn() {
+    var sibs = this.parentNode.siblings();
+    displayPage(sibs, Math.ceil(sibs.length / 10) - 1);
+    this.parentNode.getElementsByClassName('hexo-douban-pagenum')[0].innerText = makePageNum(Math.ceil(sibs.length / 10) - 1 === -1 ? 0 : Math.ceil(sibs.length / 10) - 1, sibs);
+}
+
+function displayPage(arr, num) {
+    for (var i = 0; i < arr.length; i++) {
+        if (Math.floor(i / 10) === num) {
+            arr[i].classList.remove('hexo-douban-hide');
+            var img = arr[i].getElementsByTagName('img')[0];
+            img.src = img.getAttribute('data-src');
+        } else {
+            arr[i].classList.add('hexo-douban-hide');
+        }
+    }
+}
+
+for (var i = 0; i < firstpages.length; i++) {
+
+    //add listener
+    firstpages[i].onclick = firstBtn;
+    previouspages[i].onclick = previousBtn;
+    nextpages[i].onclick = nextBtn;
+    lastpages[i].onclick = lastBtn;
+
+    //set page num
+    var size = pagenums[i].parentNode.siblings().length;
+    pagenums[i].innerText = '1 / ' + (Math.ceil(size / 10) === 0 ? 1 : Math.ceil(size / 10));
+    firstpages[i].click();
+}
+
+</script>
+
+ 
       <!-- reward -->
       
       <div id="reword-out">
@@ -251,27 +483,15 @@ Standard Deviation = 11.2</code></pre>
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/f5615112/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/movies/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/K-S%E6%A3%80%E9%AA%8C/" rel="tag">K-S检验</a></li></ul>
-
     </footer>
   </div>
 
    
-  <nav class="article-nav">
-    
-    
-      <a href="/posts/2c5ccb85/" class="article-nav-link">
-        <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">『Arcpy』 像元统计 (Spatial Analyst)</div>
-      </a>
-    
-  </nav>
-
    
 <!-- valine评论 -->
 <div id="vcomments-box">
@@ -332,7 +552,7 @@ Standard Deviation = 11.2</code></pre>
 </style>
 
  
-     
+   
 </article>
 
 </section>
@@ -511,23 +731,6 @@ Standard Deviation = 11.2</code></pre>
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
-
-
-<script src="/js/tocbot.min.js"></script>
-
-<script>
-  tocbot.init({
-    tocSelector: '.tocbot',
-    contentSelector: '.article-entry',
-    headingSelector: 'h1, h2, h3, h4, h5, h6',
-    hasInnerContainers: true,
-    scrollSmooth: true,
-    scrollContainer: 'main',
-    positionFixedSelector: '.tocbot',
-    positionFixedClass: 'is-position-fixed',
-    fixedSidebarOffset: 'auto'
-  });
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
