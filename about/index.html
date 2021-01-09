@@ -74,7 +74,70 @@
 
 
 
-
+<h1 id="读书"><a href="#读书" class="headerlink" title="读书"></a>读书</h1><div id="echarts4436" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<script src="https://cdn.bootcss.com/echarts/3.8.0/echarts.common.min.js"></script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echarts4436'));
+        // 指定图表的配置项和数据
+        var option = option = {
+    tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b}: {c} ({d}%)'
+    },
+    legend: {
+        orient: 'horizontal',
+        x: 'center',
+        left: 10,
+        data: ['Before 2019', '2019', '2020', '2021',]
+    },
+    series: [
+        {
+            name: '时间',
+            type: 'pie',
+            radius: ['40%', '55%'],
+            label: {
+                formatter: '{a|{a}}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
+                backgroundColor: '#eee',
+                borderColor: '#aaa',
+                borderWidth: 1,
+                borderRadius: 4,
+                rich: {
+                    a: {
+                        color: '#999',
+                        lineHeight: 22,
+                        align: 'center'
+                    },
+                    hr: {
+                        borderColor: '#aaa',
+                        width: '100%',
+                        borderWidth: 0.5,
+                        height: 0
+                    },
+                    b: {
+                        fontSize: 18,
+                        lineHeight: 33
+                    },
+                    per: {
+                        color: '#eee',
+                        backgroundColor: '#334455',
+                        padding: [2, 4],
+                        borderRadius: 2
+                    }
+                }
+            },
+            data: [
+                {value: 45, name: 'Before 2019'},
+                {value: 5, name: '2019'},
+                {value: 6, name: '2020'},
+                {value: 1, name: '2021'},
+            ]
+        }
+    ]
+};
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
 
 
 <div id="myMap" style="width: 100%;height:600px;"></div>
@@ -83,6 +146,14 @@
 <script src="/js/china.js"></script>
 <script src="/js/footprint.js"></script>
 <script src="./js/bmap..js"></script>
+
+
+
+
+
+
+
+
 
 
 
