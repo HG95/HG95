@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    友链 |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
+    『Excel』 常用函数 |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -37,10 +37,7 @@
 
   
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
-<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
-<script src="\assets\js\Meting.min.js" class="meting-script-marker"></script>
-</head>
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 </html>
 
@@ -53,8 +50,8 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="friend-"
-  class="article article-type-friend"
+  id="post-Excel-常用函数"
+  class="article article-type-post"
   itemscope
   itemprop="blogPost"
   data-scroll-reveal
@@ -64,162 +61,95 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  友链
+  『Excel』 常用函数
 </h1>
  
 
     </header>
-       
+     
+    <div class="article-meta">
+      <a href="/posts/6ae99e9c/" class="article-date">
+  <time datetime="2020-09-09T09:14:31.000Z" itemprop="datePublished">2020-09-09</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Excel/">Excel</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">3 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
     <div class="article-entry" itemprop="articleBody">
        
-  <div id="aplayer-kgoSqTUW" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="5234359475" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div>
+  <p>办公常用的十大函数</p>
+<p>@SUBTOTAL函数</p>
+<a id="more"></a>
 
+<h1 id="subtotal函数基本功能"><a href="#subtotal函数基本功能" class="headerlink" title="subtotal函数基本功能"></a>subtotal函数基本功能</h1><p>分类汇总函数**<code>SUBTOTAL</code><strong>，它可以包括</strong>求和<strong>、</strong>汇总<strong>、</strong>平均<strong>等等多个函数的使用。<code>SUBTOTAL</code>函数的</strong>优点<strong>在于可以</strong>忽略隐藏的单元格<strong>、</strong>支持三维运算<strong>和</strong>区域数组引用**。</p>
+<p><code>SUBTOTAL</code>函数就是返回一个列表或数据库中的分类汇总情况。</p>
+<p><strong>语法</strong>：</p>
+<pre><code>SUBTOTAL(function_num,ref1,[ref2],...)</code></pre>
+<p><strong>参数</strong>：</p>
+<ul>
+<li><p><strong>Function_num</strong>：必需。 数字 1-11 或 101-111，用于指定要为分类汇总使用的函数。 如果使用 1-11，将包括手动隐藏的行，如果使用 101-111，则排除手动隐藏的行；始终排除已筛选掉的单元格。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201228183630.png" alt="v2-babae3fb435ea4df26f14c538b080df1_r" style="zoom:80%;">
+</li>
+<li><p><strong>ref1</strong>：必需。要对其进行分类汇总计算的第一个命名区域或引用。</p>
+</li>
+<li><p>**ref2…**：可选。要对其进行分类汇总计算的第 2 个至第 254 个命名区域或引用。</p>
+</li>
+</ul>
+<h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><h2 id="一、利用subtotal函数给表格自动编号"><a href="#一、利用subtotal函数给表格自动编号" class="headerlink" title="一、利用subtotal函数给表格自动编号"></a>一、利用subtotal函数给表格自动编号</h2><p><strong>如何做才能得到这样自动编号效果（当单行或者多行被隐藏或者取消隐藏时，A列序号会自动调整）呢？</strong></p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201228183637.webp" alt="1719125-8247568fb865ec08" style="zoom:67%;">
 
+<p>仔细观察，序号是从小排到大的，且A列每一个序号等于其对于B列单元格向上数非空单元格的个数，例如，A3单元格值为2，即是b2:B3单元格区域中非空单元格的个数；A7单元格的值为6，即是B2：B7单元格区域中非空单元格的个数。因此我们直接在A2单元格中输入公式：=counta(B$2:B2),然后复制到整列即可。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201228183700.webp" alt="1719125-e7f7e26fa48ac7c6" style="zoom:67%;">
 
+<p>然而，当我们隐藏某些行列时，我们发现行列时，A列的序号却无法自动更新调整。如下图：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201228183706.webp" alt="1719125-1c3be39b4da14009" style="zoom:67%;">
 
+<p>如何解决这个问题呢？很显然，使用counta函数已经无法得到我们想要的效果了，因此我们请出subtotal函数来帮忙，前面我们提到，subtotal函数在第一参数使用101到111代码时，会自动忽略隐藏值，subtotal中计算非空单元格数的代码为103，因此我们可以写出下面的公式：A2单元格中输入公式：=subtotal(103,B$2:B2)，然后将此公式复制到全列即可。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201228183710.webp" alt="1719125-6015a78b2cabea93" style="zoom:67%;">
 
+<h2 id="二、利用subtotal函数计算选手最后得分"><a href="#二、利用subtotal函数计算选手最后得分" class="headerlink" title="二、利用subtotal函数计算选手最后得分"></a>二、利用subtotal函数计算选手最后得分</h2><p>看下图，如何快速计算出选手的最后得分呢？</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201228183715.webp" alt="1719125-8ce44870508d752b" style="zoom:67%;">
 
-
-<h3 id="欢迎留言哦"><a href="#欢迎留言哦" class="headerlink" title="欢迎留言哦~"></a>欢迎留言哦~</h3>
-
-
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="renderer" content="webkit">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>导航</title>
-<style>
-html, body{height:100%; width:100%; margin:0; padding:0;}
-body {line-height:1.5; font-family: 微软雅黑; background:-webkit-gradient(linear, left top, left bottom, from(#eee), to(#fff));}
-.nav1 {border:solid 1px #B8D4B8; margin-bottom:20px; border-radius: 5px; background-color: #fff;}
-.nav1:hover {box-shadow: 0 5px 30px #999;}
-.nav1 h3 {margin:0; background-color:#836FFF; padding:5px 10px; font-weight:normal; font-size:16px;}
-.nav1 h3 i {font-style:normal; padding-left:10px; color:red;}
-.clear {clear:both; height:15px;}
-.nav1 a {float:left; width:150px; margin-top:15px; margin-left:10px; text-align:center; text-decoration: none;}
-.nav1 a:hover {text-decoration: none; color:red;}
-.nav1 a i {font-style:normal; color:#999; font-size:9px; position: relative; top:-10px; left:0px; padding:1px 3px;}
-.card {
-    width: 256px;
-    height: 70px;
-    font-size: 1rem;
-    padding: 10px 10px 10px 10px;
-    border-radius: 10px;
-    transition-duration: 0.15s;
-    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
-    /*margin-bottom: 1rem;*/
-    display:flex;
-    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
-}
-.card:nth-child(odd) {
-    float: left;
-}
-.card:nth-child(even) {
-    float: right;
-    #float: left;
-}
-.card:hover {
-    transform: scale(1.1);
-    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
-}
-.card a {
-    border:none;
-}
-.card .ava {
-    width: 5rem!important;
-    height: 5rem!important;
-    margin:0!important;
-    margin-right: 1em!important;
-    border-radius:4px;
-}
-.card .card-header {
-    font-style: italic;
-    overflow: hidden;
-    width: 200px;
-    font-size: 1.6rem!important;
-}
-.card .card-header a {
-    font-style: normal;
-    color: #adbbd5;
-    font-weight: bold;
-    text-decoration: none;
-}
-.card .card-header a:hover {
-    color: #8899dd;
-    text-decoration: none;
-}
-.card .card-header .info {
-    font-style:normal;
-    color:#a3a3a3;
-    font-size:14px;
-    min-width: 0;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-<p></style><p></p>
+<p>一般比赛的要求都是去掉一个最高分，再去掉一个最低分，然后再取剩余值的平均值。因此我们解题步骤通常如下：</p>
+<p>1.求总分：=SUM(B2:J2)</p>
+<p>2.减去最低分和最高分：=SUM(B2:J2)-max(B2:J2)-min(B2:J2)</p>
+<p>3.剩余的值求平均值，本例子中共有9位评委，去掉最低和最高两个评委，将剩下的7位评委的分数求平均分，因此公式为：=(SUM(B2:J2)-max(B2:J2)-min(B2:J2))/7</p>
+<p>在普通解法中，我们用到了三个函数，思路很简单，但是还是比较麻烦的，如果我们使用subtotal函数，2个函数就可以搞定选手的最后得分了。公式如下：<code>{=SUM(SUBTOTAL({9,4,5},B2:J2)*{1,-1,-1})/7}</code></p>
+<p>subtotal函数共2个参数，第一个参数为{9,4,5},9为求和，4为最大值，5为最小值，第二个参数为B2:J2；</p>
+<p>在subtotal函数乘一个数组{1，-1，-1}，即得到sum(B2:J2)，-max(B2:J2),-min(B2:J2)，接下来利用sum函数将这几个值加起来就相当于公式：=SUM(B2:J2)-max(B2:J2)-min(B2:J2)；</p>
+<p>将得到的结果除以7即得到了=SUM(SUBTOTAL({9,4,5},B2:J2)*{1,-1,-1})/7的公式，最后按下Ctrl+Shift+Enter完成数组公式的输入。</p>
+<h2 id="三、合并汇总"><a href="#三、合并汇总" class="headerlink" title="三、合并汇总"></a>三、合并汇总</h2><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/06c64f2f47f6">Subtotal函数：各种简单统计</a></li>
+<li></li>
+</ul>
 <script>
-$(function(){
-$('.nav a').each(function(){
-var href = $(this).attr('href');
-var count = window.localStorage.getItem(href);
-count = count || 0;
-$(this).append('<i>' + count + '</i>');
-$(this).attr('target', '_blank');
-$(this).click(function(){
-var count = parseInt($(this).find('i').html()) + 1;
-$(this).find('i').html(count);
-window.localStorage.setItem(href, count);
-console.log(count);
-});
-$(this).hover(function(){
-$(this).parents('.nav').find('h3 i').html($(this).attr('href'));
-}, function(){
-$(this).parents('.nav').find('h3 i').html('');
-});
-});
-});
-</script>
-
-
-<div style="max-width:1000px; margin:10px auto;">
-
-<div class="nav">
-<h3>图片网站 <i></i></h3>
-<div class="card">
-<img class="ava" src="https://play-lh.googleusercontent.com/J_Nol-w3U9jvERA3mZarh4bNEJ3vR6IRP9DC2VM8zsVFX4nih-z62ClEfY0Ok8gMAg=s180-rw">
-<div class="card-header"><div><a href="https://wallhaven.cc/" target="_blank">Wallhaven
-</a></div><div class="info">炫酷壁纸
-</div></div></div>
-
-<div class="card">
-<img class="ava" src="https://raw.githubusercontent.com/HG95/image/master/20201203143226.png">
-<div class="card-header"><div><a href="http://simpledesktops.com/" target="_blank">Simple Desktops
-</a></div>
-<div class="info">桌面简洁壁纸
-</div></div></div>
-
-<div class="card">
-<img class="ava" src="https://unsplash-assets.imgix.net/marketing/press-symbol.svg">
-<div class="card-header"><div><a href="http://simpledesktops.com/" target="_blank">Unsplash
-</a></div>
-<div class="info">无版权高清图片
-</div></div></div>
-
-<div class="clear"></div>
-</div>
-
-
-
-
-
-
-
-
-
-
-</div><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -305,15 +235,36 @@ $(this).parents('.nav').find('h3 i').html('');
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/friend/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/6ae99e9c/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SUBTOTAL/" rel="tag">SUBTOTAL</a></li></ul>
+
     </footer>
   </div>
 
    
+  <nav class="article-nav">
+    
+      <a href="/posts/555703ca/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            『Excel』 输入数据自动写入当前时间且锁定不变
+          
+        </div>
+      </a>
+    
+    
+      <a href="/posts/a70c093b/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">『Excel』 VLOOKUP函数常用方法集合</div>
+      </a>
+    
+  </nav>
+
    
 <!-- valine评论 -->
 <div id="vcomments-box">
@@ -374,7 +325,7 @@ $(this).parents('.nav').find('h3 i').html('');
 </style>
 
  
-   
+     
 </article>
 
 </section>
@@ -553,6 +504,23 @@ $(this).parents('.nav').find('h3 i').html('');
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">

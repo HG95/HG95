@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="读书的意义大概就是用生活所感去读书，用读书所得去生活。" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    『Arcpy』 arcpy应用基础 |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/HG95/CDN/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+  
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+</html>
+
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Arcpy-arcpy应用基础"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  『Arcpy』 arcpy应用基础
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/posts/a22afa7a/" class="article-date">
+  <time datetime="2020-09-01T09:23:41.000Z" itemprop="datePublished">2020-09-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Arcpy/">Arcpy</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.2k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">5 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>遇到的使用<code>aracpy</code> 处理数据的方法！</p>
+<a id="more"></a>
+
+<h1 id="环境变量设置"><a href="#环境变量设置" class="headerlink" title="环境变量设置"></a>环境变量设置</h1><p><code>arcpy.env.workspace</code>到底是个什么东西？</p>
+<p>环境变量可以在<strong>应用程序级别</strong>以及<strong>工具级别</strong>下进行设置，应用程序级别环境设置是最高级别，也是应用于所有工具的默认设置。工具级别环境设置会直接继承来自应用程序级别的环境设置。</p>
+<p>Python脚本中可以通过<code>arcpy</code>中的<code>env</code>类来获取并设置环境变量，这些变量都是读/写属性。应用程序级别和工具级别环境设置都可以在脚本中调用且都可以应用于通过脚本运行的所有工具。</p>
+<p>需要注意的是，在脚本中的环境设置仅应用于当前执行的脚本。<br>脚本中最为常用的环境变量设置就是<code>arcpy.env.workspace()</code>，该变量用于定义当前脚本的工作目录（或者称为工作空间）。<strong>由于在脚本中设置了当前工作空间，脚本的其他位置也就不需要引用数据集的完整路径，这会让代码更为简洁，不过还是需要引用工作空间下的数据集名称。</strong></p>
+<p>代码为例：</p>
+<pre class="line-numbers language-python"><code class="language-python">arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> r<span class="token string">'d: \ Data '</span>   
+Rasters <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>ListRasters <span class="token punctuation">(</span> <span class="token string">"*"</span><span class="token punctuation">,</span><span class="token string">' TIF '</span><span class="token punctuation">)</span>   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>Rasters相当于获取了D:\Data目录目录中所有TIF格式的数据</p>
+<p>另外一个简单的例子：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> arcpy 
+arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> <span class="token string">"C:/ArcpyBook/Ch6"</span> 
+arcpy<span class="token punctuation">.</span>Buffer_analysis<span class="token punctuation">(</span><span class="token string">"Streams.shp"</span><span class="token punctuation">,</span><span class="token string">"Streams_Buffer.shp"</span><span class="token punctuation">,</span><span class="token string">"200 Feet"</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> arcpy<span class="token punctuation">.</span>getMessages<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>相当于对C:/ArcpyBook/Ch6目录中的Streams.shp文件进行200Feet的缓冲区分析，同时将缓冲结果保存在C:/ArcpyBook/Ch6目录下的Streams_Buffer.shp文件。</p>
+<p>参考：<a target="_blank" rel="noopener" href="http://zhihu.geoscene.cn/question/13958">arcpy.env.workspace到底是个什么东西？</a> </p>
+<h1 id="Exists检查文件是否存在"><a href="#Exists检查文件是否存在" class="headerlink" title="Exists检查文件是否存在"></a>Exists检查文件是否存在</h1><p>语法：<code>arcpy.Exists(&lt;dataset&gt;)</code></p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
+arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> r<span class="token string">"E:\gis class\arcpy_1"</span>
+fc <span class="token operator">=</span> <span class="token string">"point.shp"</span>
+arcpy<span class="token punctuation">.</span>Exists<span class="token punctuation">(</span>fc<span class="token punctuation">)</span>     <span class="token comment" spellcheck="true"># 返回结果为true or false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="Describe函数描述数据"><a href="#Describe函数描述数据" class="headerlink" title="Describe函数描述数据"></a>Describe函数描述数据</h1><p>语法：<code>&lt;variable&gt; = arcpy.Describe(&lt;input dataset&gt;)</code></p>
+<pre class="line-numbers language-python"><code class="language-python">arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> r<span class="token string">"E:\gis class\arcpy_1"</span>
+fc <span class="token operator">=</span> <span class="token string">"point.shp"</span>
+desc <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>Describe<span class="token punctuation">(</span>fc<span class="token punctuation">)</span>       <span class="token comment" spellcheck="true"># 获取包含数据集属性的描述对象</span>
+<span class="token keyword">print</span> desc<span class="token punctuation">.</span>shapeType        <span class="token comment" spellcheck="true"># 获取该要素类的形状类型</span>
+<span class="token keyword">print</span> desc<span class="token punctuation">.</span>path         <span class="token comment" spellcheck="true">#获取存储路径</span>
+sr <span class="token operator">=</span> desc<span class="token punctuation">.</span>spatialReference      <span class="token comment" spellcheck="true">#获取空间参考</span>
+<span class="token keyword">print</span> sr<span class="token punctuation">.</span>name<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出结果:</p>
+<pre><code>Point
+E:\gis class\arcpy_1
+Unknown</code></pre>
+<h2 id="读取栅格数据的脚点坐标、影像名、坐标系"><a href="#读取栅格数据的脚点坐标、影像名、坐标系" class="headerlink" title="读取栅格数据的脚点坐标、影像名、坐标系"></a>读取栅格数据的脚点坐标、影像名、坐标系</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
+arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace<span class="token operator">=</span><span class="token string">"C:\Python27"</span>
+<span class="token keyword">try</span><span class="token punctuation">:</span>
+    descRaster<span class="token operator">=</span>arcpy<span class="token punctuation">.</span>Describe<span class="token punctuation">(</span><span class="token string">"D:\\data3\\4026.0-540.0.tif"</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">#os.path.join(root,file)</span>
+    ext<span class="token operator">=</span>descRaster<span class="token punctuation">.</span>extent
+    name1<span class="token operator">=</span>descRaster<span class="token punctuation">.</span>name
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"XMin: %f"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>ext<span class="token punctuation">.</span>XMin<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"XMax: %f"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>ext<span class="token punctuation">.</span>XMax<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"YMin: %f"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>ext<span class="token punctuation">.</span>YMin<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"YMax: %f"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>ext<span class="token punctuation">.</span>YMax<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token string">"name,is,%s"</span><span class="token operator">%</span>name1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="返回数据-列表函数）"><a href="#返回数据-列表函数）" class="headerlink" title="返回数据(列表函数）"></a>返回数据(列表函数）</h1><h2 id="ListFeatureClasses函数"><a href="#ListFeatureClasses函数" class="headerlink" title="ListFeatureClasses函数"></a>ListFeatureClasses函数</h2><p><code>ListFeatureClasses</code>函数返回当前工作空间中的要素类列表</p>
+<p>语法：<code>ListFeatureClasses ( { wild_card }, { feature_type }, { feature_dataset } ) </code> { }为可选参数</p>
+<p>例：<code>ListFeatureClasses ( {“w*”, “point” )</code>  ——返回文件名以w开头，并且要素类型是点的所有要素类</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
+arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> r<span class="token string">"E:\gis class\arcpy_1"</span>
+fclist <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>ListFeatureClasses<span class="token punctuation">(</span><span class="token punctuation">)</span>     <span class="token comment" spellcheck="true"># 返回包含要素类的列表</span>
+<span class="token keyword">print</span> fclist<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出结果:</p>
+<pre><code>[u'line.shp', u'point.shp']</code></pre>
+<h2 id="ListRasters函数"><a href="#ListRasters函数" class="headerlink" title="ListRasters函数"></a>ListRasters函数</h2><p><code>ListRasters</code>函数返回当前工作空间中的矢量数据集列表</p>
+<p>语法：<code>ListRasters ( { wild_card }, { raster_type } ) </code>  与ListFeatureClasses函数相似</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
+arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> r<span class="token string">"E:\gis class\arcpy_1"</span>
+rslist <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>ListRaster<span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">,</span><span class="token string">"tif"</span><span class="token punctuation">)</span>     <span class="token comment" spellcheck="true">#返回该工作空间中数据类型为TIFF影像的栅格数据集列表</span>
+<span class="token keyword">print</span> rslist<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="ListFields函数"><a href="#ListFields函数" class="headerlink" title="ListFields函数"></a>ListFields函数</h2><p><code>ListFields</code>函数返回某个要素类属性表的字段对象列表</p>
+<p>语法：<code>ListFields( dataset , { wild_card }， { field_type} )</code></p>
+<p>ListFields函数返回的是字段列表对象，读取列表属性要使用for循环</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
+arcpy<span class="token punctuation">.</span>env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> r<span class="token string">"E:\gis class\data0408"</span>
+fc <span class="token operator">=</span> <span class="token string">"现状道路.shp"</span>
+fieldlist <span class="token operator">=</span> arcpy<span class="token punctuation">.</span>ListFields<span class="token punctuation">(</span>fc<span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 返回字段列表对象，包括（字段名、别名、类型和长度）</span>
+<span class="token keyword">for</span> field <span class="token keyword">in</span> fieldlist<span class="token punctuation">:</span>    <span class="token comment" spellcheck="true"># ListFields函数返回的是对象，所以要使用for循环读取对象的各个属性</span>
+    <span class="token keyword">print</span> <span class="token string">"field name :{0} "</span> <span class="token string">" field length : {1} "</span> <span class="token string">" filed type : {2}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>field<span class="token punctuation">.</span>name<span class="token punctuation">,</span>str<span class="token punctuation">(</span>field<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">,</span>field<span class="token punctuation">.</span>type<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出结果</p>
+<pre><code>field name :FID  field length : 4  filed type : OID
+field name :Shape  field length : 0  filed type : Geometry
+field name :Layer  field length : 254  filed type : String
+field name :a  field length : 4  filed type : SmallInteger</code></pre>
+<h1 id="栅格数据进行投影坐标转换"><a href="#栅格数据进行投影坐标转换" class="headerlink" title="栅格数据进行投影坐标转换"></a>栅格数据进行投影坐标转换</h1><p>将栅格数据集从一种投影变换到另一种投影。</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><pre class="line-numbers language-python"><code class="language-python">ProjectRaster_management <span class="token punctuation">(</span>in_raster<span class="token punctuation">,</span> 
+                          out_raster<span class="token punctuation">,</span> 
+                          out_coor_system<span class="token punctuation">,</span> 
+                          <span class="token punctuation">{</span>resampling_type<span class="token punctuation">}</span><span class="token punctuation">,</span>
+                          <span class="token punctuation">{</span>cell_size<span class="token punctuation">}</span><span class="token punctuation">,</span> 
+                          <span class="token punctuation">{</span>geographic_transform<span class="token punctuation">}</span><span class="token punctuation">,</span> 
+                          <span class="token punctuation">{</span>Registration_Point<span class="token punctuation">}</span><span class="token punctuation">,</span>
+                          <span class="token punctuation">{</span>in_coor_system<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>参数：</p>
+<ul>
+<li><code>in_raster</code> :输入栅格数据集。</li>
+<li><code>out_raster</code> :要创建的输出栅格数据集。</li>
+<li><code>out_coor_system</code> :输入栅格待投影到的目标坐标系。默认值将基于“输出坐标系”环境设置进行设定。</li>
+<li>其它为可选参数。</li>
+</ul>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>对影像数据进行批量投影坐标转换：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
+<span class="token keyword">import</span> fnmatch
+<span class="token keyword">import</span> os
+
+<span class="token keyword">def</span> <span class="token function">projecttaster</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> dst<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    names <span class="token operator">=</span> fnmatch<span class="token punctuation">.</span>filter<span class="token punctuation">(</span>os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span>src<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'*.tif'</span><span class="token punctuation">)</span>
+    src_files <span class="token operator">=</span> <span class="token punctuation">[</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>src<span class="token punctuation">,</span> name<span class="token punctuation">)</span> <span class="token keyword">for</span> name <span class="token keyword">in</span> names<span class="token punctuation">]</span>
+    out_coor_system <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>src<span class="token punctuation">,</span> <span class="token string">"WGS 1984.prj"</span><span class="token punctuation">)</span>
+    dst_files <span class="token operator">=</span> <span class="token punctuation">[</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>dst<span class="token punctuation">,</span> name<span class="token punctuation">)</span> <span class="token keyword">for</span> name <span class="token keyword">in</span> names<span class="token punctuation">]</span>
+
+    <span class="token keyword">for</span> src_file<span class="token punctuation">,</span> dst_file <span class="token keyword">in</span> zip<span class="token punctuation">(</span>src_files<span class="token punctuation">,</span> dst_files<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        arcpy<span class="token punctuation">.</span>ProjectRaster_management<span class="token punctuation">(</span>src_file<span class="token punctuation">,</span> dst_file<span class="token punctuation">,</span> out_coor_system<span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">'%s    has done!'</span><span class="token operator">%</span>src_file<span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    src <span class="token operator">=</span> r<span class="token string">''</span>
+    dst <span class="token operator">=</span> r<span class="token string">''</span>
+    projecttaster<span class="token punctuation">(</span>src<span class="token punctuation">,</span> dst<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://desktop.arcgis.com/zh-cn/arcmap/10.5/tools/data-management-toolbox/project-raster.htm">投影栅格</a> </p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script> 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+			本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/a22afa7a/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/posts/419c1dab/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            『Arcpy』 ArcGIS中利用Anaconda集成scipy和pandas
+          
+        </div>
+      </a>
+    
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<!-- 评论背景 -->                                                         
+<style>
+    #veditor{min-height: 10rem;
+        background-image: url(https://raw.githubusercontent.com/HG95/image/master/20201128231728.gif);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: right;
+        background-color: rgba(255,255,255,0);
+        resize: none;}
+</style>
+<!-- Valine配置 --> 
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "rcJnXG7nEvYWvgGLAEOkaQmH-gzGzoHsz",
+    app_key: "nR5OWuczEKRHudn7Wsqdb5tA",
+    path: window.location.pathname,
+    avatar: "wavatar",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+  	<ul>
+		<li><i class="fa fa-envelope-o fa-fw"></i></li>
+	</ul>
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2021
+        <i class="ri-heart-fill heart_icon"></i> HG
+		</span>  
+		| 
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+		 
+      </li>
+    </ul>
+
+
+	<!-- 运行天数 -->
+	<ul>
+		<li><span id="runtime_span"></span></li>
+	</ul>
+
+
+  </div>
+</footer>
+
+<script type="text/javascript">			
+    function show_runtime() {
+        window.setTimeout("show_runtime()", 1000);
+        X = new Date("09/10/2020 22:22:22");
+        Y = new Date();
+        T = (Y.getTime() - X.getTime());
+        M = 24 * 60 * 60 * 1000;
+        a = T / M;
+        A = Math.floor(a);
+        b = (a - A) * 24;
+        B = Math.floor(b);
+        c = (b - B) * 60;
+        C = Math.floor((b - B) * 60);
+        D = Math.floor((c - C) * 60);
+        runtime_span.innerHTML = "小站在各种崩坏中坚持了: " + A + "天" + B + "小时" + C + "分" + D + "秒"
+    }
+	show_runtime();
+</script>
+
+
+
+
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://cdn.jsdelivr.net/gh/HG95/CDN/ayer.png" alt="错位的梦寐"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories/excel/">Excel</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/movies">电影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/books">阅读</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://mengmei14679.lofter.com/">相册</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/ziyuan">导航</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friend">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝瓶农夫三拳吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/HG95/CDN/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/HG95/CDN/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+
+<script src="/js/clickLove.js"></script>
+
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+  <!-- 三角彩带背景 -->
+  <canvas id="evanyou-canvas" style="opacity: 0.3; position: fixed; top: 0px; left: 0px; z-index: -1; width: 100%; height: 100%; pointer-events: none;"></canvas>
+  <script src="https://cdn.jsdelivr.net/gh/XXXZhy/Blog_Image/js/evanyou_canvas.js"></script>
+  
+</body>
+
+</html>
