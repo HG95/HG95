@@ -2,7 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/posts/475123e4/</loc>
+    <loc>http://example.com/posts/85c418ac/</loc>
+    
+    <lastmod>2021-01-09</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/posts/25e59906/</loc>
+    
+    <lastmod>2021-01-09</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/posts/3dd3e757/</loc>
     
     <lastmod>2021-01-09</lastmod>
     
@@ -10,6 +24,13 @@
   
   <url>
     <loc>http://example.com/posts/f3bac1f8/</loc>
+    
+    <lastmod>2021-01-09</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/posts/475123e4/</loc>
     
     <lastmod>2021-01-09</lastmod>
     
