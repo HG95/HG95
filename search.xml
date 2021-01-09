@@ -393,6 +393,298 @@ hexo clean &amp;&amp; hexo douban -bgm &amp;&amp; hexo g &amp;&amp; hexo deploy<
       </categories>
   </entry>
   <entry>
+    <title>『Statistics』 三大相关性检验</title>
+    <url>/posts/f3bac1f8/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>三个相关性系数（pearson, spearman, kendall）反应的都是两个变量之间变化趋势的方向以及程度，其值范围为-1到+1，0表示两个变量不相关，正值表示正相关，负值表示负相关，值越大表示相关性越强。</p>
+<p>通常情况下通过以下取值范围判断变量的相关强度：<br>0.8-1.0   极强相关<br>0.6-0.8   强相关<br>0.4-0.6   中等程度相关<br>0.2-0.4   弱相关<br>0.0-0.2   极弱相关或无相关</p>
+<a id="more"></a>
+
+<h1 id="一、皮尔森相关性系数"><a href="#一、皮尔森相关性系数" class="headerlink" title="一、皮尔森相关性系数"></a>一、皮尔森相关性系数</h1><p>person correlation coefficient(皮尔森相关性系数)</p>
+<h2 id="计算公式"><a href="#计算公式" class="headerlink" title="计算公式"></a>计算公式</h2><p>$$<br>\begin{align}<br>\rho_{X, Y}&amp;  = \frac{\operatorname{cov}(X, Y)}{\sigma_{X} \sigma_{Y}} \ &amp; = \frac{E\left(\left(X-\mu_{X}\right)\left(Y-\mu_{Y}\right)\right)}{\sigma_{X} \sigma_Y} \&amp; = \frac{E(X Y)-E(X) E(Y)}{\sqrt{E\left(X^{2}\right)-E^{2}(X)} \sqrt{E\left(Y^{2}\right)-E^{2}(Y)}}<br>\end{align}<br>$$</p>
+<p>统计学之三大相关性系数（pearson、spearman、kendall）<br>重点关注第一个等号后面的公式，最后面的是推导计算，暂时不用管它们。看到没有，两个变量(X, Y)的皮尔森相关性系数($ρ_{X,Y}$)等于它们之间的协方差cov(X,Y)除以它们各自标准差的乘积(σX, σY)。</p>
+<p>公式的分母是变量的标准差，这就意味着计算皮尔森相关性系数时，变量的标准差不能为0（分母不能为0），也就是说你的两个变量中任何一个的值不能都是相同的。如果没有变化，用皮尔森相关系数是没办法算出这个变量与另一个变量之间是不是有相关性的。</p>
+<h2 id="数据要求"><a href="#数据要求" class="headerlink" title="数据要求"></a>数据要求</h2><ul>
+<li><strong>正态分布</strong><br>它是协方差与标准差的比值，并且在求皮尔森相关性系数以后，通常还会用t检验之类的方法来进行皮尔森相关性系数检验，而 t 检验是基于数据呈正态分布的假设的。 </li>
+<li><strong>实验数据之间的差距不能太大</strong><br>比如：研究人跑步的速度与心脏跳动的相关性，如果人突发心脏病，心跳为0（或者过快与过慢），那这时候我们会测到一个偏离正常值的心跳，如果我们把这个值也放进去进行相关性分析</li>
+</ul>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+
+<span class="token comment" spellcheck="true">#原始数据</span>
+X1<span class="token operator">=</span>pd<span class="token punctuation">.</span>Series<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+Y1<span class="token operator">=</span>pd<span class="token punctuation">.</span>Series<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">0.3</span><span class="token punctuation">,</span> <span class="token number">0.9</span><span class="token punctuation">,</span> <span class="token number">2.7</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3.5</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+X1<span class="token punctuation">.</span>mean<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#平均值# 3.5</span>
+Y1<span class="token punctuation">.</span>mean<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#2.4</span>
+X1<span class="token punctuation">.</span>var<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#方差#3.5</span>
+Y1<span class="token punctuation">.</span>var<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#2.9760000000000004</span>
+
+X1<span class="token punctuation">.</span>std<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#标准差不能为0# 1.8708286933869707</span>
+Y1<span class="token punctuation">.</span>std<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#标准差不能为0#1.725108692227826</span>
+X1<span class="token punctuation">.</span>cov<span class="token punctuation">(</span>Y1<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#协方差#3.0600000000000005</span>
+
+X1<span class="token punctuation">.</span>corr<span class="token punctuation">(</span>Y1<span class="token punctuation">,</span>method<span class="token operator">=</span><span class="token string">"pearson"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#皮尔森相关性系数 #0.948136664010285</span>
+X1<span class="token punctuation">.</span>cov<span class="token punctuation">(</span>Y1<span class="token punctuation">)</span><span class="token operator">/</span><span class="token punctuation">(</span>X1<span class="token punctuation">.</span>std<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">*</span>Y1<span class="token punctuation">.</span>std<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#皮尔森相关性系数 # 0.948136664010285</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="二、斯皮尔曼相关性系数"><a href="#二、斯皮尔曼相关性系数" class="headerlink" title="二、斯皮尔曼相关性系数"></a>二、斯皮尔曼相关性系数</h1><p>spearman correlation coefficient(斯皮尔曼相关性系数)</p>
+<p>斯皮尔曼相关性系数，通常也叫斯皮尔曼秩相关系数。“秩”，可以理解成就是一种顺序或者排序，那么它就是根据原始数据的排序位置进行求解，这种表征形式就没有了求皮尔森相关性系数时那些限制。</p>
+<h2 id="计算公式-1"><a href="#计算公式-1" class="headerlink" title="计算公式"></a>计算公式</h2><p>$$<br>\rho_{s}=1-\frac{6 \sum d_{i}^{2}}{n\left(n^{2}-1\right)}<br>$$</p>
+<p>计算过程就是：首先对两个变量（X, Y）的数据进行排序，然后记下排序以后的位置（X’, Y’），（X’, Y’）的值就称为秩次，秩次的差值就是上面公式中的 $d_i$，n就是变量中数据的个数，最后带入公式就可求解结果。举个例子吧，假设我们实验的数据如下：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201016164927.jpg" alt="20170816145416809" style="zoom:67%;">
+
+<p>带入公式，求得斯皮尔曼相关性系数：$ρs= 1-6*(1+1+1+9)/6*35=0.657$</p>
+<h2 id="数据要求-1"><a href="#数据要求-1" class="headerlink" title="数据要求"></a>数据要求</h2><p>因为是定序，所以我们不用管X和Y这两个变量具体的值到底差了多少，只需要算一下它们每个值所处的排列位置的差值，就可以求出相关性系数了。</p>
+<p>而且，即便在变量值没有变化的情况下，也不会出现像皮尔森系数那样分母为0而无法计算的情况。另外，即使出现异常值，由于异常值的秩次通常不会有明显的变化（比如过大或者过小，那要么排第一，要么排最后），所以对斯皮尔曼相关性系数的影响也非常小！</p>
+<p>由于斯皮尔曼相关性系数没有那些数据条件要求，适用的范围就广多了。</p>
+<h2 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+
+<span class="token comment" spellcheck="true">#原始数据</span>
+X1<span class="token operator">=</span>pd<span class="token punctuation">.</span>Series<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+Y1<span class="token operator">=</span>pd<span class="token punctuation">.</span>Series<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">0.3</span><span class="token punctuation">,</span> <span class="token number">0.9</span><span class="token punctuation">,</span> <span class="token number">2.7</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3.5</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">#处理数据删除Nan</span>
+x1<span class="token operator">=</span>X1<span class="token punctuation">.</span>dropna<span class="token punctuation">(</span><span class="token punctuation">)</span>
+y1<span class="token operator">=</span>Y1<span class="token punctuation">.</span>dropna<span class="token punctuation">(</span><span class="token punctuation">)</span>
+n<span class="token operator">=</span>x1<span class="token punctuation">.</span>count<span class="token punctuation">(</span><span class="token punctuation">)</span>
+x1<span class="token punctuation">.</span>index<span class="token operator">=</span>np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span>n<span class="token punctuation">)</span>
+y1<span class="token punctuation">.</span>index<span class="token operator">=</span>np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span>n<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">#分部计算</span>
+d<span class="token operator">=</span><span class="token punctuation">(</span>x1<span class="token punctuation">.</span>sort_values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>index<span class="token operator">-</span>y1<span class="token punctuation">.</span>sort_values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>index<span class="token punctuation">)</span><span class="token operator">**</span><span class="token number">2</span>
+dd<span class="token operator">=</span>d<span class="token punctuation">.</span>to_series<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>sum<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+p<span class="token operator">=</span><span class="token number">1</span><span class="token operator">-</span>n<span class="token operator">*</span>dd<span class="token operator">/</span><span class="token punctuation">(</span>n<span class="token operator">*</span><span class="token punctuation">(</span>n<span class="token operator">**</span><span class="token number">2</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">#s.corr()函数计算</span>
+r<span class="token operator">=</span>x1<span class="token punctuation">.</span>corr<span class="token punctuation">(</span>y1<span class="token punctuation">,</span>method<span class="token operator">=</span><span class="token string">'spearman'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>r<span class="token punctuation">,</span>p<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#0.942857142857143 0.9428571428571428</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="三、肯德尔相关性系数"><a href="#三、肯德尔相关性系数" class="headerlink" title="三、肯德尔相关性系数"></a>三、肯德尔相关性系数</h1><p>kendall correlation coefficient(肯德尔相关性系数)</p>
+<p>在统计学中，肯德尔相关系数是以<a href="http://en.wikipedia.org/wiki/Maurice_Kendall">Maurice Kendall</a>命名的，并经常用希腊字母τ（tau）表示其值。肯德尔相关系数是一个用来测量两个随机变量相关性的统计值。一个肯德尔检验是一个无参数假设检验，它使用计算而得的相关系数去检验两个随机变量的统计依赖性。肯德尔相关系数的取值范围在-1到1之间，当τ为1时，表示两个随机变量拥有一致的等级相关性；当τ为-1时，表示两个随机变量拥有完全相反的等级相关性；当τ为0时，表示两个随机变量是相互独立的。</p>
+<p>肯德尔相关性系数，又称肯德尔秩相关系数，它也是一种秩相关系数，不过它<strong>所计算的对象是分类变量</strong>。</p>
+<h2 id="计算公式-2"><a href="#计算公式-2" class="headerlink" title="计算公式"></a>计算公式</h2><p>假设两个随机变量分别为X、Y（也可以看做两个集合），它们的元素个数均为N，两个随即变量取的第i（1&lt;=i&lt;=N）个值分别用$Xi、Yi$表示。X与Y中的对应元素组成一个元素对集合XY，其包含的元素为(Xi, Yi)（1&lt;=i&lt;=N）。当集合XY中任意两个元素$(Xi, Yi)$与$(Xj, Yj)$的排行相同时（也就是说当出现情况1或2时；情况1：Xi&gt;Xj且Yi&gt;Yj，情况2：Xi&lt;Xj且Yi&lt;Yj），这两个元素就被认为是一致的。当出现情况3或4时（情况3：Xi&gt;Xj且Yi&lt;Yj，情况4：Xi&lt;Xj且Yi&gt;Yj），这两个元素被认为是不一致的。当出现情况5或6时（情况5：Xi=Xj，情况6：Yi=Yj），这两个元素既不是一致的也不是不一致的。</p>
+<p>这里有三个公式计算肯德尔相关系数的值：</p>
+<p>公式一：<br>$$<br>T a u-b=\frac{C-D}{\sqrt{(N 3-N)(N 3-N 2)}}<br>$$<br>其中C表示XY中拥有一致性的元素对数（两个元素为一对）；D表示XY中拥有不一致性的元素对数。</p>
+<p>注意：这一公式仅适用于集合X与Y中均不存在相同元素的情况（集合中各个元素唯一）。</p>
+<p>公式二：<br>$$<br>T a u-b=\frac{C-D}{\sqrt{(N 3-N 1)(N 3-N 2)}}<br>$$</p>
+<p>注意：这一公式适用于集合X或Y中存在相同元素的情况（当然，如果X或Y中均不存在相同的元素时，公式二便等同于公式一）。</p>
+<p>其中C、D与公式一中相同；<br>$$<br>N 3=\frac{1}{2} N(N-1), \quad N 1=\sum_{i=1}^{s} \frac{1}{2} U_{i}\left(U_{i}-1\right) \quad, \quad N 2=\sum_{i=1}^{t} \frac{1}{2} V_{i}\left(V_{i}-1\right)<br>$$<br>N1、N2分别是针对集合X、Y计算的，现在以计算N1为例（N2的计算可以类推，在集合Y的基础上计算而得）：</p>
+<p>X集合中所有重复元素个数：将X中的相同元素分别组合成小集合，s表示集合X中拥有的小集合数（例如X包含元素：1 2 3 4 3 3 2，那么这里得到的s则为2，因为只有2、3有相同元素），Ui表示第i个小集合所包含的元素数。</p>
+<p>公式三：<br>$$<br>T a u-c=\frac{C-D}{\frac{1}{2} N^{2} \frac{M-1}{M}}<br>$$<br>注意：这一公式中没有再考虑集合X、或Y中存在相同元素给最后的统计值带来的影响。公式三的这一计算形式仅适用于用表格表示的随机变量X、Y之间相关系数的计算（下面将会介绍）。</p>
+<p>参数M稍后会做介绍。</p>
+<p>通常人们会将两个随机变量的取值制作成一个表格，例如有10个样本，对每个样本进行两项指标测试X、Y（指标X、Y的取值均为1到3）。根据样本的X、Y指标取值，得到以下二维表格（表）：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201016165002.png" alt="1551331-20200306200737036-367067751" style="zoom:80%;">
+
+<p>由表可以得到X及Y的可以以集合的形式表示为：</p>
+<p>X={1, 1, 2, 2, 2, 2, 2, 3, 3, 3}；</p>
+<p>Y={1, 2, 1, 1, 2, 2, 3, 2, 3, 3}；</p>
+<p>得到X、Y的集合形式后就可以使用以上的公式一或公式二计算X、Y的肯德尔相关系数了（注意公式一、二的适用条件）。</p>
+<p>这里需要注意的是：公式二也可以用来计算表格形式表示的二维变量的肯德尔相关系数，不过它一般用来计算由正方形表格表示的二维变量的肯德尔相关系数，公式三则只是用来计算由长方形表格表示的二维变量的Kendall相关系数。这里给出公式三中字母M的含义，M表示长方形表格中行数与列数中较小的一个。表的行数及列数均为三。</p>
+<h2 id="适用范围"><a href="#适用范围" class="headerlink" title="适用范围"></a>适用范围</h2><p>肯德尔相关系数与斯皮尔曼相关系数对数据条件的要求相同。</p>
+<h2 id="代码示例-1"><a href="#代码示例-1" class="headerlink" title="代码示例"></a>代码示例</h2><pre class="line-numbers language-python"><code class="language-python">Dataframe<span class="token punctuation">.</span>corr<span class="token punctuation">(</span>method<span class="token operator">=</span><span class="token string">'kendall'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 返回相关关系矩阵
+
+<span class="token keyword">from</span> scipy<span class="token punctuation">.</span>stats <span class="token keyword">import</span> kendalltau
+
+kendalltau<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span> 返回系数和P值<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> pandas <span class="token keyword">import</span> DataFrame
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+x<span class="token operator">=</span><span class="token punctuation">[</span>a <span class="token keyword">for</span> a <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token comment" spellcheck="true">#构造一元二次方程，非线性关系</span>
+<span class="token keyword">def</span> <span class="token function">y_x</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token number">2</span><span class="token operator">*</span>x<span class="token operator">**</span><span class="token number">2</span><span class="token operator">+</span><span class="token number">4</span>
+y<span class="token operator">=</span><span class="token punctuation">[</span>y_x<span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> x<span class="token punctuation">]</span>
+
+data<span class="token operator">=</span>DataFrame<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">'x'</span><span class="token punctuation">:</span>x<span class="token punctuation">,</span><span class="token string">'y'</span><span class="token punctuation">:</span>y<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">#查看data的数据结构</span>
+data<span class="token punctuation">.</span>head<span class="token punctuation">(</span><span class="token punctuation">)</span>
+Out<span class="token punctuation">[</span><span class="token number">34</span><span class="token punctuation">]</span><span class="token punctuation">:</span> 
+   x   y
+<span class="token number">0</span>  <span class="token number">0</span>   <span class="token number">4</span>
+<span class="token number">1</span>  <span class="token number">1</span>   <span class="token number">6</span>
+<span class="token number">2</span>  <span class="token number">2</span>  <span class="token number">12</span>
+<span class="token number">3</span>  <span class="token number">3</span>  <span class="token number">22</span>
+<span class="token number">4</span>  <span class="token number">4</span>  <span class="token number">36</span>
+
+data<span class="token punctuation">.</span>corr<span class="token punctuation">(</span><span class="token punctuation">)</span>
+Out<span class="token punctuation">[</span><span class="token number">35</span><span class="token punctuation">]</span><span class="token punctuation">:</span> 
+          x         y
+x  <span class="token number">1.000000</span>  <span class="token number">0.967736</span>
+y  <span class="token number">0.967736</span>  <span class="token number">1.000000</span>
+
+data<span class="token punctuation">.</span>corr<span class="token punctuation">(</span>method<span class="token operator">=</span><span class="token string">'spearman'</span><span class="token punctuation">)</span>
+Out<span class="token punctuation">[</span><span class="token number">36</span><span class="token punctuation">]</span><span class="token punctuation">:</span> 
+     x    y
+x  <span class="token number">1.0</span>  <span class="token number">1.0</span>
+y  <span class="token number">1.0</span>  <span class="token number">1.0</span>
+
+data<span class="token punctuation">.</span>corr<span class="token punctuation">(</span>method<span class="token operator">=</span><span class="token string">'kendall'</span><span class="token punctuation">)</span>
+Out<span class="token punctuation">[</span><span class="token number">37</span><span class="token punctuation">]</span><span class="token punctuation">:</span> 
+     x    y
+x  <span class="token number">1.0</span>  <span class="token number">1.0</span>
+y  <span class="token number">1.0</span>  <span class="token number">1.0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>因为y经由函数构造出来，x和y的相关系数为1，但从实验结构可知pearson系数，针对非线性数据有一定的误差。 </p>
+<h1 id="四、案例"><a href="#四、案例" class="headerlink" title="四、案例"></a>四、案例</h1><p>举个例子说一下这三者分别适用的情况，主要说一下kendall，毕竟其他两个上期已经讲过了。比如10个病人做检查，检查结果数据如下：</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201016164956.jpg" alt="v2-543cdbc8d92f50eedf062d67c966703a_720w" style="zoom:80%;">
+
+
+
+<p>a 身高与体重的相关性，pearson相关系数</p>
+<p>b 身高与病情程度的相关性，spearman或者kendall相关系数</p>
+<p>c 性别与身高的相关性，Kendall相关系数</p>
+<p>d 性别与病情程度的相关性，Kendall相关系数</p>
+<p>像b情况为什么两者都适用呢？是因为此时初步诊断这个变量即可以看作定类变量，也可以看作定序变量，至少我个人是这么理解的，但有兴趣和有空闲的同学不妨试验一下结果如何。</p>
+<p>性别请先自行转换成数值，比如0和1，再进行计算。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://blog.csdn.net/zhaozhn5/article/details/78392220" target="">三大统计相关系数：Pearson、Spearman秩相关系数、kendall等级相关系数</a> </li>
+<li><a href="https://zhuanlan.zhihu.com/p/33465271" target="">Kendall相关系数详解-案例版</a></li>
+<li><a href="https://www.cnblogs.com/shona/p/12430665.html" target="">Pearson、Spearman秩相关系数、kendall等级相关系数</a> </li>
+<li><a href="https://www.cnblogs.com/yjd_hycf_space/p/11537153.html" target="">三大相关系数：pearson, spearman, kendall</a> </li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>Statistics</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>『Statistics』 假设检验</title>
+    <url>/posts/475123e4/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>假设检验的原理以及相关的概念。</p>
+<a id="more"></a>
+
+<h1 id="参数估计和假设检验"><a href="#参数估计和假设检验" class="headerlink" title="参数估计和假设检验"></a>参数估计和假设检验</h1><p><strong>参数估计</strong>( parameter estimation) 和 <strong>假设检验</strong> ( hypothesis testing) 是统计推断的两个组成部分，它们都是利用样本对总体进行某种推断，但推断的角度不同。参数估计讨论的是用样本统计量估计总体参数的方法，总体参数 μ 在估计前是未知的。而在假设检验中，则是先对 μ 的值提出一个假设，然后利用样本信息去检验这个假设是否成立。</p>
+<h1 id="假设检验-hypothesis-testing"><a href="#假设检验-hypothesis-testing" class="headerlink" title="假设检验( hypothesis testing)"></a>假设检验( hypothesis testing)</h1><p>包括参数和非参数检验：</p>
+<ul>
+<li>参数假设检验（parametric test）：总体的 分布形式已知，需要对总体的未知参数进行 假设检验。</li>
+<li>非参数假设检验（non-parametric test）：对 总体分布形式所知甚少，需对未知分布函数 的形式及其他特征进行假设检验。</li>
+</ul>
+<blockquote>
+<p>参数假设检验举例</p>
+<p>根据1989年的统计资料，某地女性新生儿的平均体重为3190 克。为判断该地1990年的女性新生儿体重与1989年相比有无显著差异，从该地1990年的女性新生儿中随机抽取30人，测得其平均体重为3210克。从样本数据看，1990年女新生儿体重比 1989年略高，但这种差异可能是由于抽样的随机性带来的，也 许这两年新生儿的体重并没有显著差异。究竟是否存在显著差异？可以先假设这两年新生儿的体重没有显著差异，然后利用 样本信息检验这个假设能否成立。这是一个关于总体均值的假 设检验问题。</p>
+</blockquote>
+<h1 id="假设检验的原理"><a href="#假设检验的原理" class="headerlink" title="假设检验的原理"></a>假设检验的原理</h1><p>小概率原理。假设检验的基本思想是概率性质的<strong>反证法</strong>。(不同于纯数 学中的反证法)</p>
+<p>什么是小概率？</p>
+<ul>
+<li>概率是0～1之间的一个数，因此小概率就是接近0的一个 数</li>
+<li>著名的英国统计家 Ronald Fisher 把 20 分之 1 作为标准，也 就是0.05，从此0.05或比0.05小的概率都被认为是小概率</li>
+<li>Fisher没有任何深奥的理由解释他为什么选择0.05，只是 说他忽然想起来的</li>
+</ul>
+<h2 id="什么是小概率原理"><a href="#什么是小概率原理" class="headerlink" title="什么是小概率原理"></a>什么是小概率原理</h2><ul>
+<li><strong>小概率原理</strong>——发生概率很小的随机事件（小概率事件） 在一次实验中几乎是不可能发生的。</li>
+<li>根据这一原理，可以先假设总体参数的某项取值为真， 也就是假设其发生的可能性很大，然后抽取一个样本 进行观察，如果样本信息显示出现了与事先假设相反的结果且与原假设差别很大，则说明原来假定的小概率事件在一次实验中发生了，这是一个违背小概率原 理的不合理现象，因此有理由怀疑和拒绝原假设；否则不能拒绝原假设。</li>
+<li>检验中使用的小概率是检验前人为指定的。</li>
+</ul>
+<h2 id="小概率原理举例"><a href="#小概率原理举例" class="headerlink" title="小概率原理举例"></a>小概率原理举例</h2><p>某工厂质检部门规定该厂产品次品率不超过4％方能 出厂。今从1000件产品中抽出10件，经检验有4件次 品，问这批产品是否能出厂?</p>
+<p>如果假设这批产品的次品率P≤4％，则可计算事件 “抽10件产品有4件次品”的出现概率为：<br>$$<br>\begin{equation}P_{10}(4)=C_{10}^{4}(0.04)^{4}(1-0.04)^{6}=0.00042\end{equation}<br>$$<br>可见，概率是相当小的，1万次实验中可能出现4次， 然而概率如此小的事件，在一次实验中居然发生了， 这是不合理的，而不合理的根源在于假设次品率 P≤4％ ，因而认为假设次品率P≤4％是不能成立的， 故按质检部门的规定，这批产品不能出厂。</p>
+<p>可见，概率是相当小的，1万次实验中可能出现4次， 然而概率如此小的事件，在一次实验中居然发生了， 这是不合理的，而不合理的根源在于假设次品率 P≤4％ ，因而认为假设次品率P≤4％是不能成立的， 故按质检部门的规定，这批产品不能出厂。</p>
+<p>可见，概率是相当小的，1万次实验中可能出现4次， 然而概率如此小的事件，在一次实验中居然发生了， 这是不合理的，而不合理的根源在于假设次品率 P≤4％ ，因而认为假设次品率P≤4％是不能成立的， 故按质检部门的规定，这批产品不能出厂。</p>
+<h1 id="假设检验的基本思想"><a href="#假设检验的基本思想" class="headerlink" title="假设检验的基本思想"></a>假设检验的基本思想</h1><h1 id="假设检验的两个特点"><a href="#假设检验的两个特点" class="headerlink" title="假设检验的两个特点"></a>假设检验的两个特点</h1><ul>
+<li>第一，<strong>假设检验采用逻辑上的反证法</strong>，即为了检验 一个假设是否成立，首先假设它是真的，然后对 样本进行观察，如果发现出现了不合理现象，则 可以认为假设是不合理的，拒绝假设。否则可以 认为假设是合理的，接受假设。</li>
+<li>第二，假设检验采用的反证法带有概率性。所谓假 设的不合理不是绝对的，而是基于实践中广泛采用的 小概率事件几乎不可能发生的原则。至于事件的概率 小到什么程度才算是小概率事件，并没有统一的界定 标准，而是必须根据具体问题而定。如果一旦判断失 误，错误地拒绝原假设会造成巨大损失，那么拒绝原 假设的概率就应定的小一些；如果一旦判断失误，错 误地接受原假设会造成巨大损失，那么拒绝原假设的 概率就应定的大一些。</li>
+<li>小概率通常用 $\alpha$ 表示，又称为<strong>检验的显著性水平</strong>。通 常取 $\alpha$  ＝0.05 或$\alpha$  ＝0.01，即把概率不超过 0.05 或 0.01 的事 件当作小概率事件。</li>
+</ul>
+<h1 id="原假设和备择假设"><a href="#原假设和备择假设" class="headerlink" title="原假设和备择假设"></a>原假设和备择假设</h1><h2 id="原假设"><a href="#原假设" class="headerlink" title="原假设"></a>原假设</h2><p>一种叫原假设，也叫零假设，用H0表示。原假设一般是统计者想要拒绝的假设。原假设的设置一般为：等于=、大于等于&gt;=、小于等于&lt;=。</p>
+<h2 id="备择假设"><a href="#备择假设" class="headerlink" title="备择假设"></a>备择假设</h2><p>另外一种叫备择假设，用H1表示。备则假设是统计者想要接受的假设。备择假设的设置一般为：不等于、大于&gt;、小于&lt;。</p>
+<p>例子在进行假设检验时，我们希望接受版本2的假设，想拒绝接受版本1的假设。所以我们的假设设置为：H0 ：μ版本1 &gt;= μ版本2 ，H1 : μ版本1 &lt; μ版本2。</p>
+<p>为什么统计者想要拒绝的假设放在原假设呢？因为原假设备被拒绝如果出错的话，只能犯第I类错误，而犯第I类错误的概率已经被规定的显著性水平所控制。</p>
+<h1 id="假设检验的两类错误"><a href="#假设检验的两类错误" class="headerlink" title="假设检验的两类错误"></a>假设检验的两类错误</h1><p>根据假设检验做出判断无非下述四种情况：</p>
+<p>1、原假设真实， 并接受原假设，判断正确；</p>
+<p>2、原假设不真实，且拒绝原假设，判断正确；</p>
+<p>3、原假设真实， 但拒绝原假设，判断错误；</p>
+<p>4、原假设不真实，却接受原假设，判断错误。</p>
+<p>假设检验是依据样本提供的信息进行判断，有犯错误的可能。所犯错误有两种类型：一种是弃真错误，另一种是取伪错误。</p>
+<p>弃真错误也叫第I类错误或α错误：它是指 原假设实际上是真的，但通过样本估计总体后，拒绝了原假设。明显这是错误的，我们拒绝了真实的原假设，所以叫弃真错误，这个错误的概率我们记为α。这个值也是显著性水平，在假设检验之前我们会规定这个概率的大小。</p>
+<p>取伪错误也叫第II类错误或β错误：它是指 原假设实际上假的，但通过样本估计总体后，接受了原假设。明显者是错误的，我们接受的原假设实际上是假的，所以叫取伪错误，这个错误的概率我们记为β。</p>
+<h1 id="显著性水平"><a href="#显著性水平" class="headerlink" title="显著性水平"></a>显著性水平</h1><p>显著性水平是指当原假设实际上正确时，检验统计量落在拒绝域的概率，简单理解就是犯弃真错误的概率。这个值是我们做假设检验之前统计者根据业务情况定好的。</p>
+<p>显著性水平α越小，犯第I类错误的概率自然越小，一般取值：0.01、0.05、0.1等</p>
+<p>当给定了检验的显著水平a=0.05时，进行双侧检验的Z值为1.96 。</p>
+<p>当给定了检验的显著水平a=0.05时，进行单侧检验的Z值为1.645 。</p>
+<p>当给定了检验的显著水平a=0.01时，进行双侧检验的Z值为2.58 。</p>
+<p>当给定了检验的显著水平a=0.01时，进行单侧检验的Z值为2.33</p>
+<h1 id="检验统计量"><a href="#检验统计量" class="headerlink" title="检验统计量"></a>检验统计量</h1><p>定义：据以对原假设和备择假设作出决策的某个样本统计量，称为检验统计量。</p>
+<h1 id="拒绝域、接受域和临界值"><a href="#拒绝域、接受域和临界值" class="headerlink" title="拒绝域、接受域和临界值"></a>拒绝域、接受域和临界值</h1><p>在规定了检验的显著性水平 α 后，根据容量为 n 的样本，按照统计量的理论概率分布规律，可以确定据以判断拒绝和接受原假设的检验统计量的<strong>临界值</strong>。</p>
+<p><strong>临界值</strong>将统计量的所有可能取值区间分为两互不相交的部分，即原假设的拒绝域和接受域。</p>
+<p><strong>接受域</strong>: 原假设为真时允许范围内的变动，应该接受原假设。</p>
+<p><strong>拒绝域</strong>: 当原假设为真时只有很小的概率出现，因而当统计量的结果落入这一区域便应拒绝原假设，这一区域便称作拒绝域。</p>
+<center><img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200609164249.png"></center>
+
+<h1 id="利用-P-值进行决策"><a href="#利用-P-值进行决策" class="headerlink" title="利用 P 值进行决策"></a>利用 P 值进行决策</h1><p>进行检验的程序可以根据检验统计量落人的区域作出是否拒绝原假设的决策。</p>
+<p>在确定 α 以后，拒绝域的位置也就相应确定了，其好处是进行决策的界限清晰，但缺陷是进行决策面临的风险是笼统的。在上面的例子中，计算的 z=2.5，落入拒绝域，我们拒绝原假设，并知道犯弃真错误的概率(面临的风险)为0.05， 如果计算的 z=2.0，同样落人拒绝域，我们拒绝原假设面临的风险也是0.05。0.05 是一个通用的风险概率，这是用域表示的缺陷，但根据不同的样本结果进行决策，面临的风险事实上是有差别的。</p>
+<p><strong>为了精确地反映决策的风险度，可以利用P值进行决策。</strong></p>
+<p>为了解什么是P值，如前面的举例：根据随机抽样测得1990年的样本均值x=3210克，与1989年的总体均值3190克相差20克，异究竟是大还是小？换句话说，如果原假设成立，即1990年新生儿体重的与1989年新生儿体重的总体均值相同，那么随机抽取出n=100的样本3210克的概率有多大呢？我们把这个概率称为P值，所以P值就是当原假设为真时所得到的样本观察结果或更极端结果出现的概率。如果P值很小，说明这种情况发生的概率很小，而如果出现了，根据小概率原理，我们就有理由拒绝原假设，<strong>P值越小，我们拒绝原假设的理由就越充分。</strong></p>
+<p>例题：由统计资料得知，1989年某地新生儿的平均体重为3190克，现从1990年的新生儿中随机抽取100个，测得其平均体重为3210克，问1990年的新生儿与1989年相比，体重有无显著差异？</p>
+<p>解答：从调查结果看，1990年新生儿的平均体重3210克，比1989年新生儿的平均体重3190克增加了20克，但这20克的差异可能源于不同的情况。一种情况是，1990年新生儿的体重与1989年相比没有什么差别，20克的差异是由于抽样的随机性造成的；另一种情况是，抽样的随机性不可能造成20克这样大的差异，1990年新生儿的体重与1989年新生儿的体重相比确实有所增加。</p>
+<p><strong>P值是通过计算得到的</strong>，P值的大小取决于三个因素，一个是样本数据与原假设之间的差异，在新生儿体重的例子里这个差异是20克;另一个是样本量，这里n=100;再一个是被假设参数的总体分布。在这个例子中计算出的P=0.012 42，这就是说，如果原假设成立，样本均值等于和大于3210克的概率只有0.012 42，这是很小的，由此我们可以拒绝原假设，得到与前面z值检验相同的结论，如图8–4所示。</p>
+<center><img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200610141105.png"></center>
+
+<p>P 值的长处是它反映了观察到的实际数据与原假设之间不一致的概率值，与传统的拒绝域范围相比，P是一个具体的值，这样就提供了更多的信息。如果事先确定了显著性水平，如 $\alpha$ =0.05，则在双侧检验中，P&gt;0. 025( $\alpha$ /2=0.025)不能拒绝原假设; 反之，P&lt;0. 025则拒绝原假设。在单侧检验中，P&gt;0. 05不能拒绝原假设，P&lt;0.05则拒绝原假设。当然，也可以直接使用 P 值进行决策，这时 P 值本身就代表了显著性水平。我们也可以使用P值，按照所需要的显著性水平进行判断和决策，具体做法就是用P值和需要的显著性水平进行比较。</p>
+<p>例题</p>
+<p>某批发商欲从厂家购进一批灯泡，根据合同规定灯泡的使用寿命平均不能低于1 000小时。已知灯泡燃烧寿命服从正态分布，标准差为200小时。在总体中随机抽取了100个灯泡，得知样本均值为960小时，批发商是否应该购买这批灯泡?</p>
+<p>这是一个单侧检验问题。显然，如果灯泡的燃烧寿命超过了1000小时，批发商是欢迎的，因为他用已定的价格(灯泡寿命为1000小时的价格)购进了更高质量的产品。因此，如果样本均值超过1000小时，他会购进这批灯泡。问题在于样本均值为960小时他是否应当购进。因为即便总体均值为1000小时，由于抽样的随机性，样本均值略小于1000小时的情况也是会经常出现的。在这种场合下，批发商更为关注可以容忍的下限，即当灯泡寿命低于什么水平时拒绝。于是检验的形式为:<br>$$<br>\begin{equation}\begin{array}{l}<br>H_{0}: \mu \geqslant 1000 \<br>H_{1}: \mu&lt;1000<br>\end{array}\end{equation}<br>$$</p>
+<p>左单侧检验如下图所示($\alpha=0.5$) , 也可以把左单侧检验称为下限检验。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20200924002359.png" alt="image-20200924000137151" style="zoom:80%;">
+
+<p>解答：根据分析，采用左单侧检验。</p>
+<p>在该例中已知 $\mu_0$=100，$\bar{x}$=960，$\sigma$=200，n=100，并假定显著性水平 $\alpha$=0.05.由上图可知拒绝域在左侧，所以临界值为负，即$z_{\alpha} = -1.645$. z的下标$\alpha$表示单侧检验。</p>
+<p>进行检验的过程为：<br>$$<br>\begin{equation}\begin{array}{l}<br>H_{0}: \mu \geqslant 1000 \<br>H_{1: \mu}&lt;1000 \<br>z=\frac{\bar{x}-\mu_{0}}{\sigma / \sqrt{n}}=\frac{960-1000}{200 / \sqrt{100}}=-2<br>\end{array}\end{equation}<br>$$<br>由于 $|z|&gt;\left|z_{a}\right|$ ，即 $z$ 的值位于拒绝域内，所以拒绝 $H0$ , 即这批灯泡的使用寿命低于1000小时，批发商不应购买。</p>
+<p>如果用 P 值进行检验，查表可得，统计量 $z$  的绝对值 2，与之对应 的函数值为 0.97725，由于这是单侧检验，故 P 值为：<br>$$<br>P=1-0.97725=0.02275<br>$$<br>在单侧检验中，用 P 值直接与 $\alpha$ 进行比较，由于 $P(0.02275)&lt;\alpha(0.05)$  ，故拒绝 $H0$。</p>
+<p>如果在此例的假设检验中，显著性水平 $\alpha = 0.02$ , 则有 P&gt; $\alpha$ ,这时就不能拒绝$H0$。</p>
+<h1 id="假设检验的步骤"><a href="#假设检验的步骤" class="headerlink" title="假设检验的步骤"></a>假设检验的步骤</h1><p>(一)、根据研究需要提出原假设 H0 和备择假设 H1</p>
+<p>(二)、确定适当的检验统计量</p>
+<p>(三)、确定显著性水平 α 和临界值及拒绝域</p>
+<p>(四)、根据样本数据计算检验统计量的值(或 p值)</p>
+<p>(五)、做出决策：(两种方法)</p>
+<p>a. 将检验统计量的值和临界值比较，做出拒绝或接受原假设的决策。</p>
+<p>b. 由步骤五的检验统计量计算 p 值，利用 p值确定时候拒绝原假设。</p>
+<h1 id="样本均值和方差检验的场景"><a href="#样本均值和方差检验的场景" class="headerlink" title="样本均值和方差检验的场景"></a>样本均值和方差检验的场景</h1><p><strong>均值检验</strong>：适用于均值是否存在差别的问题，<u>反应的是集中趋势</u>。</p>
+<p>单样本均值检验：测试某批产品是否正常，或者某个部件是否正常，以及评价风险是否在可控范围内等。视总体方差已知和未知分为z检验和t检验。api: stats.ttest_1samp</p>
+<p>双样本均值检验：测试两个总体的均值是否有差别。<code>api: stats.ttest_ind</code>和<code>ttest_ind_from_stats</code></p>
+<p>两条数据相减得到一列数据，再用单样本均值检验看其均值是否为0</p>
+<p><strong>方差检验</strong>：适用方差是否存在差别的问题，<u>反应的离中趋势</u>。</p>
+<p>这里要说明因素及其水平。假如收入是目标变量，它受学历的影响。那么学历是一个因素，学历的等级是水平。试验的目的是查看不同学历水平下的收入是否存在显著差别，或者说收入是否受学历的影响。</p>
+<p>单因素方差分析：连续变量是否受某分类变量不同水平的影响。</p>
+<p>多因素方差分析：已经过渡为一般线性模型，连续变量是否受某些分类变量的影响，以及分量变量对连续变量的影响是否受到别的分类变量的影响[交互项]。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>Statistics</category>
+      </categories>
+  </entry>
+  <entry>
     <title>『Statistics』参数估计</title>
     <url>/posts/fcb8b766/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>参数估计</p>
@@ -685,7 +977,7 @@ hexo clean &amp;&amp; hexo douban -bgm &amp;&amp; hexo g &amp;&amp; hexo deploy<
           });
       </script>]]></content>
       <categories>
-        <category>Statistic</category>
+        <category>Statistics</category>
       </categories>
   </entry>
   <entry>
@@ -1608,11 +1900,11 @@ $$
     <url>/posts/be627c25/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><a id="more"></a>
 
-<div id="echarts5729" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<div id="echarts1578" style="width: 85%;height: 400px;margin: 0 auto"></div>
 <script src="https://cdn.bootcss.com/echarts/3.8.0/echarts.common.min.js"></script>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts5729'));
+        var myChart = echarts.init(document.getElementById('echarts1578'));
         // 指定图表的配置项和数据
         var option = {
     tooltip : {

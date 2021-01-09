@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="读书的意义大概就是用生活所感去读书，用读书所得去生活。" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    『Statistics』 假设检验 |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/HG95/CDN/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+  
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+</html>
+
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Statistics-假设检验"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  『Statistics』 假设检验
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/posts/475123e4/" class="article-date">
+  <time datetime="2021-01-09T08:52:36.000Z" itemprop="datePublished">2021-01-09</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Statistics/">Statistics</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">4.7k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">16 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>假设检验的原理以及相关的概念。</p>
+<a id="more"></a>
+
+<h1 id="参数估计和假设检验"><a href="#参数估计和假设检验" class="headerlink" title="参数估计和假设检验"></a>参数估计和假设检验</h1><p><strong>参数估计</strong>( parameter estimation) 和 <strong>假设检验</strong> ( hypothesis testing) 是统计推断的两个组成部分，它们都是利用样本对总体进行某种推断，但推断的角度不同。参数估计讨论的是用样本统计量估计总体参数的方法，总体参数 μ 在估计前是未知的。而在假设检验中，则是先对 μ 的值提出一个假设，然后利用样本信息去检验这个假设是否成立。</p>
+<h1 id="假设检验-hypothesis-testing"><a href="#假设检验-hypothesis-testing" class="headerlink" title="假设检验( hypothesis testing)"></a>假设检验( hypothesis testing)</h1><p>包括参数和非参数检验：</p>
+<ul>
+<li>参数假设检验（parametric test）：总体的 分布形式已知，需要对总体的未知参数进行 假设检验。</li>
+<li>非参数假设检验（non-parametric test）：对 总体分布形式所知甚少，需对未知分布函数 的形式及其他特征进行假设检验。</li>
+</ul>
+<blockquote>
+<p>参数假设检验举例</p>
+<p>根据1989年的统计资料，某地女性新生儿的平均体重为3190 克。为判断该地1990年的女性新生儿体重与1989年相比有无显著差异，从该地1990年的女性新生儿中随机抽取30人，测得其平均体重为3210克。从样本数据看，1990年女新生儿体重比 1989年略高，但这种差异可能是由于抽样的随机性带来的，也 许这两年新生儿的体重并没有显著差异。究竟是否存在显著差异？可以先假设这两年新生儿的体重没有显著差异，然后利用 样本信息检验这个假设能否成立。这是一个关于总体均值的假 设检验问题。</p>
+</blockquote>
+<h1 id="假设检验的原理"><a href="#假设检验的原理" class="headerlink" title="假设检验的原理"></a>假设检验的原理</h1><p>小概率原理。假设检验的基本思想是概率性质的<strong>反证法</strong>。(不同于纯数 学中的反证法)</p>
+<p>什么是小概率？</p>
+<ul>
+<li>概率是0～1之间的一个数，因此小概率就是接近0的一个 数</li>
+<li>著名的英国统计家 Ronald Fisher 把 20 分之 1 作为标准，也 就是0.05，从此0.05或比0.05小的概率都被认为是小概率</li>
+<li>Fisher没有任何深奥的理由解释他为什么选择0.05，只是 说他忽然想起来的</li>
+</ul>
+<h2 id="什么是小概率原理"><a href="#什么是小概率原理" class="headerlink" title="什么是小概率原理"></a>什么是小概率原理</h2><ul>
+<li><strong>小概率原理</strong>——发生概率很小的随机事件（小概率事件） 在一次实验中几乎是不可能发生的。</li>
+<li>根据这一原理，可以先假设总体参数的某项取值为真， 也就是假设其发生的可能性很大，然后抽取一个样本 进行观察，如果样本信息显示出现了与事先假设相反的结果且与原假设差别很大，则说明原来假定的小概率事件在一次实验中发生了，这是一个违背小概率原 理的不合理现象，因此有理由怀疑和拒绝原假设；否则不能拒绝原假设。</li>
+<li>检验中使用的小概率是检验前人为指定的。</li>
+</ul>
+<h2 id="小概率原理举例"><a href="#小概率原理举例" class="headerlink" title="小概率原理举例"></a>小概率原理举例</h2><p>某工厂质检部门规定该厂产品次品率不超过4％方能 出厂。今从1000件产品中抽出10件，经检验有4件次 品，问这批产品是否能出厂?</p>
+<p>如果假设这批产品的次品率P≤4％，则可计算事件 “抽10件产品有4件次品”的出现概率为：<br>$$<br>\begin{equation}P_{10}(4)=C_{10}^{4}(0.04)^{4}(1-0.04)^{6}=0.00042\end{equation}<br>$$<br>可见，概率是相当小的，1万次实验中可能出现4次， 然而概率如此小的事件，在一次实验中居然发生了， 这是不合理的，而不合理的根源在于假设次品率 P≤4％ ，因而认为假设次品率P≤4％是不能成立的， 故按质检部门的规定，这批产品不能出厂。</p>
+<p>可见，概率是相当小的，1万次实验中可能出现4次， 然而概率如此小的事件，在一次实验中居然发生了， 这是不合理的，而不合理的根源在于假设次品率 P≤4％ ，因而认为假设次品率P≤4％是不能成立的， 故按质检部门的规定，这批产品不能出厂。</p>
+<p>可见，概率是相当小的，1万次实验中可能出现4次， 然而概率如此小的事件，在一次实验中居然发生了， 这是不合理的，而不合理的根源在于假设次品率 P≤4％ ，因而认为假设次品率P≤4％是不能成立的， 故按质检部门的规定，这批产品不能出厂。</p>
+<h1 id="假设检验的基本思想"><a href="#假设检验的基本思想" class="headerlink" title="假设检验的基本思想"></a>假设检验的基本思想</h1><h1 id="假设检验的两个特点"><a href="#假设检验的两个特点" class="headerlink" title="假设检验的两个特点"></a>假设检验的两个特点</h1><ul>
+<li>第一，<strong>假设检验采用逻辑上的反证法</strong>，即为了检验 一个假设是否成立，首先假设它是真的，然后对 样本进行观察，如果发现出现了不合理现象，则 可以认为假设是不合理的，拒绝假设。否则可以 认为假设是合理的，接受假设。</li>
+<li>第二，假设检验采用的反证法带有概率性。所谓假 设的不合理不是绝对的，而是基于实践中广泛采用的 小概率事件几乎不可能发生的原则。至于事件的概率 小到什么程度才算是小概率事件，并没有统一的界定 标准，而是必须根据具体问题而定。如果一旦判断失 误，错误地拒绝原假设会造成巨大损失，那么拒绝原 假设的概率就应定的小一些；如果一旦判断失误，错 误地接受原假设会造成巨大损失，那么拒绝原假设的 概率就应定的大一些。</li>
+<li>小概率通常用 $\alpha$ 表示，又称为<strong>检验的显著性水平</strong>。通 常取 $\alpha$  ＝0.05 或$\alpha$  ＝0.01，即把概率不超过 0.05 或 0.01 的事 件当作小概率事件。</li>
+</ul>
+<h1 id="原假设和备择假设"><a href="#原假设和备择假设" class="headerlink" title="原假设和备择假设"></a>原假设和备择假设</h1><h2 id="原假设"><a href="#原假设" class="headerlink" title="原假设"></a>原假设</h2><p>一种叫原假设，也叫零假设，用H0表示。原假设一般是统计者想要拒绝的假设。原假设的设置一般为：等于=、大于等于&gt;=、小于等于&lt;=。</p>
+<h2 id="备择假设"><a href="#备择假设" class="headerlink" title="备择假设"></a>备择假设</h2><p>另外一种叫备择假设，用H1表示。备则假设是统计者想要接受的假设。备择假设的设置一般为：不等于、大于&gt;、小于&lt;。</p>
+<p>例子在进行假设检验时，我们希望接受版本2的假设，想拒绝接受版本1的假设。所以我们的假设设置为：H0 ：μ版本1 &gt;= μ版本2 ，H1 : μ版本1 &lt; μ版本2。</p>
+<p>为什么统计者想要拒绝的假设放在原假设呢？因为原假设备被拒绝如果出错的话，只能犯第I类错误，而犯第I类错误的概率已经被规定的显著性水平所控制。</p>
+<h1 id="假设检验的两类错误"><a href="#假设检验的两类错误" class="headerlink" title="假设检验的两类错误"></a>假设检验的两类错误</h1><p>根据假设检验做出判断无非下述四种情况：</p>
+<p>1、原假设真实， 并接受原假设，判断正确；</p>
+<p>2、原假设不真实，且拒绝原假设，判断正确；</p>
+<p>3、原假设真实， 但拒绝原假设，判断错误；</p>
+<p>4、原假设不真实，却接受原假设，判断错误。</p>
+<p>假设检验是依据样本提供的信息进行判断，有犯错误的可能。所犯错误有两种类型：一种是弃真错误，另一种是取伪错误。</p>
+<p>弃真错误也叫第I类错误或α错误：它是指 原假设实际上是真的，但通过样本估计总体后，拒绝了原假设。明显这是错误的，我们拒绝了真实的原假设，所以叫弃真错误，这个错误的概率我们记为α。这个值也是显著性水平，在假设检验之前我们会规定这个概率的大小。</p>
+<p>取伪错误也叫第II类错误或β错误：它是指 原假设实际上假的，但通过样本估计总体后，接受了原假设。明显者是错误的，我们接受的原假设实际上是假的，所以叫取伪错误，这个错误的概率我们记为β。</p>
+<h1 id="显著性水平"><a href="#显著性水平" class="headerlink" title="显著性水平"></a>显著性水平</h1><p>显著性水平是指当原假设实际上正确时，检验统计量落在拒绝域的概率，简单理解就是犯弃真错误的概率。这个值是我们做假设检验之前统计者根据业务情况定好的。</p>
+<p>显著性水平α越小，犯第I类错误的概率自然越小，一般取值：0.01、0.05、0.1等</p>
+<p>当给定了检验的显著水平a=0.05时，进行双侧检验的Z值为1.96 。</p>
+<p>当给定了检验的显著水平a=0.05时，进行单侧检验的Z值为1.645 。</p>
+<p>当给定了检验的显著水平a=0.01时，进行双侧检验的Z值为2.58 。</p>
+<p>当给定了检验的显著水平a=0.01时，进行单侧检验的Z值为2.33</p>
+<h1 id="检验统计量"><a href="#检验统计量" class="headerlink" title="检验统计量"></a>检验统计量</h1><p>定义：据以对原假设和备择假设作出决策的某个样本统计量，称为检验统计量。</p>
+<h1 id="拒绝域、接受域和临界值"><a href="#拒绝域、接受域和临界值" class="headerlink" title="拒绝域、接受域和临界值"></a>拒绝域、接受域和临界值</h1><p>在规定了检验的显著性水平 α 后，根据容量为 n 的样本，按照统计量的理论概率分布规律，可以确定据以判断拒绝和接受原假设的检验统计量的<strong>临界值</strong>。</p>
+<p><strong>临界值</strong>将统计量的所有可能取值区间分为两互不相交的部分，即原假设的拒绝域和接受域。</p>
+<p><strong>接受域</strong>: 原假设为真时允许范围内的变动，应该接受原假设。</p>
+<p><strong>拒绝域</strong>: 当原假设为真时只有很小的概率出现，因而当统计量的结果落入这一区域便应拒绝原假设，这一区域便称作拒绝域。</p>
+<center><img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200609164249.png"></center>
+
+<h1 id="利用-P-值进行决策"><a href="#利用-P-值进行决策" class="headerlink" title="利用 P 值进行决策"></a>利用 P 值进行决策</h1><p>进行检验的程序可以根据检验统计量落人的区域作出是否拒绝原假设的决策。</p>
+<p>在确定 α 以后，拒绝域的位置也就相应确定了，其好处是进行决策的界限清晰，但缺陷是进行决策面临的风险是笼统的。在上面的例子中，计算的 z=2.5，落入拒绝域，我们拒绝原假设，并知道犯弃真错误的概率(面临的风险)为0.05， 如果计算的 z=2.0，同样落人拒绝域，我们拒绝原假设面临的风险也是0.05。0.05 是一个通用的风险概率，这是用域表示的缺陷，但根据不同的样本结果进行决策，面临的风险事实上是有差别的。</p>
+<p><strong>为了精确地反映决策的风险度，可以利用P值进行决策。</strong></p>
+<p>为了解什么是P值，如前面的举例：根据随机抽样测得1990年的样本均值x=3210克，与1989年的总体均值3190克相差20克，异究竟是大还是小？换句话说，如果原假设成立，即1990年新生儿体重的与1989年新生儿体重的总体均值相同，那么随机抽取出n=100的样本3210克的概率有多大呢？我们把这个概率称为P值，所以P值就是当原假设为真时所得到的样本观察结果或更极端结果出现的概率。如果P值很小，说明这种情况发生的概率很小，而如果出现了，根据小概率原理，我们就有理由拒绝原假设，<strong>P值越小，我们拒绝原假设的理由就越充分。</strong></p>
+<p>例题：由统计资料得知，1989年某地新生儿的平均体重为3190克，现从1990年的新生儿中随机抽取100个，测得其平均体重为3210克，问1990年的新生儿与1989年相比，体重有无显著差异？</p>
+<p>解答：从调查结果看，1990年新生儿的平均体重3210克，比1989年新生儿的平均体重3190克增加了20克，但这20克的差异可能源于不同的情况。一种情况是，1990年新生儿的体重与1989年相比没有什么差别，20克的差异是由于抽样的随机性造成的；另一种情况是，抽样的随机性不可能造成20克这样大的差异，1990年新生儿的体重与1989年新生儿的体重相比确实有所增加。</p>
+<p><strong>P值是通过计算得到的</strong>，P值的大小取决于三个因素，一个是样本数据与原假设之间的差异，在新生儿体重的例子里这个差异是20克;另一个是样本量，这里n=100;再一个是被假设参数的总体分布。在这个例子中计算出的P=0.012 42，这就是说，如果原假设成立，样本均值等于和大于3210克的概率只有0.012 42，这是很小的，由此我们可以拒绝原假设，得到与前面z值检验相同的结论，如图8–4所示。</p>
+<center><img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200610141105.png"></center>
+
+<p>P 值的长处是它反映了观察到的实际数据与原假设之间不一致的概率值，与传统的拒绝域范围相比，P是一个具体的值，这样就提供了更多的信息。如果事先确定了显著性水平，如 $\alpha$ =0.05，则在双侧检验中，P&gt;0. 025( $\alpha$ /2=0.025)不能拒绝原假设; 反之，P&lt;0. 025则拒绝原假设。在单侧检验中，P&gt;0. 05不能拒绝原假设，P&lt;0.05则拒绝原假设。当然，也可以直接使用 P 值进行决策，这时 P 值本身就代表了显著性水平。我们也可以使用P值，按照所需要的显著性水平进行判断和决策，具体做法就是用P值和需要的显著性水平进行比较。</p>
+<p>例题</p>
+<p>某批发商欲从厂家购进一批灯泡，根据合同规定灯泡的使用寿命平均不能低于1 000小时。已知灯泡燃烧寿命服从正态分布，标准差为200小时。在总体中随机抽取了100个灯泡，得知样本均值为960小时，批发商是否应该购买这批灯泡?</p>
+<p>这是一个单侧检验问题。显然，如果灯泡的燃烧寿命超过了1000小时，批发商是欢迎的，因为他用已定的价格(灯泡寿命为1000小时的价格)购进了更高质量的产品。因此，如果样本均值超过1000小时，他会购进这批灯泡。问题在于样本均值为960小时他是否应当购进。因为即便总体均值为1000小时，由于抽样的随机性，样本均值略小于1000小时的情况也是会经常出现的。在这种场合下，批发商更为关注可以容忍的下限，即当灯泡寿命低于什么水平时拒绝。于是检验的形式为:<br>$$<br>\begin{equation}\begin{array}{l}<br>H_{0}: \mu \geqslant 1000 \<br>H_{1}: \mu&lt;1000<br>\end{array}\end{equation}<br>$$</p>
+<p>左单侧检验如下图所示($\alpha=0.5$) , 也可以把左单侧检验称为下限检验。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20200924002359.png" alt="image-20200924000137151" style="zoom:80%;">
+
+<p>解答：根据分析，采用左单侧检验。</p>
+<p>在该例中已知 $\mu_0$=100，$\bar{x}$=960，$\sigma$=200，n=100，并假定显著性水平 $\alpha$=0.05.由上图可知拒绝域在左侧，所以临界值为负，即$z_{\alpha} = -1.645$. z的下标$\alpha$表示单侧检验。</p>
+<p>进行检验的过程为：<br>$$<br>\begin{equation}\begin{array}{l}<br>H_{0}: \mu \geqslant 1000 \<br>H_{1: \mu}&lt;1000 \<br>z=\frac{\bar{x}-\mu_{0}}{\sigma / \sqrt{n}}=\frac{960-1000}{200 / \sqrt{100}}=-2<br>\end{array}\end{equation}<br>$$<br>由于 $|z|&gt;\left|z_{a}\right|$ ，即 $z$ 的值位于拒绝域内，所以拒绝 $H0$ , 即这批灯泡的使用寿命低于1000小时，批发商不应购买。</p>
+<p>如果用 P 值进行检验，查表可得，统计量 $z$  的绝对值 2，与之对应 的函数值为 0.97725，由于这是单侧检验，故 P 值为：<br>$$<br>P=1-0.97725=0.02275<br>$$<br>在单侧检验中，用 P 值直接与 $\alpha$ 进行比较，由于 $P(0.02275)&lt;\alpha(0.05)$  ，故拒绝 $H0$。</p>
+<p>如果在此例的假设检验中，显著性水平 $\alpha = 0.02$ , 则有 P&gt; $\alpha$ ,这时就不能拒绝$H0$。</p>
+<h1 id="假设检验的步骤"><a href="#假设检验的步骤" class="headerlink" title="假设检验的步骤"></a>假设检验的步骤</h1><p>(一)、根据研究需要提出原假设 H0 和备择假设 H1</p>
+<p>(二)、确定适当的检验统计量</p>
+<p>(三)、确定显著性水平 α 和临界值及拒绝域</p>
+<p>(四)、根据样本数据计算检验统计量的值(或 p值)</p>
+<p>(五)、做出决策：(两种方法)</p>
+<p>a. 将检验统计量的值和临界值比较，做出拒绝或接受原假设的决策。</p>
+<p>b. 由步骤五的检验统计量计算 p 值，利用 p值确定时候拒绝原假设。</p>
+<h1 id="样本均值和方差检验的场景"><a href="#样本均值和方差检验的场景" class="headerlink" title="样本均值和方差检验的场景"></a>样本均值和方差检验的场景</h1><p><strong>均值检验</strong>：适用于均值是否存在差别的问题，<u>反应的是集中趋势</u>。</p>
+<p>单样本均值检验：测试某批产品是否正常，或者某个部件是否正常，以及评价风险是否在可控范围内等。视总体方差已知和未知分为z检验和t检验。api: stats.ttest_1samp</p>
+<p>双样本均值检验：测试两个总体的均值是否有差别。<code>api: stats.ttest_ind</code>和<code>ttest_ind_from_stats</code></p>
+<p>两条数据相减得到一列数据，再用单样本均值检验看其均值是否为0</p>
+<p><strong>方差检验</strong>：适用方差是否存在差别的问题，<u>反应的离中趋势</u>。</p>
+<p>这里要说明因素及其水平。假如收入是目标变量，它受学历的影响。那么学历是一个因素，学历的等级是水平。试验的目的是查看不同学历水平下的收入是否存在显著差别，或者说收入是否受学历的影响。</p>
+<p>单因素方差分析：连续变量是否受某分类变量不同水平的影响。</p>
+<p>多因素方差分析：已经过渡为一般线性模型，连续变量是否受某些分类变量的影响，以及分量变量对连续变量的影响是否受到别的分类变量的影响[交互项]。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script> 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+			本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/475123e4/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/posts/f3bac1f8/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            『Statistics』 三大相关性检验
+          
+        </div>
+      </a>
+    
+    
+      <a href="/posts/fcb8b766/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">『Statistics』参数估计</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<!-- 评论背景 -->                                                         
+<style>
+    #veditor{min-height: 10rem;
+        background-image: url(https://raw.githubusercontent.com/HG95/image/master/20201128231728.gif);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: right;
+        background-color: rgba(255,255,255,0);
+        resize: none;}
+</style>
+<!-- Valine配置 --> 
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "rcJnXG7nEvYWvgGLAEOkaQmH-gzGzoHsz",
+    app_key: "nR5OWuczEKRHudn7Wsqdb5tA",
+    path: window.location.pathname,
+    avatar: "wavatar",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+  	<ul>
+		<li><i class="fa fa-envelope-o fa-fw"></i></li>
+	</ul>
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2021
+        <i class="ri-heart-fill heart_icon"></i> HG
+		</span>  
+		| 
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+		 
+      </li>
+    </ul>
+
+
+	<!-- 运行天数 -->
+	<ul>
+		<li><span id="runtime_span"></span></li>
+	</ul>
+
+
+  </div>
+</footer>
+
+<script type="text/javascript">			
+    function show_runtime() {
+        window.setTimeout("show_runtime()", 1000);
+        X = new Date("09/10/2020 22:22:22");
+        Y = new Date();
+        T = (Y.getTime() - X.getTime());
+        M = 24 * 60 * 60 * 1000;
+        a = T / M;
+        A = Math.floor(a);
+        b = (a - A) * 24;
+        B = Math.floor(b);
+        c = (b - B) * 60;
+        C = Math.floor((b - B) * 60);
+        D = Math.floor((c - C) * 60);
+        runtime_span.innerHTML = "小站在各种崩坏中坚持了: " + A + "天" + B + "小时" + C + "分" + D + "秒"
+    }
+	show_runtime();
+</script>
+
+
+
+
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://cdn.jsdelivr.net/gh/HG95/CDN/ayer.png" alt="错位的梦寐"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories/excel/">Excel</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/movies">电影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/books">阅读</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://mengmei14679.lofter.com/">相册</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/ziyuan">导航</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friend">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝瓶农夫三拳吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/HG95/CDN/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/HG95/CDN/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+
+<script src="/js/clickLove.js"></script>
+
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+  <!-- 三角彩带背景 -->
+  <canvas id="evanyou-canvas" style="opacity: 0.3; position: fixed; top: 0px; left: 0px; z-index: -1; width: 100%; height: 100%; pointer-events: none;"></canvas>
+  <script src="https://cdn.jsdelivr.net/gh/XXXZhy/Blog_Image/js/evanyou_canvas.js"></script>
+  
+</body>
+
+</html>
