@@ -16,63 +16,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/posts/892c256e/</loc>
-    
-    <lastmod>2021-01-05</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/posts/9de15300/</loc>
-    
-    <lastmod>2021-01-05</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/posts/cdd2e0dc/</loc>
-    
-    <lastmod>2021-01-05</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://example.com/posts/36d720f0/</loc>
-    
-    <lastmod>2021-01-05</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/posts/171131a6/</loc>
-    
-    <lastmod>2021-01-05</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/posts/9088ec4/</loc>
-    
-    <lastmod>2021-01-05</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/posts/9061c292/</loc>
-    
-    <lastmod>2021-01-05</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/posts/5d5b464a/</loc>
-    
-    <lastmod>2021-01-05</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/posts/59ed33ea/</loc>
     
     <lastmod>2021-01-05</lastmod>
     
@@ -129,13 +73,6 @@
   
   <url>
     <loc>http://example.com/posts/3b0a2e38/</loc>
-    
-    <lastmod>2020-12-31</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/posts/27c26887/</loc>
     
     <lastmod>2020-12-31</lastmod>
     
@@ -263,20 +200,6 @@
 
   
   <url>
-    <loc>http://example.com/tags/arcpy/</loc>
-    <lastmod>2021-01-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/tags/GIS/</loc>
-    <lastmod>2021-01-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://example.com/tags/Arcpy/</loc>
     <lastmod>2021-01-09</lastmod>
     <changefreq>daily</changefreq>
@@ -284,42 +207,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/VLOOKUP/</loc>
-    <lastmod>2021-01-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/tags/COLUMN%EF%BC%8CINDEX/</loc>
-    <lastmod>2021-01-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/tags/MATCH/</loc>
-    <lastmod>2021-01-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/tags/LOOPUP/</loc>
-    <lastmod>2021-01-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/tags/excel/</loc>
-    <lastmod>2021-01-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/tags/GDAL/</loc>
+    <loc>http://example.com/tags/GIS/</loc>
     <lastmod>2021-01-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -399,27 +287,6 @@
   
   <url>
     <loc>http://example.com/categories/Arcpy/</loc>
-    <lastmod>2021-01-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/categories/Excel/</loc>
-    <lastmod>2021-01-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/categories/ArcGIS/</loc>
-    <lastmod>2021-01-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/categories/GDAL/</loc>
     <lastmod>2021-01-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
