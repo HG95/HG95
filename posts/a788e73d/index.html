@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    『OriginPro』 多元拟合分析 |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
+    『Excel』LOOKUP函数用法！ |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -50,7 +50,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-OriginPro-多元拟合分析"
+  id="post-Excel-LOOKUP函数用法！"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -61,18 +61,18 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  『OriginPro』 多元拟合分析
+  『Excel』LOOKUP函数用法！
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/posts/5f339216/" class="article-date">
-  <time datetime="2021-01-03T13:33:56.000Z" itemprop="datePublished">2021-01-03</time>
+      <a href="/posts/a788e73d/" class="article-date">
+  <time datetime="2021-01-09T09:09:28.000Z" itemprop="datePublished">2021-01-09</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Origin%E7%BB%98%E5%9B%BE/">Origin绘图</a>
+    <a class="article-category-link" href="/categories/Excel/">Excel</a>
   </div>
   
 <div class="word_count">
@@ -80,7 +80,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">184</span>
+            <span class="post-count">2.9k</span>
         </span>
     </span>
 
@@ -89,7 +89,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">10 分钟</span>
         </span>
     </span>
 </div>
@@ -104,29 +104,135 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>多元回归分析</p>
+  <p>使用VLOOKUP函数的时候，经常都会遇到一些麻烦事，那就是VLOOKUP查找只找到满足条件的第一个值就不找了，并且还只能从左往右查找，太多限制了。LOOKUP函数，可以完美的解决这两个问题，太好用了！</p>
+<p>LOOKUP函数非常强大，有引用函数之王的称号。要想完全掌握它，必须了解它的5种常见用法和它的二分法查找原理。</p>
 <a id="more"></a>
 
-<p>加载excel数据，将excel拖入origin，选择第一行将其转为长名称：</p>
-<img src="https://raw.githubusercontent.com/HG95/image/master/20210103215552.png" alt="image-20210103214203462" style="zoom:80%;">
+<h1 id="常规引用"><a href="#常规引用" class="headerlink" title="常规引用"></a>常规引用</h1><p>格式：LOOKUP（查找值，查找区域）</p>
+<p>例1：根据姓名查找语文成绩，公式为<code>=LOOKUP(H2,C2:D19)</code></p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141614.png" alt="20180706113315661001" style="zoom:80%;">
 
-<h1 id="多元回归分析——带截距"><a href="#多元回归分析——带截距" class="headerlink" title="多元回归分析——带截距"></a>多元回归分析——带截距</h1><p>上方菜单栏：<code>Analysis</code>-&gt;<code>Fitting</code>-&gt;<code>Multiple Linear Regression</code></p>
-<img src="https://raw.githubusercontent.com/HG95/image/master/20210103215559.png" alt="image-20210103214535901" style="zoom:80%;">
+<p>例2：根据姓名查找英语成绩，公式为：<code>=LOOKUP(H2,C2:F19)</code></p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141621.png" alt="20180706113316770002" style="zoom:80%;">
 
-<p>数据选择：</p>
-<img src="https://raw.githubusercontent.com/HG95/image/master/20210103215604.png" alt="image-20210103214738950" style="zoom: 80%;">
+<p>通过这两个例子我们可以发现，LOOKUP在进行查找时公式的结构非常简单，<strong>查找值和要找的结果分别位于查找区域的首列和末列。</strong></p>
+<p>但是仅仅了解这个用法是远远不够的，如果我们再试一个数据的话，有可能就会发现问题：</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141626.png" alt="20180706113316228003" style="zoom:80%;">
 
-<p>其它参数默认即可，点击🆗，得到拟合的结果：</p>
-<img src="https://raw.githubusercontent.com/HG95/image/master/20210103215609.png" alt="image-20210103214904529" style="zoom: 67%;">
+<p>当查找姓名变成赵永福的时候，结果就不对了，这是因为<strong>LOOKUP**</strong>函数使用的是二分法查找**，也就是模糊匹配。</p>
+<p>因此，在使用LOOKUP进行常规查找的时候，有一个非常重要的步骤，就是按照查找内容（姓名所在的c列）<strong>升序排序</strong>。</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914142058.png" alt="20180706113317304004" style="zoom:80%;">
 
-<h1 id="多元回归分析——自定义截距"><a href="#多元回归分析——自定义截距" class="headerlink" title="多元回归分析——自定义截距"></a>多元回归分析——自定义截距</h1><p>打开多元回归分析的对话框，数据选择后，切换到<code>Fit Control</code>,如图所示：</p>
-<img src="https://raw.githubusercontent.com/HG95/image/master/20210103215619.png" alt="image-20210103215212812" style="zoom:80%;">
+<p>当我们排序以后，公式的结果立刻变成了正确的，是不是很神奇！</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914142053.png" alt="20180706113317822005" style="zoom:80%;">
 
-<p>点击🆗，和上面的结果相比可以看到截距为0：</p>
-<img src="https://raw.githubusercontent.com/HG95/image/master/20210103215628.png" alt="image-20210103215424336" style="zoom:67%;">
+<p>这又引出了一个新的问题，如果数据不能排序的话，LOOKUP函数还能用吗？</p>
+<p>肯定能用啊，下面来看看LOOKUP函数的第二种用法。</p>
+<h1 id="精确查找的套路"><a href="#精确查找的套路" class="headerlink" title="精确查找的套路"></a><strong>精确查找的套路</strong></h1><p>格式：=LOOKUP（1,0/(查找范围=查找值),结果范围）</p>
+<p>在I2单元格输入公式：<code>=LOOKUP(1,0/(C2:C19=H2)，D2:D19)</code>,</p>
+<p>回车，可看到正确结果。</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914142046.png" alt="20180706113318909006" style="zoom:80%;">
+
+<p>关于这个套路的1和0/到底是什么意思，也是提问率最高的问题之一，在未讲解二分法原理之前，简单来说一下公式的意思。1就是要查找的值，但是条件变了，不是直接查找姓名，而是根据姓名得到的一组逻辑值：</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914142040.png" alt="20180706113319722007" style="zoom:80%;">
+
+<p>注意这里只有一个TRUE，也就是我们要找的姓名。</p>
+<p>接下来用0除以这些逻辑值，在进行计算的时候逻辑值TRUE代表1，FALSE代表0，当分母为0也就是FALSE的时候，计算结果是错误值：</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914142034.jpg" alt="20180706113319379008" style="zoom:80%;">
+
+<p>因此，LOOKUP的工作就变成了在一组数据中找1。由于这组数据只有一个0，其他都是错误值，<strong>二分法使得</strong> <strong>LOOKUP</strong> <strong>只能找到不大于查找值的最后一个数字</strong>，因此只能找到0，最后根据0的行位置（第2行）得到第三参数对应位置的数据，即D2就是我们需要的结果。</p>
+<p>当对数组和逻辑值这两大要点掌握比较熟练的时候，这些内容就很好理解了。目前如果不能完全理解，记住这个套路就行：**<code>=LOOKUP（1,0/(查找范围=查找值),结果范围）</code>**。同时这个套路还能延伸出多条件精确查找用法：</p>
+<p><code>=LOOKUP（1,0/((查找范围1=查找值1)* (查找范围2=查找值2)* (查找范围3=查找值3)),结果范围）</code></p>
+<p>就是在每个查找范围内找到要找的值，得到的逻辑值相乘后同时符合多个条件的位置就是1，原理与单条件的一样。</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914142025.png" alt="20180706113319291009" style="zoom:80%;">
+
+<h1 id="反向查找的套路"><a href="#反向查找的套路" class="headerlink" title="反向查找的套路"></a>反向查找的套路</h1><p>与我们熟知的VLOOKUP不同，使用LOOKUP函数进行反向查找时非常简单，</p>
+<p>公式结构为：**<code>=LOOKUP（查找值，查找列，结果列）</code>**，</p>
+<p>下面这个例子是按照姓名排序后再反向查找的效果：</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914142020.png" alt="20180706113319479010" style="zoom:80%;">
+
+
+
+<p>如果数据不能排序的话，使用精确查找的套路：<code>=LOOKUP(1,0/(C2:C19=H8),B2:B19)</code></p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914142014.png" alt="20180706113320897011" style="zoom:80%;">
+
+<h1 id="按区间查找的套路"><a href="#按区间查找的套路" class="headerlink" title="按区间查找的套路"></a>按区间查找的套路</h1><p>据学生的总分给出相应的评语。50分以下的为“很差”，50-100分的为“差”，100-150分的为“一般”，150-200分的为“较好”，200-250分的为“优秀”，250分及以上的为“能手”。</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914142009.png" alt="20180706113320113012" style="zoom:80%;">
+
+<p>这里用的公式为：</p>
+<p><code>=LOOKUP(G2,{0,50,100,150,200,250;"很差","差","一般","较好","优秀","能手"})</code></p>
+<p>按照评语的要求分成了六个等级，如果用if函数去做就很啰嗦，使用LOOKUP处理这类问题非常方便，公式结构也很简单：</p>
+<p><code>=LOOKUP（分数值，{下限1, 下限2……;评语1,评语2……}）</code></p>
+<p>在写这个公式的时候注意两点：</p>
+<ol>
+<li>LOOKUP的第二参数使用了常量<u>数组</u>，这里的大括号是手动输入的，括号内用一个分号分开，左边是每个等级的下限，例如50分以下这个表述里下限就是0，50-100的下限就是50，以此类推，每个数字之间用逗号分开；分号右边是对应的评语，评语应当使用引号，同时用逗号分开（公式里的所有符号都是英文状态下的）；</li>
+<li>数字区间应当遵循升序的排列顺序，否则结果就会错误。</li>
+</ol>
+<h1 id="关于数据排序的重要性"><a href="#关于数据排序的重要性" class="headerlink" title="关于数据排序的重要性"></a>关于数据排序的重要性</h1><img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914142003.png" alt="20180706113320685013" style="zoom:67%;">
+
+<p>当我们按照学号查找姓名的时候，发现会出现错误，学号也是按升序排列的啊，怎么会错？</p>
+<p>这是一种最常见的错误，这里的学号升序排列只是我们感觉如此而已，实际上升序的效果是这样的：</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141958.png" alt="20180706113321188014" style="zoom:67%;">
+
+<p>在使用LOOKUP的时候，如果不使用精确查找的套路，切记一定要排序才能保证公式结果的正确性。</p>
+<h1 id="二分法原理"><a href="#二分法原理" class="headerlink" title="二分法原理"></a>二分法原理</h1><p>按序号查找成绩，序号是升序排列的，公式<code>=LOOKUP(J2,A2:D19)</code>的结果正确。</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141952.png" alt="20180707144605964001" style="zoom:67%;">
+
+<h2 id="二分法查找原理"><a href="#二分法查找原理" class="headerlink" title="二分法查找原理"></a>二分法查找原理</h2><p>二分法查找是把查找范围中的数据按照个数一分为二找到位于中间位置的一个数据，中间值，然后用我们的查找值和中间值做比较。当中间值等于查找值时，直接去获取结果；当中间值小于查找值时，则向下继续进行二分法查找比较（也就是在不含中间值在内的下方的那一半数据中继续进行二分法查找）；当中间值大于查找值时，则向上继续进行二分法查找比较（也就是在不含中间值在内的上方的那一半数据中继续进行二分法查找）。如果如此二分到最后一个数据都未找到等于查找值的数据：最后一个数据小于查找值的，那就以最后一个数据的位置去获取结果值；最后一个数据大于查找值的，那就再向上找一个位置最靠近最后一个数据的小于或等于查找值的数据，再以这个数据的位置去获取结果。</p>
+<p>结合上面的例子，具体看看如何通过序号5，找到语文成绩79的。</p>
+<p>第一次比较：查找范围<code>A2~A19一共18个数据，中间位置是18÷2=9，即中间值是A10单元格的9。显然查找值5小于9，所以继续向上在A2~A9</code>中查找；</p>
+<p>提示：*如果查找范围数据个数是单数，中间位置就是（个数+1）÷2，例如11行的话，中间位置就是（11+1）÷2=6；如果数据个数是偶数，中间位置就是（个数）÷2。</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141945.png" alt="20180707144605830002 (1)" style="zoom:80%;">
+
+<p>第二次比较：只有8个数据，中间位置是8÷2=4，中间值是A5单元格的4，查找值5大于4，所以继续向下在A6~A9中找。注意此时下面只有四个数，第一次查找时直接将9下面的数据都排除了。</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141941.png" alt="20180707144605971003" style="zoom:67%;">
+
+<p>第三次比较：4个数据，中间值是A7的6，查找值5小于6，所以向上找。此时只剩下一个数据A6单元格的5，与查找值一致，因此就得到5所对应的D列数据79。</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141934.png" alt="20180707144605130004" style="zoom:67%;">
+
+
+
+<h1 id="LOOKUP实现数据的四舍五入"><a href="#LOOKUP实现数据的四舍五入" class="headerlink" title="LOOKUP实现数据的四舍五入"></a>LOOKUP实现数据的四舍五入</h1><p>用LOOKUP解决了一个四舍五入的问题</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141929.png" alt="20180707144607014010" style="zoom:67%;">
+
+<p>原来这个公式是用LOOKUP函数将一个数字百位以下全部舍去，实现了百分位取整。</p>
+<p>在了解过二分法原理以后，是时候让LOOKUP还大家一个解释了。首先说明<code>ROW（A:A）*100</code>这部分。它其实就是得到了一组数字。为了让大家看明白，把 A:A 范围给小一点，用<code>=ROW(A1:A31)*100</code>作说明：</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141924.jpg" alt="20180707144607494011" style="zoom:80%;">
+
+<p>虽然单元格中只能看到一个100，实际上是31个数字，我们可以用f9功能键来看看具体内容：</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141920.jpg" alt="20180707144607259012" style="zoom: 80%;">
+
+<p>ROW函数用于获取单元格的行号，<code>ROW(A1:A31)*100</code>就是用A1到A31单元格的行号分别乘以100，得到一组百位取整的数据{100;200;300;……3000;3100}。</p>
+<p>然后LOOKUP上场了。它要在上述得到的已经百位取整的数组中查找A1。因为数组是按升序排列的，所以查找A1的实质就是在数组中找**<u>小于等于A1的最大值</u>**。</p>
+<p>以2517.32为例，唯有2500是小于它的最大值，因此结果就是2500。有兴趣的朋友可以自己用二分法原理去试试，看看对不对。</p>
+<p>其他数字的查找方式都是如此。这个公式之所以巧妙，就是把一个四舍五入的问题变成了查找引用的问题，真是妙！</p>
+<h1 id="LOOKUP进行数据提取"><a href="#LOOKUP进行数据提取" class="headerlink" title="LOOKUP进行数据提取"></a>LOOKUP进行数据提取</h1><p>原题如图所示提取学号：</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141855.png" alt="20180707144608427014" style="zoom:67%;">
+
+<p>用上图的第一个数据来解释。在N1单元格中输入“10张勇a”，然后在O1单元格中输入公式<code>=-LOOKUP(1,-LEFT(N1,ROW(1:9)))</code>提取学号。</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141850.jpg" alt="20180707144608499015" style="zoom:67%;">
+
+<p>LOOKUP不是引用函数吗，怎么又可以提取数字了？</p>
+<p>LEFT函数的第二个参数使用了一个数组，ROW(1:9)相当于{1;2;3;4;5;6;7;8;9}。LEFT是把第一参数指定的数据从左边开始提取，提取的长度由第二参数来确定。 LEFT按照数组{1;2;3;4;5;6;7;8;9}提取，得到9个结果：</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141845.jpg" alt="20180707144608966016" style="zoom:67%;">
+
+<p>也就是从左边开始提取1位，2位……一直到9位。因为LEFT提取的结果都是文本类型，在LEFT前面加上负号，就可以把其中的文本型数字转为数值，文字变成错误值：</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141840.jpg" alt="20180707144608831017" style="zoom:67%;">
+
+<p>错误值被LOOKUP忽略，现在就变成了在{-1; -10}中找1。1比这组数据都大，<u><strong>根据二分法查找原理，二分后只能向下找，直到最后一位小于1的数据</strong></u>。因此，我们可以简单理解成：<u>当查找值大于查找范围中所有数据（不管是否是升序排列）时，LOOKUP的实质就是在找最后一个数据。</u></p>
+<p>其实将公式中的1变成0也是可以的，因为0也比所有的负数大：</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141835.jpg" alt="20180707144608301018" style="zoom:67%;">
+
+<p>当前最后一个数是-10，所以我们在LOOKUP前面再加个负号，就变成10了，也就是我们需要提取的数字。</p>
+<h1 id="LOOKUP-与合并单元格"><a href="#LOOKUP-与合并单元格" class="headerlink" title="LOOKUP()与合并单元格"></a>LOOKUP()与合并单元格</h1><p>原始格式</p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141828.png" alt="image-20200914140801692" style="zoom:67%;">
+
+<p>在 C 列分别显示对应的第一列的名称：</p>
+<p>公式：<code>=LOOKUP("座",$A$1:A1)</code></p>
+<img src="https://raw.githubusercontent.com/HG1227/image/master/img_tuchuang/20200914141823.png" alt="image-20200914141031170" style="zoom:67%;">
 
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1jK411g7gq">回归拟合分析</a> </li>
+<li><a href="http://www.itblw.com/graphic/139fcf04c051737b903bf13d4fbd1e8f.html" target="">LOOKUP函数用法全解</a></li>
 </ul>
 <script>
         document.querySelectorAll('.github-emoji')
@@ -214,32 +320,30 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/5f339216/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/a788e73d/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OriginPro/" rel="tag">OriginPro</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E5%85%83%E6%8B%9F%E5%90%88%E5%88%86%E6%9E%90/" rel="tag">多元拟合分析</a></li></ul>
-
     </footer>
   </div>
 
    
   <nav class="article-nav">
     
-      <a href="/posts/a788e73d/" class="article-nav-link">
+      <a href="/posts/a70c093b/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            『Excel』LOOKUP函数用法！
+            『Excel』 VLOOKUP函数常用方法集合
           
         </div>
       </a>
     
     
-      <a href="/posts/c093d808/" class="article-nav-link">
+      <a href="/posts/5f339216/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">『OriginPro』  柱状图</div>
+        <div class="article-nav-title">『OriginPro』 多元拟合分析</div>
       </a>
     
   </nav>
