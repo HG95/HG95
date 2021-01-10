@@ -393,50 +393,57 @@ hexo clean &amp;&amp; hexo douban -bgm &amp;&amp; hexo g &amp;&amp; hexo deploy<
       </categories>
   </entry>
   <entry>
-    <title>『ArcGIS』 实现山体阴影和晕渲</title>
-    <url>/posts/48407166/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>基于ArcGIS实现山体阴影和晕渲</p>
+    <title>『OriginPro』 使用公式为图形添加参照线</title>
+    <url>/posts/a35898eb/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>使用公式为图形添加参照线</p>
 <a id="more"></a>
 
-<ol>
-<li><p>启动ArcMap，加载栅格数据DEM:</p>
-<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143145.png" alt="image-20201015142318133" style="zoom: 50%;">
-</li>
-<li><p>在搜索窗口中搜索“山体阴影”（或Hillshade）工具(或在ArcToolbox中打开“山体阴影”（或Hillshade）工具，输入数据源选择DEM图层，其他参数默认)</p>
-<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143156.png" alt="image-20201015141539982" style="zoom: 67%;">
-
-<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143202.png" alt="image-20201015141657853" style="zoom: 67%;">
-</li>
-<li><p>单击<strong>OK</strong>，生成新的栅格数据图层HillSha_dem；</p>
-</li>
-<li><p>在内容列表中，右键单击HillSha_dem图层，选择Properties；</p>
-</li>
-<li><p>打开图层属性窗口，切换到Display页，设置图层透明度为35%，如图；</p>
-<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143206.png" alt="image-20201015141901592" style="zoom: 67%;">
-</li>
-<li><p>单击<strong>确定</strong>，关闭图层属性窗口；</p>
-</li>
-<li><p>在内容列表中，将HillSha_dem图层移至DEM图层上方，查看地图效果，如图</p>
-<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143211.png" alt="image-20201015142030425" style="zoom: 50%;">
-</li>
-<li><p>在内容列表中，右键单击DEM图层，选择Properties；</p>
-</li>
-<li><p>打开图层属性窗口，切换到Symbology页，选择Stretched，设置Stretch Type为Min-Max，选择带有晕渲效果的色带，如图:</p>
-<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143221.png" alt="image-20201015142217927" style="zoom:67%;">
-</li>
-<li><p>单击<strong>确定</strong>，查看地图效果，如图。</p>
-<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143226.png" alt="image-20201015142257444" style="zoom: 50%;">
-
-
-
-
-
-</li>
-</ol>
-<p>参考</p>
 <ul>
-<li><a href="https://malagis.com/arcgis-mapping-works-3-2-moutain-shadow-hill-shading.html" target="_blank">ArcGIS制图手册(3-2)山体阴影和晕渲</a></li>
+<li>效果</li>
 </ul>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211642.png" alt="Add Reference Lines Using Equations" style="zoom: 4%;">
+
+<ul>
+<li><p>数据：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211651.png" alt="image-20210110202433571" style="zoom:50%;">
+</li>
+<li><p>绘制散点图：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211655.png" alt="image-20210110202534442" style="zoom:33%;">
+</li>
+<li><p>添加参照线</p>
+<p>双击Y轴，打开细节对话框：<code>Reference Line</code> -&gt;<code>Details</code> :</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211659.png" alt="image-20210110203751947" style="zoom:50%;">
+
+<p>同样添加另一条参考线。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211702.png" alt="image-20210110204347102" style="zoom:80%;">
+
+<p>其中参考线2的标签表达式：Model 2: y = 1.03 x - 0.02 x+(2)</p>
+<p>效果：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211706.png" alt="image-20210110204437742" style="zoom:33%;">
+</li>
+<li><p>修改刻度，并为坐标轴添加箭头：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211709.png" alt="image-20210110204917442" style="zoom:80%;">
+
+<p>初步的效果：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211712.png" alt="image-20210110205251615" style="zoom:50%;">
+</li>
+<li><p>修改参考线的格式</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211715.png" alt="image-20210110205548395" style="zoom:50%;">
+
+<p>同样修改另一个标签的格式。</p>
+<p>效果：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211718.png" alt="image-20210110210024885" style="zoom:50%;">
+
+<p>可以看到线在点上，修改线在点下，打开图层对话框：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211725.png" alt="image-20210110210245155" style="zoom:50%;">
+
+</li>
+</ul>
+<p>最后的效果：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211727.png" alt="image-20210110210325306" style="zoom:50%;">
+
+
+
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -457,8 +464,11 @@ hexo clean &amp;&amp; hexo douban -bgm &amp;&amp; hexo g &amp;&amp; hexo deploy<
           });
       </script>]]></content>
       <categories>
-        <category>ArcGIS</category>
+        <category>Origin绘图</category>
       </categories>
+      <tags>
+        <tag>OriginPro</tag>
+      </tags>
   </entry>
   <entry>
     <title>『OriginPro』 多元拟合分析</title>
@@ -4235,6 +4245,74 @@ field name :a  field length : 4  filed type : SmallInteger</code></pre>
       </script>]]></content>
       <categories>
         <category>Arcpy</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>『ArcGIS』 实现山体阴影和晕渲</title>
+    <url>/posts/48407166/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>基于ArcGIS实现山体阴影和晕渲</p>
+<a id="more"></a>
+
+<ol>
+<li><p>启动ArcMap，加载栅格数据DEM:</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143145.png" alt="image-20201015142318133" style="zoom: 50%;">
+</li>
+<li><p>在搜索窗口中搜索“山体阴影”（或Hillshade）工具(或在ArcToolbox中打开“山体阴影”（或Hillshade）工具，输入数据源选择DEM图层，其他参数默认)</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143156.png" alt="image-20201015141539982" style="zoom: 67%;">
+
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143202.png" alt="image-20201015141657853" style="zoom: 67%;">
+</li>
+<li><p>单击<strong>OK</strong>，生成新的栅格数据图层HillSha_dem；</p>
+</li>
+<li><p>在内容列表中，右键单击HillSha_dem图层，选择Properties；</p>
+</li>
+<li><p>打开图层属性窗口，切换到Display页，设置图层透明度为35%，如图；</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143206.png" alt="image-20201015141901592" style="zoom: 67%;">
+</li>
+<li><p>单击<strong>确定</strong>，关闭图层属性窗口；</p>
+</li>
+<li><p>在内容列表中，将HillSha_dem图层移至DEM图层上方，查看地图效果，如图</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143211.png" alt="image-20201015142030425" style="zoom: 50%;">
+</li>
+<li><p>在内容列表中，右键单击DEM图层，选择Properties；</p>
+</li>
+<li><p>打开图层属性窗口，切换到Symbology页，选择Stretched，设置Stretch Type为Min-Max，选择带有晕渲效果的色带，如图:</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143221.png" alt="image-20201015142217927" style="zoom:67%;">
+</li>
+<li><p>单击<strong>确定</strong>，查看地图效果，如图。</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20201015143226.png" alt="image-20201015142257444" style="zoom: 50%;">
+
+
+
+
+
+</li>
+</ol>
+<p>参考</p>
+<ul>
+<li><a href="https://malagis.com/arcgis-mapping-works-3-2-moutain-shadow-hill-shading.html" target="_blank">ArcGIS制图手册(3-2)山体阴影和晕渲</a></li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>ArcGIS</category>
       </categories>
   </entry>
 </search>
