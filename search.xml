@@ -393,7 +393,99 @@ hexo clean &amp;&amp; hexo douban -bgm &amp;&amp; hexo g &amp;&amp; hexo deploy<
       </categories>
   </entry>
   <entry>
-    <title>OriginPro 叠加的极坐标气泡图</title>
+    <title>『OriginPro』  分组柱状图、条形图和极坐标条形图</title>
+    <url>/posts/daf1c20d/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="分组柱状图、条形图和极坐标条形图"><a href="#分组柱状图、条形图和极坐标条形图" class="headerlink" title="分组柱状图、条形图和极坐标条形图"></a>分组柱状图、条形图和极坐标条形图</h1><a id="more"></a>
+
+<h1 id="分组柱状图"><a href="#分组柱状图" class="headerlink" title="分组柱状图"></a>分组柱状图</h1><img src="https://gitee.com/HHG1092090447/img/raw/master/20210111195217.png" alt="image-20210111193028909" style="zoom:67%;">
+
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111195220.png" alt="image-20210111193346258" style="zoom:80%;">
+
+<p>效果：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111195224.png" alt="image-20210111193453169" style="zoom: 67%;">
+
+<h1 id="分组条形图"><a href="#分组条形图" class="headerlink" title="分组条形图"></a>分组条形图</h1><p>但由于各景区的名字太长，不能很好的显示，可以考虑<strong>分组条形图</strong>（<code>Grouped Bar Plot</code>）。</p>
+<ul>
+<li>只需将<strong>分组柱形图</strong>（<code>Grouped Column Plot</code>）转个个，就变成了<strong>分组条形图</strong>（<code>Grouped Bar Plot</code>），不过还需要对格式进行进一步得到设置。</li>
+<li>使用右上角的<code>Exchange Axes</code>按钮来旋转图形，切换<code>X</code>和<code>Y</code>轴。</li>
+</ul>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111195230.png" alt="image-20210111193646771" style="zoom:50%;">
+
+<p>效果：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111195233.png" alt="image-20210111193728043" style="zoom: 67%;">
+
+<h1 id="极坐标条形图"><a href="#极坐标条形图" class="headerlink" title="极坐标条形图"></a>极坐标条形图</h1><p>选择第三列数据，使用菜单栏中的<code>Plot</code>菜单下<code>Specialized</code>类别里的<code>Radical Bar Plot</code>图形模板来绘制图形。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111195238.png" alt="image-20210111193951325" style="zoom:67%;">
+
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111195242.png" alt="image-20210111194035771" style="zoom: 50%;">
+
+<p>接下来需要对图形进行格式设置。</p>
+<h2 id="坐标轴"><a href="#坐标轴" class="headerlink" title="坐标轴"></a>坐标轴</h2><ul>
+<li><p>双击左上角的轴向坐标轴，打开<code>Axis Properties</code>页面。</p>
+</li>
+<li><p>选中<code>Radial - Outer</code>，将<code>Show</code>菜单下的<code>Show</code>勾选去掉，不显示轴向坐标轴。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111195245.png" alt="image-20210111194203971" style="zoom: 67%;">
+</li>
+<li><p>在<code>Scale</code>菜单下，可以设置轴向坐标轴的起始范围，也可以设置中心的位置（<code>Center at</code>），用于控制中心白色圆圈的大小。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111195249.png" alt="image-20210111194256930" style="zoom: 67%;">
+</li>
+<li><p>切换到<code>Angular - Outer</code>，在<code>Show</code>菜单下可以设置图形的<code>Orientation</code>。根据图形的实际需要，设置旋转方向和角度。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111195252.png" alt="image-20210111194517623" style="zoom: 67%;">
+
+
+
+</li>
+</ul>
+<h2 id="颜色"><a href="#颜色" class="headerlink" title="颜色"></a>颜色</h2><ul>
+<li><p>双击图形，打开<code>Plot Properties</code>页面。</p>
+</li>
+<li><p>在<code>Pattern</code>菜单下，将<code>Fill</code>的<code>Color</code>设为<code>By Points</code>，类型为<code>Indexing</code>，数据来源为第一列数据，即区域数据。可以在<code>Color List</code>里选择喜欢的颜色搭配。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111195301.png" alt="image-20210111194700881" style="zoom: 50%;">
+</li>
+<li><p>因为极坐标图形中坐标轴不能设置为直角坐标系分组图形中的<code>Table</code>类型，因此可以更改颜色来体现区域信息，即<strong>分组信息</strong>。</p>
+</li>
+</ul>
+<h2 id="图例"><a href="#图例" class="headerlink" title="图例"></a>图例</h2><ul>
+<li><p>更改颜色后，图形中各个颜色的信息没有在图例中体现出来，不能看出每个颜色所代表的内容。可以使用<strong>图例</strong>（<code>Legend</code>）来表示这个信息。</p>
+</li>
+<li><p>在图例上右击，选择<code>Legend</code>-&gt;<code>Reconstruct Legend</code>，或者使用快捷键<code>Ctrl+L</code>来重建图例。</p>
+<p>或者：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111195307.png" alt="image-20210111194836923" style="zoom:67%;">
+</li>
+<li><p>重建后的图例则能够表面各个颜色的含义，也起到了表示分组信息的作用。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111195311.png" alt="image-20210111194914160" style="zoom:67%;">
+
+
+
+</li>
+</ul>
+<h1 id="完成图形"><a href="#完成图形" class="headerlink" title="完成图形"></a>完成图形</h1><img src="https://gitee.com/HHG1092090447/img/raw/master/20210111195558.png" alt="Graph7" style="zoom: 15%;">
+
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>Origin绘图</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>『OriginPro』 叠加的极坐标气泡图</title>
     <url>/posts/26bcc9cd/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>效果：</p>
 <img src="C:\Users\Hu\AppData\Roaming\Typora\typora-user-images\image-20210111175412925.png" alt="image-20210111175412925" style="zoom: 8%;">
