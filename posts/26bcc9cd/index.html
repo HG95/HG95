@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    『OriginPro』 使用公式为图形添加参照线 |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
+    OriginPro 叠加的极坐标气泡图 |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -50,7 +50,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-OriginPro-使用公式为图形添加参照线"
+  id="post-OriginPro-叠加的极坐标气泡图"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -61,15 +61,15 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  『OriginPro』 使用公式为图形添加参照线
+  OriginPro 叠加的极坐标气泡图
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/posts/a35898eb/" class="article-date">
-  <time datetime="2021-01-10T12:11:39.000Z" itemprop="datePublished">2021-01-10</time>
+      <a href="/posts/26bcc9cd/" class="article-date">
+  <time datetime="2021-01-11T09:01:10.000Z" itemprop="datePublished">2021-01-11</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/Origin%E7%BB%98%E5%9B%BE/">Origin绘图</a>
@@ -80,7 +80,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">193</span>
+            <span class="post-count">1.1k</span>
         </span>
     </span>
 
@@ -89,65 +89,139 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">4 分钟</span>
         </span>
     </span>
 </div>
  
     </div>
       
+    <div class="tocbot"></div>
+
 
 
 
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>使用公式为图形添加参照线</p>
+  <p>效果：</p>
+<img src="C:\Users\Hu\AppData\Roaming\Typora\typora-user-images\image-20210111175412925.png" alt="image-20210111175412925" style="zoom: 8%;">
+
 <a id="more"></a>
 
-<ul>
-<li>效果</li>
-</ul>
-<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211642.png" alt="Add Reference Lines Using Equations" style="zoom: 4%;">
-
-<ul>
-<li><p>数据：</p>
-<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211651.png" alt="image-20210110202433571" style="zoom:50%;">
+<p><strong>气泡图</strong>就是<a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzIzMjA1MjAyOA==&amp;mid=2651729284&amp;idx=1&amp;sn=a1f212cdff7685d06539d5f5c320985c&amp;chksm=f36049d7c417c0c15677f5f4cf7861730756cc850fae2cdb3b1627912cde3629190a9473b196&amp;scene=21#wechat_redirect">使用第三个变量来表示气泡大小的散点图</a>。这个图是<strong>极坐标系下的气泡图</strong>，图形绘制比较简单，<strong>关键是构建数据</strong>。涉及到使用<strong>非角度数据绘制极坐标图</strong>，详见教程：<a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzIzMjA1MjAyOA==&amp;mid=2651732505&amp;idx=1&amp;sn=b3a079326fcc66bb49e3124d1fc0bb49&amp;chksm=f3605e4ac417d75c6d5bde82c7b2a9a3e4608fdfa47dcd7aa937f572411ad3d07ceedd754c38&amp;scene=21#wechat_redirect">使用非角度数据绘制极坐标图【数据绘图】</a>。</p>
+<h1 id="数据构建"><a href="#数据构建" class="headerlink" title="数据构建"></a><strong>数据构建</strong></h1><ul>
+<li><p><strong>A列</strong>：各速递企业，作为极坐标图的<strong>Theta数据</strong>，对于较长的数据，可以使用<strong>Ctrl+Enter</strong>进行单元格内换行。</p>
 </li>
-<li><p>绘制散点图：</p>
-<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211655.png" alt="image-20210110202534442" style="zoom:33%;">
+<li><p><strong>B和D列</strong>：为<strong>轴向位置数据</strong>，作为极坐标图的<strong>r数据</strong>，即气泡的位置。此处这两列的数值均设为1，可以根据实际需要进行修改。</p>
 </li>
-<li><p>添加参照线</p>
-<p>双击Y轴，打开细节对话框：<code>Reference Line</code> -&gt;<code>Details</code> :</p>
-<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211659.png" alt="image-20210110203751947" style="zoom:50%;">
+<li><p><strong>C和E列</strong>：申诉率和有效申诉率，作为气泡图的直径或面积，用于表示<strong>气泡的大小</strong>。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111184258.png" alt="image-20210111170650737" style="zoom:50%;">
 
-<p>同样添加另一条参考线。</p>
-<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211702.png" alt="image-20210110204347102" style="zoom:80%;">
+<p>但是后来发现这样绘图后，气泡的标签不能够分布在一个圆上，标签会随着气泡的大小而进行位置变化。像下面这样：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111184254.png" alt="image-20210111170859038" style="zoom:33%;">
 
-<p>其中参考线2的标签表达式：Model 2: y = 1.03 x - 0.02 x+(2)</p>
-<p>效果：</p>
-<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211706.png" alt="image-20210110204437742" style="zoom:33%;">
-</li>
-<li><p>修改刻度，并为坐标轴添加箭头：</p>
-<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211709.png" alt="image-20210110204917442" style="zoom:80%;">
+<p>所以增加一份数据：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111184250.png" alt="image-20210111174317580" style="zoom:50%;">
 
-<p>初步的效果：</p>
-<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211712.png" alt="image-20210110205251615" style="zoom:50%;">
-</li>
-<li><p>修改参考线的格式</p>
-<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211715.png" alt="image-20210110205548395" style="zoom:50%;">
 
-<p>同样修改另一个标签的格式。</p>
-<p>效果：</p>
-<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211718.png" alt="image-20210110210024885" style="zoom:50%;">
-
-<p>可以看到线在点上，修改线在点下，打开图层对话框：</p>
-<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211725.png" alt="image-20210110210245155" style="zoom:50%;">
 
 </li>
 </ul>
-<p>最后的效果：</p>
-<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211727.png" alt="image-20210110210325306" style="zoom:50%;">
+<h1 id="绘制图形"><a href="#绘制图形" class="headerlink" title="绘制图形"></a><strong>绘制图形</strong></h1><ul>
+<li><p>选中<strong>B</strong>和<strong>D</strong>，<strong>F</strong>、<strong>H</strong>列，<strong>右击</strong>，选择<strong>Plot/Specialized/Polar theta(x)  r(y)**，绘制极坐图，默认是</strong>Polar Line图**。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111184247.png" alt="image-20210111171213964" style="zoom: 67%;">
+</li>
+<li><p>或者使用<strong>菜单栏</strong>里<strong>Plot/Specialized/Symbol theta r</strong>来绘图，直接是<strong>Polar Symbol图</strong>。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111184238.png" alt="image-20210111171302473" style="zoom: 67%;">
+
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111184234.png" alt="image-20210111171401501" style="zoom: 50%;">
+
+</li>
+</ul>
+<h1 id="格式设置"><a href="#格式设置" class="headerlink" title="格式设置"></a><strong>格式设置</strong></h1><ul>
+<li><p>双击坐标轴，打开<strong>Axis Properties</strong>对话框，切换到<strong>Scale</strong>页面，将<strong>Units</strong>选为<strong>Custom</strong>，起止数据设为0到28【本示例文件中共有27行数据，故起止数据设为0-28，根据实际情况而定】。<strong>Major Ticks</strong>中间隔设为1，即显示所有的坐标轴数据标签，本示例为每个快递企业的名字。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111184227.png" alt="image-20210111171529471" style="zoom: 67%;">
+</li>
+<li><p>切换到<strong>Show</strong>页面，将<strong>Direction</strong>设为<strong>Clockwise</strong>，<strong>Axes Start at</strong>选为90度。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111184224.png" alt="image-20210111171622719" style="zoom: 67%;">
+</li>
+<li><p>切换到<strong>Grids</strong>页面，取消<strong>Minor Grid Lines</strong>的勾选，不显示次要网格线。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111184222.png" alt="image-20210111171700527" style="zoom: 67%;">
+</li>
+<li><p><strong>Angular角度坐标</strong>：极坐标图默认的<strong>theta数据</strong>为<strong>角度型</strong>，需要设置为<strong>非角度型数据</strong>。</p>
+</li>
+</ul>
+<h1 id="气泡"><a href="#气泡" class="headerlink" title="气泡"></a><strong>气泡</strong></h1><ul>
+<li><p>双击散点，打开<strong>Plot Properties</strong>对话框，为了便于单独设置每个散点系列的格式，将<strong>Group</strong>设为<strong>Independent</strong>。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111184210.png" alt="image-20210111171908997" style="zoom:67%;">
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>切换到<strong>Symbol</strong>页面，将散点的<strong>形状</strong>改为圆形，<strong>Size</strong>选为<strong>Col(C): “申诉率”</strong>，<strong>Scaling Factor</strong>设为一个合适的数字，<strong>Size based on</strong>可选为<strong>Area</strong>，<strong>Symbol Color</strong>选为想要的颜色。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111184200.png" alt="image-20210111172708615" style="zoom:67%;">
+</li>
+<li><p>对于<strong>有效申诉率</strong>（第2个数据序列）进行同样的设置。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111184153.png" alt="image-20210111172726315" style="zoom:67%;">
+</li>
+<li><p>对后面两列数据，设置点大小为0 透明度为100</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111184150.png" alt="image-20210111172338653" style="zoom:80%;">
+
+<p>效果：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111184147.png" alt="image-20210111172640551" style="zoom: 50%;">
+
+</li>
+</ul>
+<h1 id="标签"><a href="#标签" class="headerlink" title="标签"></a><strong>标签</strong></h1><ul>
+<li><p>选中<strong>申诉率</strong>（第3行数据），在到<strong>Label</strong>页面，勾选<strong>Enable</strong>，<strong>Label From</strong>选为<strong>Col(C): “申诉率”</strong>，<strong>Position</strong>设为<strong>Angular Outer</strong>，并根据需要调整<strong>Radial Offset</strong>，同时设置字体的大小，勾选<strong>White Out</strong>即显示标签的白色底纹，<strong>Rotate</strong>设为<strong>Angular</strong>。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111184144.png" alt="image-20210111174505449" style="zoom: 67%;">
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>选中<strong>有效申诉率标签</strong>（第4行数据），进行同样的设置。在<strong>Symbol</strong>页面，将散点的<strong>Size</strong>设为<strong>0</strong>，目的是不显示该散点序列，只是为了标定标签的位置。切换到<strong>Label</strong>页面，勾选<strong>Enable</strong>，<strong>Label From</strong>选为<strong>Col(D): “成功申诉率”</strong>，<strong>Position</strong>设为<strong>Angular Inner</strong>，并根据需要调整<strong>Radial Offset</strong>，同时设置字体的大小，勾选<strong>White Out</strong>即显示标签的白色底纹，<strong>Rotate</strong>设为<strong>Radial</strong>。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111184140.png" alt="image-20210111174547611" style="zoom: 67%;">
+
+</li>
+</ul>
+<h1 id="Radial轴向坐标"><a href="#Radial轴向坐标" class="headerlink" title="Radial轴向坐标"></a><strong>Radial轴向坐标</strong></h1><ul>
+<li><p>双击<strong>轴向坐标</strong>，打开轴向坐标轴格式设置对话框，切换到<strong>Scale</strong>页面，范围设为<strong>0.5-1.5</strong>【本例中气泡位置的数据设置的是1，因此其范围是1±0.5即可】，<strong>Major Ticks</strong>的间隔设为0.5，<strong>Minor Ticks</strong>的数目设为0。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111184137.png" alt="image-20210111174706894" style="zoom: 67%;">
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>将<strong>角度坐标</strong>的标签设为<strong>Auto</strong>，即按<strong>Angular</strong>方向排布。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111184134.png" alt="image-20210111174831164" style="zoom:67%;">
+
+</li>
+</ul>
+<h1 id="其他格式：查漏补缺"><a href="#其他格式：查漏补缺" class="headerlink" title="其他格式：查漏补缺"></a><strong>其他格式</strong>：查漏补缺</h1><ul>
+<li><p>为了强调<strong>全国平均</strong>，使用<strong>Special Ticks</strong>来设置。在<strong>At Axis Value</strong>里填入16（全国平均在第16行），<strong>Label</strong>选为<strong>Auto</strong>（显示原来的标签，而不是在<strong>At Axis Value</strong>里输入的数值）；点击Details打开设置对话框，将这个<strong>Special Ticks</strong>设置的特别一点，比如红色。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111184129.png" alt="image-20210111175104216" style="zoom: 67%;">
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>其他格式还有图例（Legend）的格式，标签的颜色等。</p>
+</li>
+<li><p>将坐标轴隐藏：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210111184122.png" alt="image-20210111175216878" style="zoom:67%;">
+
+
+
+</li>
+</ul>
+<h1 id="最后效果"><a href="#最后效果" class="headerlink" title="最后效果"></a>最后效果</h1><img src="https://gitee.com/HHG1092090447/img/raw/master/20210111185248.png" alt="image-20210111185233001" style="zoom: 25%;">
 
 
 
@@ -237,12 +311,12 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/a35898eb/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/26bcc9cd/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OriginPro/" rel="tag">OriginPro</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9E%81%E5%9D%90%E6%A0%87%E5%9B%BE/" rel="tag">极坐标图</a></li></ul>
 
     </footer>
   </div>
@@ -250,19 +324,10 @@
    
   <nav class="article-nav">
     
-      <a href="/posts/26bcc9cd/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            OriginPro 叠加的极坐标气泡图
-          
-        </div>
-      </a>
     
-    
-      <a href="/posts/5f339216/" class="article-nav-link">
+      <a href="/posts/a35898eb/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">『OriginPro』 多元拟合分析</div>
+        <div class="article-nav-title">『OriginPro』 使用公式为图形添加参照线</div>
       </a>
     
   </nav>
