@@ -393,6 +393,164 @@ hexo clean &amp;&amp; hexo douban -bgm &amp;&amp; hexo g &amp;&amp; hexo deploy<
       </categories>
   </entry>
   <entry>
+    <title>『OriginPro』 箱线图绘制指南</title>
+    <url>/posts/cf9c893d/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>软件版本：2021学习版</p>
+<a id="more"></a>
+
+<p>箱线图的种类：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092507.png" alt="image-20210112221311012" style="zoom: 50%;">
+
+
+
+<h1 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h1><p>绘制分组箱线图的话，一般选择类别里面的<code>分组箱线图</code></p>
+<p>其中<code>多因子组箱线图-索引数据</code>和<code>多因子组箱线图原始数据</code> 会出的图都是一样的，只是绘图时的数据格式不太一样。</p>
+<p>前者的数据格式为：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092514.png" alt="image-20210112221848590" style="zoom:50%;">
+
+<p>绘图时，选择E列数据，绘制<code>多因子组箱线图-索引数据</code>，会显示：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092520.png" alt="image-20210112222228214" style="zoom: 67%;">
+
+<p>后者的格式为：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092524.png" alt="image-20210112222521974" style="zoom:67%;">
+
+<p>绘图时，选择E列数据，绘制<code>多因子组箱线图原始数据</code> ，会显示：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092532.png" alt="image-20210112222503417" style="zoom: 50%;">
+
+<p>根据数据中的 ’长名称‘ 和 ’注释‘ 进行分组：</p>
+<h2 id="表格标签调整"><a href="#表格标签调整" class="headerlink" title="表格标签调整"></a>表格标签调整</h2><p>例如</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092535.png" alt="image-20210112223123293" style="zoom: 50%;">
+
+<p>需要将大的分组标签调至图形的上方：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092540.png" alt="image-20210112223428676" style="zoom: 67%;">
+
+<p>效果：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092543.png" alt="image-20210112223518574" style="zoom:50%;">
+
+<h1 id="绘制"><a href="#绘制" class="headerlink" title="绘制"></a>绘制</h1><p>普通箱线图数据格式：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092547.png" alt="image-20210112220730255" style="zoom:50%;">
+
+<p>画图的时候只需要选择Y列的数据(X列一般没有太大意义)，软件会根据长名称进行绘制，大概是这样的：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092551.png" alt="image-20210112220900251" style="zoom:50%;">
+
+<h1 id="绘图属性"><a href="#绘图属性" class="headerlink" title="绘图属性"></a>绘图属性</h1><p>根据需要选择合适箱体：</p>
+<h2 id="箱体"><a href="#箱体" class="headerlink" title="箱体"></a>箱体</h2><img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092607.png" alt="image-20210112223839057" style="zoom: 67%;">
+
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092610.png" alt="image-20210112223947128" style="zoom:67%;">
+
+<h2 id="须线"><a href="#须线" class="headerlink" title="须线"></a>须线</h2><img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092614.png" alt="image-20210112224231285" style="zoom:67%;">
+
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092618.png" alt="image-20210112224439553" style="zoom:67%;">
+
+<p>显示对应的数据标签</p>
+<h2 id="X值决定箱体的位置"><a href="#X值决定箱体的位置" class="headerlink" title="X值决定箱体的位置"></a>X值决定箱体的位置</h2><p>效果与数据</p>
+<p><img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092622.png" alt="image-20210112224724163" style="zoom:67%;"><img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092636.png" alt="image-20210112224814069" style="zoom:67%;"></p>
+<p>具体设置：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092639.png" alt="image-20210112224853127" style="zoom:67%;">
+
+<h2 id="如何将刻度调整上面那样的格式？"><a href="#如何将刻度调整上面那样的格式？" class="headerlink" title="如何将刻度调整上面那样的格式？"></a>如何将刻度调整上面那样的格式？</h2><p>双击X轴，打开细节对话框：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092653.png" alt="image-20210112225159052" style="zoom:67%;">
+
+<p>第二步：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092656.png" alt="image-20210112225308023" style="zoom: 67%;">
+
+<p>就 🆗 了。</p>
+<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092702.png" alt="image-20210112225836703" style="zoom:50%;">
+
+<p>类型：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092705.png" alt="image-20210112225741127" style="zoom:67%;">
+
+<p>数据点排布：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092708.png" alt="image-20210112230206052" style="zoom:50%;">
+
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092714.png" alt="image-20210112230328298" style="zoom: 67%;">
+
+<h2 id="通过变量控制箱体的宽度"><a href="#通过变量控制箱体的宽度" class="headerlink" title="通过变量控制箱体的宽度"></a>通过变量控制箱体的宽度</h2><img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092718.png" alt="image-20210113083800430" style="zoom:67%;">
+
+<p>设置方法：打开绘图细节对话框，</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092722.png" alt="image-20210113083946797" style="zoom:67%;">
+
+<p>另外就是，图形初步绘制好后如何对刻度进行调整使其更美观：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092726.png" alt="image-20210113091919985" style="zoom:67%;">
+
+<p>双击 X 轴，打开对话框：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092728.png" alt="image-20210113092210815" style="zoom:50%;">
+
+<p>即可：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092732.png" alt="image-20210113092227968" style="zoom:67%;">
+
+<h2 id="分布曲线"><a href="#分布曲线" class="headerlink" title="分布曲线"></a>分布曲线</h2><p>当有数据点的时候，才会点亮：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092736.png" alt="image-20210112230558414" style="zoom:67%;">
+
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092739.png" alt="image-20210112230624324" style="zoom:33%;">
+
+
+
+
+
+<h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092742.png" alt="image-20210112230802346" style="zoom:50%;">
+
+<p>这个例子展现的是怎么从群组数据画出双Y轴箱线图</p>
+<p>绘制双Y轴箱线图</p>
+<p>如何控制箱线图的间距：<br>-在“绘图细节”对话框的左侧面板中，选择Layer1下的数据图，在“间距”选项卡下，设置“重叠(%，间距为负值)” 为“0”</p>
+<p>如何设置图形为半箱体+数据</p>
+<ul>
+<li>在 “绘图细节” 对话框的 “箱体” 选项卡，设置 “类型” 为  “半箱体 [右] + 数据 [左]”</li>
+</ul>
+<p>显示数据点在分格中以便显示分布</p>
+<ul>
+<li>在 “绘图细节” 对话框的 “数据” 选项卡，选择 “点对齐到分格”</li>
+</ul>
+<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092746.png" alt="image-20210112230927372" style="zoom:50%;">
+
+<p>这是带有对应直方图的箱线图</p>
+<p>要创建这张图<br>1&gt; 选择A列，并且在Origin菜单选择“绘图&gt;统计图: 箱线图”。<br>2&gt; 在图上双击打开”绘图细节”对话框。打开“箱体”选项卡并且在“类型”下拉菜单选择“箱体[右]+数据[左]”。单击”应用”键。<br>3&gt; 选择下拉菜单选择“箱体[右]+数据[左]”之后，有另外一个专用于自定义数据的“数据”选项卡出现。打开“数据”选项卡，在“类型”下拉菜单选择“分格条形图”并且设置“分格对齐方式”为“左”。单击“确认”关闭对话框。注意：在Origin2016和之前的版本，分格条形图称为条形图。<br>4&gt; 现在条形图对齐于直方图的右边。我们可以容易地选择”图”：“交换X-&gt;Y轴”菜单，或者只是按下位于工作区右边的相对应的工具栏按键来旋转显示，使得箱体显示在直方图的顶部。<br>5&gt; 要自定义这张图，再次打开”绘图细节”对话框，在“图案”选项卡下，设置“边框”的颜色是黑色。在“箱体”选项卡上，首先设置框的“箱宽度”为20%，设置“须线范围”为“最小-最大”，然后为标签选上“箱线图及标签”和“须线标签”复选框。在”数据”选项卡下，首先取消选择“自动分格”复选框，并且设置“分格大小”为100，设置“数据宽度”为100%。在“百分位数”选项卡下，取消选择所有的“类型”复选框。在“线条”选项卡，设置“中位线”的颜色为蓝色，设置“线帽长度”为0。在”标签”选项卡下，单击“B”图标加粗文本。单击“确认”关闭”绘图细节“对话框。<br>6&gt; 要自定义轴，双击X轴打开“坐标轴”对话框。首先单击“垂直”图标，在“刻度”选项卡下，输入如下设置：从0.61到1.3，“重新调整边距”为0%，“主刻度”的增量值等于0.1。对于“刻度标签”和“轴线和刻度线”选项卡，都取消选择“显示”复选框。单击“水平”图标，在“刻度”选项卡设置“主刻度线类型”为“使用自定义位置”并且输入位置为1565 2412 2706 3184 5019，在“网格”选项卡选上主网格线的“显示”复选框。取消选择在“标题”选项卡的“显示”选项。单击确认。<br>7&gt; 利用在左边的工具栏的“线工具”在图中增加两条垂直线。</p>
+<h2 id="双Y轴箱线图"><a href="#双Y轴箱线图" class="headerlink" title="双Y轴箱线图"></a>双Y轴箱线图</h2><img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092750.png" alt="image-20210113085704270" style="zoom: 50%;">
+
+<p>上图并不是直接由右边的数据直接绘制而得的，首先对数据进行拆分：选择后两列列数据</p>
+<ul>
+<li>选择菜单 “工作表：拆分堆叠列…”，</li>
+</ul>
+<p>打开对话框：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092753.png" alt="image-20210113090023959" style="zoom:50%;">
+
+<p>可以看到进行拆分后的数据：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092756.png" alt="image-20210113091232784" style="zoom:67%;">
+
+<p>如何拆分的不合适，可点击上面绿色的小锁，然后选择<code>更改参数</code>,会自动打开<code>拆分堆叠列</code> 对话框。</p>
+<p>拆分完数据后，选择拆分后的数据，绘图选择双Y轴箱线图：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092759.png" alt="image-20210113090619189" style="zoom:67%;">
+
+<p>此时看到下方的标签显示不正确：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092801.png" alt="image-20210113091345655" style="zoom:33%;">
+
+<p>打开绘图细节对话框：调整X 位置即可</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113092805.png" alt="image-20210113091425427" style="zoom:67%;">
+
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>Origin绘图</category>
+      </categories>
+  </entry>
+  <entry>
     <title>『OriginPro』  分组柱状图、条形图和极坐标条形图</title>
     <url>/posts/daf1c20d/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="分组柱状图、条形图和极坐标条形图"><a href="#分组柱状图、条形图和极坐标条形图" class="headerlink" title="分组柱状图、条形图和极坐标条形图"></a>分组柱状图、条形图和极坐标条形图</h1><a id="more"></a>
@@ -640,10 +798,10 @@ hexo clean &amp;&amp; hexo douban -bgm &amp;&amp; hexo g &amp;&amp; hexo deploy<
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>使用公式为图形添加参照线</p>
 <a id="more"></a>
 
-<ul>
+<h1 id="案例一"><a href="#案例一" class="headerlink" title="案例一"></a>案例一</h1><ul>
 <li>效果</li>
 </ul>
-<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211642.png" alt="Add Reference Lines Using Equations" style="zoom: 4%;">
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211642.png" alt="Add Reference Lines Using Equations" style="zoom: 3%;">
 
 <ul>
 <li><p>数据：</p>
@@ -667,7 +825,7 @@ hexo clean &amp;&amp; hexo douban -bgm &amp;&amp; hexo g &amp;&amp; hexo deploy<
 <img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211709.png" alt="image-20210110204917442" style="zoom:80%;">
 
 <p>初步的效果：</p>
-<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211712.png" alt="image-20210110205251615" style="zoom:50%;">
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211712.png" alt="image-20210110205251615" style="zoom: 33%;">
 </li>
 <li><p>修改参考线的格式</p>
 <img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211715.png" alt="image-20210110205548395" style="zoom:50%;">
@@ -682,9 +840,18 @@ hexo clean &amp;&amp; hexo douban -bgm &amp;&amp; hexo g &amp;&amp; hexo deploy<
 </li>
 </ul>
 <p>最后的效果：</p>
-<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211727.png" alt="image-20210110210325306" style="zoom:50%;">
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210110211727.png" alt="image-20210110210325306" style="zoom: 33%;">
 
 
+
+<h1 id="案例二"><a href="#案例二" class="headerlink" title="案例二"></a>案例二</h1><img src="https://gitee.com/HHG1092090447/img/raw/master/20210113084928.png" alt="image-20210113084057007" style="zoom:67%;">
+
+<p>添加方法，双击Y轴：<code>参照线</code> -&gt;<code>细节</code>-&gt;<code>追加</code>:</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113084932.png" alt="image-20210113084735327" style="zoom:50%;">
+
+<p>位置中<code>Mean(plotdata(6, Y))</code> 的6 表示：通过表格中的第六列 的Y值计算平均值。</p>
+<p>此时可以看到参照线位于图形的上方，打开绘图细节对话框，选择<code>Layer1</code> 图层：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210113085311.png" alt="image-20210113085303681" style="zoom: 50%;">
 
 <script>
         document.querySelectorAll('.github-emoji')
