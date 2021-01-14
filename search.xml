@@ -393,6 +393,254 @@ hexo clean &amp;&amp; hexo douban -bgm &amp;&amp; hexo g &amp;&amp; hexo deploy<
       </categories>
   </entry>
   <entry>
+    <title>『OriginPro』 点线图绘图指南</title>
+    <url>/posts/ce2c81f7/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="『』"><a href="#『』" class="headerlink" title="『』"></a>『』</h1><a id="more"></a>
+
+<h1 id="散点连线线条序列"><a href="#散点连线线条序列" class="headerlink" title="散点连线线条序列"></a>散点连线线条序列</h1><p>效果图：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114154310.png" alt="image-20210114151449316" style="zoom:50%;">
+
+<p>数据：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114154314.png" alt="image-20210114151515559" style="zoom:50%;">
+
+<p>选择后三列数据：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114154319.png" alt="image-20210114151608758" style="zoom:80%;">
+
+<p>效果：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114154325.png" alt="image-20210114151708845" style="zoom:50%;">
+
+<p>打开绘图细节对话框，设置颜色：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114154328.png" alt="image-20210114151839117" style="zoom:67%;">
+
+<p>连接线设置：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114154338.png" alt="image-20210114152912655" style="zoom:67%;">
+
+<p>效果：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114154344.png" alt="image-20210114153039212" style="zoom: 50%;">
+
+<p>此时图例还有些不一样，右键单击图例，</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114154350.png" alt="image-20210114153210340" style="zoom:50%;">
+
+<p>此时图例变化为：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114154355.png" alt="image-20210114153232261" style="zoom:80%;">
+
+<p>我们只想要显示线，不想要点：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114154357.png" alt="image-20210114153352145" style="zoom:80%;">
+
+<p>会弹出对话框：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114154400.png" alt="image-20210114153426296" style="zoom:80%;">
+
+<p>最后的效果：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114154403.png" alt="image-20210114153455590" style="zoom:50%;">
+
+<h1 id="前后对比线条序列"><a href="#前后对比线条序列" class="headerlink" title="前后对比线条序列"></a>前后对比线条序列</h1><img src="https://gitee.com/HHG1092090447/img/raw/master/20210114154407.png" alt="image-20210114153954014" style="zoom: 80%;">
+
+<h1 id="均值和误差图"><a href="#均值和误差图" class="headerlink" title="均值和误差图"></a>均值和误差图</h1><img src="https://gitee.com/HHG1092090447/img/raw/master/20210114154410.png" alt="image-20210114154103713" style="zoom:80%;">
+
+<h1 id="为气泡图添加背景"><a href="#为气泡图添加背景" class="headerlink" title="为气泡图添加背景"></a>为气泡图添加背景</h1><img src="https://gitee.com/HHG1092090447/img/raw/master/20210114154413.png" alt="image-20210114154247850" style="zoom:67%;"><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>Origin绘图</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>『OriginPro』 饼图和环形图绘图指南</title>
+    <url>/posts/6eb90824/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="『』"><a href="#『』" class="headerlink" title="『』"></a>『』</h1><a id="more"></a>
+
+<h1 id="不同高度的3D彩色饼图"><a href="#不同高度的3D彩色饼图" class="headerlink" title="不同高度的3D彩色饼图"></a>不同高度的3D彩色饼图</h1><p>效果图：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141812.png" alt="image-20210114140906368" style="zoom:50%;">
+
+<p>可以看到根据每个楔子占比的不同，高度也会有一定的差别。</p>
+<p>数据：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141819.png" alt="image-20210114141100510" style="zoom:67%;">
+
+<p>其中只用到E列的数据。</p>
+<p>选中E列数据：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141822.png" alt="image-20210114141205363" style="zoom:80%;">
+
+<p>效果：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141825.png" alt="image-20210114141237809" style="zoom:50%;">
+
+<h2 id="绘图调整"><a href="#绘图调整" class="headerlink" title="绘图调整"></a>绘图调整</h2><p>打开绘图细节对话框：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141828.png" alt="image-20210114141426239" style="zoom:80%;">
+
+<p>效果：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141831.png" alt="image-20210114141508068" style="zoom:50%;">
+
+<p>对<code>厚度缩放</code>和<code>旋转</code>进行调整：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141835.png" alt="image-20210114141628688" style="zoom:50%;">
+
+<p>效果：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141838.png" alt="image-20210114141654895" style="zoom:50%;">
+
+<p>其它细节在进行调整即可。</p>
+<h1 id="有缺口的环形图"><a href="#有缺口的环形图" class="headerlink" title="有缺口的环形图"></a>有缺口的环形图</h1><p>效果图：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141841.png" alt="image-20210114091354735" style="zoom:50%;">
+
+<p>可以看到每个环都是有缺口的，没有形成闭合。</p>
+<h2 id="缺口实现"><a href="#缺口实现" class="headerlink" title="缺口实现"></a>缺口实现</h2><p>数据：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141848.png" alt="image-20210114091517582" style="zoom:67%;">
+
+<p>选择全部数据：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141851.png" alt="image-20210114091621840" style="zoom: 67%;">
+
+<p>效果：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141854.png" alt="image-20210114091706517" style="zoom:50%;">
+
+<p>环形有里到外一次对应数据表的从左到右的各列数据。</p>
+<p>如何实现环形缺口呢？</p>
+<p>打开绘图细节对话框：切换到<code>楔子</code>， 可以看到下面的<code>楔子总数</code> ：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141858.png" alt="image-20210114092209824" style="zoom:80%;">
+
+<p>当<code>百分比</code>切换到<code>值</code>的时候，可以看到显示为93.14。当把值调整为100时：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141901.png" alt="image-20210114092513232" style="zoom:80%;">
+
+<p>可以看到：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141903.png" alt="image-20210114092543244" style="zoom:67%;">
+
+<p>环形缺口出现了，这是因为各个换的数据之和都没有100，当值设置为100时，就自然形成了数据缺口。</p>
+<h2 id="环形渐变色"><a href="#环形渐变色" class="headerlink" title="环形渐变色"></a>环形渐变色</h2><p>另外效果图中环形的颜色是渐变的，如何调整呢？</p>
+<p>打开绘图细节对话框：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141908.png" alt="image-20210114093015403" style="zoom: 50%;">
+
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141912.png" alt="image-20210114093112952" style="zoom:50%;">
+
+
+
+<h1 id="同心圆弧图"><a href="#同心圆弧图" class="headerlink" title="同心圆弧图"></a>同心圆弧图</h1><p>效果图：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141915.png" alt="image-20210114093715015" style="zoom:67%;">
+
+<p>可以看到上面图中有两处不同，左边的图有一个小的缺口，右边的图将剩余的环形填充了灰色。</p>
+<h2 id="左图的缺口"><a href="#左图的缺口" class="headerlink" title="左图的缺口"></a>左图的缺口</h2><p>左边图的缺口是通过调整边框的宽度实现的，打开绘图细节对话框：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141918.png" alt="image-20210114094008241" style="zoom:67%;">
+
+<h2 id="右图调整"><a href="#右图调整" class="headerlink" title="右图调整"></a>右图调整</h2><p>首先将边框设置为0：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141920.png" alt="image-20210114094125842" style="zoom:67%;">
+
+<p>再对间距进行调整：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141923.png" alt="image-20210114094230925" style="zoom:67%;">
+
+<p>切换到<code>楔子</code> 进行调整：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141925.png" alt="image-20210114094357783" style="zoom: 50%;">
+
+<p>就可以了。</p>
+<h1 id="多半径饼图"><a href="#多半径饼图" class="headerlink" title="多半径饼图"></a>多半径饼图</h1><p>效果图：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141930.png" alt="image-20210114085858743" style="zoom:50%;">
+
+
+
+<p>数据：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141933.png" alt="image-20210114085946985" style="zoom:50%;">
+
+<p>选择两列数据，<code>绘图</code>-&gt;<code>基础2D</code> -&gt; <code>多半径饼图</code>：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141936.png" alt="image-20210114090139633" style="zoom:50%;">
+
+<p>可以看到绘制显示的标签和效果图中的显示的不一样，效果图中的标签和数据表中的数据是一样的。打开绘图细节对话框：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141939.png" alt="image-20210114090605422" style="zoom:67%;">
+
+<p>勾选完自定义后，会显示：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141944.png" alt="image-20210114090653448" style="zoom:80%;">
+
+<p>第一行表示类别列，第二行表示数据标签，可以点开右侧的小箭头查看示例：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141946.png" alt="image-20210114090848256" style="zoom:80%;">
+
+<p>要想直接显示数据表中的数据，可以将第二行的<code>p</code> 改为<code>y</code>, <code>.1 </code>表示小数的位数，单击应用：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141949.png" alt="image-20210114091039671" style="zoom:50%;">
+
+<p>可以看到数据标签直接显示为y列的数据。</p>
+<p>其它细节再进行调整即可。</p>
+<h1 id="旭日图一"><a href="#旭日图一" class="headerlink" title="旭日图一"></a>旭日图一</h1><img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141952.png" alt="image-20210114103824352" style="zoom: 50%;">
+
+<p>图的内层是品牌，外层是各个版本的占比：</p>
+<p>数据：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141957.png" alt="image-20210114103929893" style="zoom:67%;">
+
+<p>需要三列数据其中前两列为 X列，最后一列为Y列数据。</p>
+<p>选择三列数据，绘制环形图：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114142002.png" alt="image-20210114104148865" style="zoom:80%;">
+
+<p>效果：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114142005.png" alt="image-20210114104232666" style="zoom:67%;">
+
+<h2 id="图形设置"><a href="#图形设置" class="headerlink" title="图形设置"></a>图形设置</h2><img src="https://gitee.com/HHG1092090447/img/raw/master/20210114142008.png" alt="image-20210114104442718" style="zoom: 67%;">
+
+<h2 id="标签隐藏"><a href="#标签隐藏" class="headerlink" title="标签隐藏"></a>标签隐藏</h2><img src="https://gitee.com/HHG1092090447/img/raw/master/20210114142011.png" alt="image-20210114104617997" style="zoom: 50%;">
+
+<h1 id="旭日图二"><a href="#旭日图二" class="headerlink" title="旭日图二"></a>旭日图二</h1><img src="https://gitee.com/HHG1092090447/img/raw/master/20210114142015.png" alt="image-20210114110023855" style="zoom: 50%;">
+
+<p>可以看到内层和外层的每个楔子的占比都是一样的，</p>
+<h2 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h2><img src="https://gitee.com/HHG1092090447/img/raw/master/20210114142019.png" alt="image-20210114111456080" style="zoom:67%;">
+
+<p>A列表示外层环，B列内层饼图，C列表示外层每个楔子的占比，D列表示内层饼图的标签同时也控制每个楔子的长度，F列外层环的标签。</p>
+<h2 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h2><p>选择前三列数据,绘制环形图：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114142021.png" alt="image-20210114111624833" style="zoom:67%;">
+
+<p>右侧对象管理器处，右键单击，解散组：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114142025.png" alt="image-20210114111806623" style="zoom:67%;">
+
+<p>效果：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114142028.png" alt="image-20210114111856814" style="zoom:50%;">
+
+<p>双击图层，打开绘图细节对话框，选择第一个，设置<code>缩放半径</code>、<code>中心大小</code> <code>和旋转角度</code>:</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114142030.png" alt="image-20210114112143123" style="zoom: 67%;">
+
+<p>效果：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114142035.png" alt="image-20210114112224351" style="zoom: 50%;">
+
+<p>标签修改：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114142038.png" alt="image-20210114112534974" style="zoom:67%;">
+
+
+
+<p>修改内层：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114142041.png" alt="image-20210114113025744" style="zoom:67%;">
+
+<p>效果：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114142045.png" alt="image-20210114113237079" style="zoom:67%;">
+
+<p>其它细节再进行调整即可。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>Origin绘图</category>
+      </categories>
+  </entry>
+  <entry>
     <title>『OriginPro』 箱线图绘制指南</title>
     <url>/posts/cf9c893d/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>软件版本：2021学习版</p>
@@ -2143,6 +2391,121 @@ $$
       <tags>
         <tag>OriginPro</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>『Arcpy』 裁剪(Clip_analysis)</title>
+    <url>/posts/7366f1da/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>提取与裁剪要素相重叠的输入要素。</p>
+<p>此工具用于以其他要素类中的一个或多个要素作为模具来剪切掉要素类的一部分。在您想要创建一个包含另一较大要素类的地理要素子集的新要素类（也称为研究区域或感兴趣区域 (AOI)）时，裁剪工具尤为有用。</p>
+<a id="more"></a>
+
+<h1 id="插图"><a href="#插图" class="headerlink" title="插图"></a>插图</h1><img src="https://gitee.com/HHG1092090447/img/raw/master/20210114171034.gif" alt="GUID-6D3322A8-57EA-4D24-9FFE-2A9E7C6B29EC-web" style="zoom:80%;">
+
+<h1 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h1><ul>
+<li><p><strong>裁剪要素</strong>可以是点、线和面，具体取决于<strong>输入要素</strong>的类型。</p>
+<ul>
+<li>当<strong>输入要素</strong>为面时，<strong>裁剪要素</strong>也必须为面。</li>
+<li>当<strong>输入要素</strong>为线时，<strong>裁剪要素</strong>可以为线或面。用线要素裁剪线要素时，仅将重合的线或线段写入到输出中，如下图所示。</li>
+<li>当<strong>输入要素</strong>为点时，<strong>裁剪要素</strong>可以为点、线或面。用点要素裁剪点要素时，仅将重合的点写入到输出中，如下图所示。用线要素裁剪点要素时，仅将与线要素重合的点写入到输出中。</li>
+</ul>
+</li>
+<li><p><strong>输出要素类</strong>将包含<strong>输入要素</strong>的所有属性。</p>
+</li>
+<li><p>由面要素裁剪线要素：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114171042.gif" alt="GUID-A639B75A-29D3-4456-A1FE-BB9F5B55F7E5-web" style="zoom:67%;">
+</li>
+<li><p>由面要素裁剪点要素：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114171045.gif" alt="GUID-6B2D83BA-393A-4DDD-9402-071444A541AE-web" style="zoom:67%;">
+</li>
+<li><p>由线要素裁剪线要素：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114171049.png" alt="GUID-41FFDEC5-C565-46BD-8EC1-D1FE7901CBB8-web" style="zoom:67%;">
+</li>
+<li><p>由点要素裁剪点要素：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114171052.png" alt="GUID-84E96C31-62C1-458C-A240-1B59A62896A0-web" style="zoom:67%;">
+</li>
+<li><p>输入要素类的属性值将被复制到输出要素类。但是，如果输入是一个或多个通过<a href="https://desktop.arcgis.com/zh-cn/arcmap/10.3/tools/data-management-toolbox/make-feature-layer.htm">创建要素图层</a>工具创建的图层并且选中了字段的<strong>使用比率策略</strong>设置项，那么计算输出属性值时将按输入属性值的一定比例进行计算。如果启用了<strong>使用比率策略</strong>选项，执行叠加操作时，对于任一要素的分割都将按照输入要素属性值的一定比率来生成输出要素的属性值。输出值将根据输入要素几何被分割的比率得出。例如，如果输入几何被分割成相等的两部分，则每个新要素的属性值都等于输入要素属性值的一半。<strong>使用比率策略</strong>仅适用于数值型字段。</p>
+</li>
+</ul>
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><pre class="line-numbers language-python"><code class="language-python">Clip_analysis <span class="token punctuation">(</span>in_features<span class="token punctuation">,</span> clip_features<span class="token punctuation">,</span> out_feature_class<span class="token punctuation">,</span> <span class="token punctuation">{</span>cluster_tolerance<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>参数：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>数据类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>in_features</td>
+<td>要裁剪的要素。</td>
+<td>Feature Layer</td>
+</tr>
+<tr>
+<td>clip_features</td>
+<td>用于裁剪输入要素的要素。</td>
+<td>Feature Layer</td>
+</tr>
+<tr>
+<td>out_feature_class</td>
+<td>待创建的要素类。</td>
+<td>Feature Class</td>
+</tr>
+<tr>
+<td>cluster_tolerance<br>(可选)</td>
+<td>所有要素坐标之间的最小距离以及坐标可以沿 X 和/或 Y 方向移动的距离。如果此值设置得较高，则数据的坐标精度将会较低；如果此值设置得较低，则数据的坐标精度将会较高。</td>
+<td>Linear unit</td>
+</tr>
+</tbody></table>
+<h1 id="代码实例"><a href="#代码实例" class="headerlink" title="代码实例"></a>代码实例</h1><h2 id="裁剪-Clip-示例（Python-窗口）"><a href="#裁剪-Clip-示例（Python-窗口）" class="headerlink" title="裁剪 (Clip) 示例（Python 窗口）"></a>裁剪 (Clip) 示例（Python 窗口）</h2><p>以下 Python 窗口脚本演示了如何在即时模式下使用裁剪 (Clip) 函数。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
+<span class="token keyword">from</span> arcpy <span class="token keyword">import</span> env
+
+env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> <span class="token string">"C:/data"</span>
+arcpy<span class="token punctuation">.</span>Clip_analysis<span class="token punctuation">(</span><span class="token string">"majorrds.shp"</span><span class="token punctuation">,</span> 
+                    <span class="token string">"study_quads.shp"</span><span class="token punctuation">,</span> 
+                    <span class="token string">"C:/output/studyarea.shp"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="裁剪-Clip-示例-2（独立-Python-脚本）"><a href="#裁剪-Clip-示例-2（独立-Python-脚本）" class="headerlink" title="裁剪 (Clip) 示例 2（独立 Python 脚本）"></a>裁剪 (Clip) 示例 2（独立 Python 脚本）</h2><p>以下 Python 脚本演示了如何在独立脚本中使用裁剪 (Clip) 函数。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Name: Clip_Example2.py</span>
+<span class="token comment" spellcheck="true"># Description: Clip major roads that fall within the study area. </span>
+
+<span class="token comment" spellcheck="true"># Import system modules</span>
+<span class="token keyword">import</span> arcpy
+<span class="token keyword">from</span> arcpy <span class="token keyword">import</span> env
+
+<span class="token comment" spellcheck="true"># Set workspace</span>
+env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> <span class="token string">"C:/data"</span>
+
+<span class="token comment" spellcheck="true"># Set local variables</span>
+in_features <span class="token operator">=</span> <span class="token string">"majorrds.shp"</span>
+clip_features <span class="token operator">=</span> <span class="token string">"study_quads.shp"</span>
+out_feature_class <span class="token operator">=</span> <span class="token string">"C:/output/studyarea.shp"</span>
+xy_tolerance <span class="token operator">=</span> <span class="token string">""</span>
+
+<span class="token comment" spellcheck="true"># Execute Clip</span>
+arcpy<span class="token punctuation">.</span>Clip_analysis<span class="token punctuation">(</span>in_features<span class="token punctuation">,</span> clip_features<span class="token punctuation">,</span> out_feature_class<span class="token punctuation">,</span> xy_tolerance<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>Arcpy</category>
+      </categories>
   </entry>
   <entry>
     <title>『Statistics』 平均值，标准差，方差，协方差、相关系数的区别与联系</title>

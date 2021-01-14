@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    about |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
+    『Arcpy』 裁剪(Clip_analysis) |  读书的意义大概就是用生活所感去读书，用读书所得去生活。
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -50,8 +50,8 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="about-"
-  class="article article-type-about"
+  id="post-Arcpy-裁剪-Clip-analysis"
+  class="article article-type-post"
   itemscope
   itemprop="blogPost"
   data-scroll-reveal
@@ -61,104 +61,138 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  about
+  『Arcpy』 裁剪(Clip_analysis)
 </h1>
  
 
     </header>
-       
+     
+    <div class="article-meta">
+      <a href="/posts/7366f1da/" class="article-date">
+  <time datetime="2020-10-14T08:59:35.000Z" itemprop="datePublished">2020-10-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Arcpy/">Arcpy</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">862</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">3 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
     <div class="article-entry" itemprop="articleBody">
        
-  <div class="entry-content">   <div id="hello-mashiro" class="popcontainer" style="min-height: 300px; padding: 2px 6px 4px; background-color: rgba(242, 242, 242, 0.5); border-radius: 10px;">     <center>     <p>     </p>     <h4>     与&nbsp;<ruby>梦 寐&nbsp;<rp>     （</rp>     <rp>     ）</rp>     </ruby>     通话中：</h4>     <p>     </p>     </center>     <bot-ui>   </bot-ui></div> </div>   
-<script src="https://cdn.jsdelivr.net/gh/HG95/CDN/botui_hhg2.js"></script><link href="https://cdn.bootcss.com/botui/0.3.9/botui-theme-default.css" rel="stylesheet"> <link href="https://cdn.bootcss.com/botui/0.3.9/botui.min.css" rel="stylesheet">
+  <p>提取与裁剪要素相重叠的输入要素。</p>
+<p>此工具用于以其他要素类中的一个或多个要素作为模具来剪切掉要素类的一部分。在您想要创建一个包含另一较大要素类的地理要素子集的新要素类（也称为研究区域或感兴趣区域 (AOI)）时，裁剪工具尤为有用。</p>
+<a id="more"></a>
 
+<h1 id="插图"><a href="#插图" class="headerlink" title="插图"></a>插图</h1><img src="https://gitee.com/HHG1092090447/img/raw/master/20210114171034.gif" alt="GUID-6D3322A8-57EA-4D24-9FFE-2A9E7C6B29EC-web" style="zoom:80%;">
 
+<h1 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h1><ul>
+<li><p><strong>裁剪要素</strong>可以是点、线和面，具体取决于<strong>输入要素</strong>的类型。</p>
+<ul>
+<li>当<strong>输入要素</strong>为面时，<strong>裁剪要素</strong>也必须为面。</li>
+<li>当<strong>输入要素</strong>为线时，<strong>裁剪要素</strong>可以为线或面。用线要素裁剪线要素时，仅将重合的线或线段写入到输出中，如下图所示。</li>
+<li>当<strong>输入要素</strong>为点时，<strong>裁剪要素</strong>可以为点、线或面。用点要素裁剪点要素时，仅将重合的点写入到输出中，如下图所示。用线要素裁剪点要素时，仅将与线要素重合的点写入到输出中。</li>
+</ul>
+</li>
+<li><p><strong>输出要素类</strong>将包含<strong>输入要素</strong>的所有属性。</p>
+</li>
+<li><p>由面要素裁剪线要素：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114171042.gif" alt="GUID-A639B75A-29D3-4456-A1FE-BB9F5B55F7E5-web" style="zoom:67%;">
+</li>
+<li><p>由面要素裁剪点要素：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114171045.gif" alt="GUID-6B2D83BA-393A-4DDD-9402-071444A541AE-web" style="zoom:67%;">
+</li>
+<li><p>由线要素裁剪线要素：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114171049.png" alt="GUID-41FFDEC5-C565-46BD-8EC1-D1FE7901CBB8-web" style="zoom:67%;">
+</li>
+<li><p>由点要素裁剪点要素：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210114171052.png" alt="GUID-84E96C31-62C1-458C-A240-1B59A62896A0-web" style="zoom:67%;">
+</li>
+<li><p>输入要素类的属性值将被复制到输出要素类。但是，如果输入是一个或多个通过<a target="_blank" rel="noopener" href="https://desktop.arcgis.com/zh-cn/arcmap/10.3/tools/data-management-toolbox/make-feature-layer.htm">创建要素图层</a>工具创建的图层并且选中了字段的<strong>使用比率策略</strong>设置项，那么计算输出属性值时将按输入属性值的一定比例进行计算。如果启用了<strong>使用比率策略</strong>选项，执行叠加操作时，对于任一要素的分割都将按照输入要素属性值的一定比率来生成输出要素的属性值。输出值将根据输入要素几何被分割的比率得出。例如，如果输入几何被分割成相等的两部分，则每个新要素的属性值都等于输入要素属性值的一半。<strong>使用比率策略</strong>仅适用于数值型字段。</p>
+</li>
+</ul>
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><pre class="line-numbers language-python"><code class="language-python">Clip_analysis <span class="token punctuation">(</span>in_features<span class="token punctuation">,</span> clip_features<span class="token punctuation">,</span> out_feature_class<span class="token punctuation">,</span> <span class="token punctuation">{</span>cluster_tolerance<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>参数：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>数据类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>in_features</td>
+<td>要裁剪的要素。</td>
+<td>Feature Layer</td>
+</tr>
+<tr>
+<td>clip_features</td>
+<td>用于裁剪输入要素的要素。</td>
+<td>Feature Layer</td>
+</tr>
+<tr>
+<td>out_feature_class</td>
+<td>待创建的要素类。</td>
+<td>Feature Class</td>
+</tr>
+<tr>
+<td>cluster_tolerance<br>(可选)</td>
+<td>所有要素坐标之间的最小距离以及坐标可以沿 X 和/或 Y 方向移动的距离。如果此值设置得较高，则数据的坐标精度将会较低；如果此值设置得较低，则数据的坐标精度将会较高。</td>
+<td>Linear unit</td>
+</tr>
+</tbody></table>
+<h1 id="代码实例"><a href="#代码实例" class="headerlink" title="代码实例"></a>代码实例</h1><h2 id="裁剪-Clip-示例（Python-窗口）"><a href="#裁剪-Clip-示例（Python-窗口）" class="headerlink" title="裁剪 (Clip) 示例（Python 窗口）"></a>裁剪 (Clip) 示例（Python 窗口）</h2><p>以下 Python 窗口脚本演示了如何在即时模式下使用裁剪 (Clip) 函数。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> arcpy
+<span class="token keyword">from</span> arcpy <span class="token keyword">import</span> env
 
-<h1 id="读书"><a href="#读书" class="headerlink" title="读书"></a>读书</h1><div id="echarts4371" style="width: 85%;height: 400px;margin: 0 auto"></div>
-<script src="https://cdn.bootcss.com/echarts/3.8.0/echarts.common.min.js"></script>
-<script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts4371'));
-        // 指定图表的配置项和数据
-        var option = option = {
-    tooltip: {
-        trigger: 'item',
-        formatter: '{a} <br/>{b}: {c} ({d}%)'
-    },
-    legend: {
-        orient: 'horizontal',
-        x: 'center',
-        left: 10,
-        data: ['Before 2019', '2019', '2020', '2021',]
-    },
-    series: [
-        {
-            name: '时间',
-            type: 'pie',
-            radius: ['40%', '55%'],
-            label: {
-                formatter: '{a|{a}}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
-                backgroundColor: '#eee',
-                borderColor: '#aaa',
-                borderWidth: 1,
-                borderRadius: 4,
-                rich: {
-                    a: {
-                        color: '#999',
-                        lineHeight: 22,
-                        align: 'center'
-                    },
-                    hr: {
-                        borderColor: '#aaa',
-                        width: '100%',
-                        borderWidth: 0.5,
-                        height: 0
-                    },
-                    b: {
-                        fontSize: 18,
-                        lineHeight: 33
-                    },
-                    per: {
-                        color: '#eee',
-                        backgroundColor: '#334455',
-                        padding: [2, 4],
-                        borderRadius: 2
-                    }
-                }
-            },
-            data: [
-                {value: 45, name: 'Before 2019'},
-                {value: 5, name: '2019'},
-                {value: 6, name: '2020'},
-                {value: 1, name: '2021'},
-            ]
-        }
-    ]
-};
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-</script>
+env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> <span class="token string">"C:/data"</span>
+arcpy<span class="token punctuation">.</span>Clip_analysis<span class="token punctuation">(</span><span class="token string">"majorrds.shp"</span><span class="token punctuation">,</span> 
+                    <span class="token string">"study_quads.shp"</span><span class="token punctuation">,</span> 
+                    <span class="token string">"C:/output/studyarea.shp"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="裁剪-Clip-示例-2（独立-Python-脚本）"><a href="#裁剪-Clip-示例-2（独立-Python-脚本）" class="headerlink" title="裁剪 (Clip) 示例 2（独立 Python 脚本）"></a>裁剪 (Clip) 示例 2（独立 Python 脚本）</h2><p>以下 Python 脚本演示了如何在独立脚本中使用裁剪 (Clip) 函数。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Name: Clip_Example2.py</span>
+<span class="token comment" spellcheck="true"># Description: Clip major roads that fall within the study area. </span>
 
+<span class="token comment" spellcheck="true"># Import system modules</span>
+<span class="token keyword">import</span> arcpy
+<span class="token keyword">from</span> arcpy <span class="token keyword">import</span> env
 
-<div id="myMap" style="width: 100%;height:600px;"></div>
-<script src="http://api.map.baidu.com/api?v=2.0&amp;ak=53oVIOgmSIejwV7EfphPgTynOZbIiVYu"></script>
-<script src="/js/echarts.min.js"></script>
-<script src="/js/china.js"></script>
-<script src="/js/footprint.js"></script>
-<script src="./js/bmap..js"></script>
+<span class="token comment" spellcheck="true"># Set workspace</span>
+env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> <span class="token string">"C:/data"</span>
 
+<span class="token comment" spellcheck="true"># Set local variables</span>
+in_features <span class="token operator">=</span> <span class="token string">"majorrds.shp"</span>
+clip_features <span class="token operator">=</span> <span class="token string">"study_quads.shp"</span>
+out_feature_class <span class="token operator">=</span> <span class="token string">"C:/output/studyarea.shp"</span>
+xy_tolerance <span class="token operator">=</span> <span class="token string">""</span>
 
-
-
-
-
-
-
-
-
-
-
-
+<span class="token comment" spellcheck="true"># Execute Clip</span>
+arcpy<span class="token punctuation">.</span>Clip_analysis<span class="token punctuation">(</span>in_features<span class="token punctuation">,</span> clip_features<span class="token punctuation">,</span> out_feature_class<span class="token punctuation">,</span> xy_tolerance<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -245,7 +279,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/about/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/posts/7366f1da/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -254,6 +288,25 @@
   </div>
 
    
+  <nav class="article-nav">
+    
+      <a href="/posts/2f51bfdc/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            『OriginPro』 坐标轴显示部分刻度
+          
+        </div>
+      </a>
+    
+    
+      <a href="/posts/25e59906/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">『Statistics』 平均值，标准差，方差，协方差、相关系数的区别与联系</div>
+      </a>
+    
+  </nav>
+
    
 <!-- valine评论 -->
 <div id="vcomments-box">
@@ -314,7 +367,7 @@
 </style>
 
  
-   
+     
 </article>
 
 </section>
@@ -493,6 +546,23 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
