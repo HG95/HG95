@@ -393,6 +393,89 @@ hexo clean &amp;&amp; hexo douban -bgm &amp;&amp; hexo g &amp;&amp; hexo deploy<
       </categories>
   </entry>
   <entry>
+    <title>『ArcGIS』 shapefile文件的创建和截取局部区域</title>
+    <url>/posts/7b9051f4/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>shapefile文件的创建和截取局部区域</p>
+<a id="more"></a>
+
+<h1 id="shapefile文件的创建"><a href="#shapefile文件的创建" class="headerlink" title="shapefile文件的创建"></a>shapefile文件的创建</h1><h2 id="创建文件"><a href="#创建文件" class="headerlink" title="创建文件"></a>创建文件</h2><ul>
+<li><p>打开ArcGIS中的ArcCatalog 10.2组件，在你选择的文件夹中右边的空白窗口右击，新建一个shapefile文件</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210118110105.png" alt="image-20210118093138468" style="zoom: 50%;">
+</li>
+<li><p>在打开的窗口，输入名称，要素类型选择“面”，地理坐标系点击右下角的“编辑”，选取合适的坐标系。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210118110113.png" alt="image-20210118093425875" style="zoom:67%;">
+</li>
+<li><p>现在已经建好shapefile文件了，可以将文件导入ArcMAP,步骤是打开ArcMAP软件，在上面菜单栏点击加号，链接到你的文件所在的文件夹，选择文件，点击“添加”就加入ArcMAP了。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210118110117.png" alt="image-20210118093523519" style="zoom:80%;">
+
+</li>
+</ul>
+<h2 id="图形编辑"><a href="#图形编辑" class="headerlink" title="图形编辑"></a>图形编辑</h2><ul>
+<li><p>在 ArcMAP 打开上面的shp文件，点击上面菜单栏的“编辑器”，点击“开始编辑”<img src="https://gitee.com/HHG1092090447/img/raw/master/20210118110120.png" alt="image-20210118094531856" style="zoom:67%;"></p>
+</li>
+<li><p>创建要素</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210118110123.png" alt="image-20210118094419081" style="zoom:67%;">
+</li>
+<li><p>在工具栏对话框里选择：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210118110127.png" alt="image-20210118104542281" style="zoom:67%;">
+</li>
+<li><p>创建好之后选择：<code>保存编辑内容</code>,<code>停止编辑</code></p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210118110130.png" alt="image-20210118094955704" style="zoom:67%;">
+
+</li>
+</ul>
+<h1 id="shapefile文件截取局部区域"><a href="#shapefile文件截取局部区域" class="headerlink" title="shapefile文件截取局部区域"></a>shapefile文件截取局部区域</h1><h2 id="一、利用-Arcpy-提供的裁剪接口进行裁剪"><a href="#一、利用-Arcpy-提供的裁剪接口进行裁剪" class="headerlink" title="一、利用 Arcpy 提供的裁剪接口进行裁剪"></a>一、利用 Arcpy 提供的裁剪接口进行裁剪</h2><pre class="line-numbers language-python"><code class="language-python">    env<span class="token punctuation">.</span>workspace <span class="token operator">=</span> r<span class="token string">"C:\Users\Hu\Desktop\2019"</span>
+    arcpy<span class="token punctuation">.</span>Clip_analysis<span class="token punctuation">(</span><span class="token string">"2019.shp"</span><span class="token punctuation">,</span>
+                        <span class="token string">"掩膜.shp"</span><span class="token punctuation">,</span>
+                        r<span class="token string">"C:\Users\Hu\Desktop\2019\outfile\studyarea.shp"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>具体参数参考：<a href="https://hg95.github.io/posts/7366f1da/">『Arcpy』 裁剪(Clip_analysis)</a></p>
+<h2 id="二、利用-ArcMAP-进行裁剪"><a href="#二、利用-ArcMAP-进行裁剪" class="headerlink" title="二、利用 ArcMAP 进行裁剪"></a>二、利用 ArcMAP 进行裁剪</h2><ul>
+<li><p>加载数据：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210118110134.png" alt="image-20210118105204089" style="zoom:67%;">
+</li>
+<li><p>打开Arctoolbox,分别双击<code>分析工具</code>–<code>提取分析</code>–<code>裁剪</code>，打开裁剪工具栏</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210118110137.png" alt="image-20210118105346555" style="zoom:67%;">
+</li>
+<li><p>在输入要素中选择中国地图，裁剪要素选择你所建立的面文件，输出要素类选择保存的文件，下面的“环境”选择“处理范围”–与面文件名称相同的范围，选择确定。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210118110140.png" alt="image-20210118105429102" style="zoom:67%;">
+</li>
+<li><p>最终得到想要的区域</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210118110144.png" alt="image-20210118101558774" style="zoom:67%;">
+
+</li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://jingyan.baidu.com/article/6d704a132f786c28db51cad1.html">利用ArcGIS10.2建立并编辑面文件</a></li>
+<li><a href="https://jingyan.baidu.com/article/656db918e5b316e381249cd9.html">用ArcGIS在完整地图shapefile文件截取局部区域</a></li>
+<li><a href="https://desktop.arcgis.com/zh-cn/arcmap/10.3/tools/analysis-toolbox/clip.htm/">ArcGIS for Desktop:裁剪</a> </li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>ArcGIS</category>
+      </categories>
+      <tags>
+        <tag>shapefile</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>『OriginPro』 自定义曲线峰值颜色</title>
     <url>/posts/6c4ef63d/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><img src="https://gitee.com/HHG1092090447/img/raw/master/20210114204157.png" alt="image-20210114202613179" style="zoom:67%;">
@@ -604,6 +687,11 @@ hexo clean &amp;&amp; hexo douban -bgm &amp;&amp; hexo g &amp;&amp; hexo deploy<
 
 
 
+<h1 id="半环形图"><a href="#半环形图" class="headerlink" title="半环形图"></a>半环形图</h1><img src="https://gitee.com/HHG1092090447/img/raw/master/20210115100557.png" alt="image-20210115100402250" style="zoom: 50%;">
+
+<p>按照正常的环形图绘制好之后，调整<code>楔子</code> 的总数：</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210115100547.png" alt="image-20210115100539478" style="zoom: 50%;">
+
 <h1 id="同心圆弧图"><a href="#同心圆弧图" class="headerlink" title="同心圆弧图"></a>同心圆弧图</h1><p>效果图：</p>
 <img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141915.png" alt="image-20210114093715015" style="zoom:67%;">
 
@@ -621,7 +709,7 @@ hexo clean &amp;&amp; hexo douban -bgm &amp;&amp; hexo g &amp;&amp; hexo deploy<
 <img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141925.png" alt="image-20210114094357783" style="zoom: 50%;">
 
 <p>就可以了。</p>
-<h1 id="多半径饼图"><a href="#多半径饼图" class="headerlink" title="多半径饼图"></a>多半径饼图</h1><p>效果图：</p>
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h1 id="多半径饼图"><a href="#多半径饼图" class="headerlink" title="多半径饼图"></a>多半径饼图</h1><p>效果图：</p>
 <img src="https://gitee.com/HHG1092090447/img/raw/master/20210114141930.png" alt="image-20210114085858743" style="zoom:50%;">
 
 
