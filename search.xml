@@ -393,6 +393,75 @@ hexo clean &amp;&amp; hexo douban -bgm &amp;&amp; hexo g &amp;&amp; hexo deploy<
       </categories>
   </entry>
   <entry>
+    <title>『Excel』小技巧</title>
+    <url>/posts/1ed78680/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><ol>
+<li>如何使EXCEL里超出单元格长度的文本内容不显示？</li>
+<li>如何设置Excel打印每页都有表头标题？</li>
+<li>利用“数据验证”功能禁止输入重复值 </li>
+</ol>
+<a id="more"></a>
+
+<h1 id="如何使EXCEL里超出单元格长度的文本内容不显示？"><a href="#如何使EXCEL里超出单元格长度的文本内容不显示？" class="headerlink" title="如何使EXCEL里超出单元格长度的文本内容不显示？"></a>如何使EXCEL里超出单元格长度的文本内容不显示？</h1><ul>
+<li><p>首先在打开的EXCEL表格中，鼠标右键点击该单元格，然后选择设置单元格格式</p>
+</li>
+<li><p>弹出设置单元格窗口后，点击对齐</p>
+</li>
+<li><p>接着点击展开水平对齐，选择填充，如图所示。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210119220547.png" alt="image-20210119202842647" style="zoom:80%;">
+</li>
+<li><p>选择水平对齐方式为填充后，点击确定</p>
+</li>
+</ul>
+<h1 id="如何设置Excel打印每页都有表头标题？"><a href="#如何设置Excel打印每页都有表头标题？" class="headerlink" title="如何设置Excel打印每页都有表头标题？"></a>如何设置Excel打印每页都有表头标题？</h1><p>首先，进入【页面布局】-【页面设置】-【工作表】，在【打印标题】下面点击【顶端标题行】旁边的按钮。<br>然后光标选中你需要每页都打印的表头部分。<br>最后确定即可。</p>
+<h1 id="利用“数据验证”功能禁止输入重复值"><a href="#利用“数据验证”功能禁止输入重复值" class="headerlink" title="利用“数据验证”功能禁止输入重复值"></a>利用“数据验证”功能禁止输入重复值</h1><p>由于每一位公民的身份证号码都是独一无二的，所以，下方示例图片以“身份证号码”为例，为大家展示了利用“数据验证”禁止输入重复值的设置方法。</p>
+<p><strong>【注意】</strong>该区域已应用了突出显示重复值的条件格式。</p>
+<p><strong>1.</strong> 选中要设置格式的单元格或单元格区域；</p>
+<p><strong>2.</strong> 点击“数据”选项卡下“数据工具”命令组中的“数据验证”命令，打开相应的对话框；</p>
+<img src="https://raw.githubusercontent.com/HG95/image/master/20210119220702.gif" alt="8a4cc3aad29d4d57a4794dea9948aa71" style="zoom:80%;">
+
+
+
+<p><strong>3.</strong> 在“数据验证”对话框中进行以下设置：</p>
+<ul>
+<li>“允许”处通过下拉菜单选择“自定义”；</li>
+<li>在“公式”的输入框中输入公式【=COUNTIF(F:F,F3)=1】。</li>
+<li>完成以上设置后点击“确定”按钮即可。</li>
+</ul>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210119220758.gif" alt="1d53718b8e4649d6999129c2d92b07da" style="zoom:80%;">
+
+<p>返回到我们刚刚设置的单元格范围内，现在我们只能够在 F 列的单元格中输入不重复的数据了，当数据重复时 Excel 软件会弹出对话框阻止数据输入。</p>
+<img src="https://gitee.com/HHG1092090447/img/raw/master/20210119220801.gif" alt="d3ed5a0ef1684a14b0088c7357037f81" style="zoom:80%;">
+
+
+
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>Excel</category>
+      </categories>
+      <tags>
+        <tag>Excel</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>『ArcGIS』 shapefile文件的创建和截取局部区域</title>
     <url>/posts/7b9051f4/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>shapefile文件的创建和截取局部区域</p>
